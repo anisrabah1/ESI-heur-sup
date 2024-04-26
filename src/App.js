@@ -1,12 +1,24 @@
 import Tamplate from './tamplate/tamplate';
-import Content from './content';
 import './App.css';
+import Log_in from './loginPage/Log-in'
+
+import { BrowserRouter, Router, Route, Switch,Routes } from 'react-router-dom';
+
 
 function App() {
   return (
     <div>
-      <Tamplate/>
-    <Content/>
+      <BrowserRouter>
+      <Routes>
+        <Route index path='/' element={<Log_in/>}></Route>
+
+        <Route path='tamplate' element={<Tamplate/>}></Route>
+
+      </Routes>
+      </BrowserRouter>
+      
+
+    
     </div>
     
   );
