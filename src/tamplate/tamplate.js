@@ -1,12 +1,17 @@
-import Sidebar from "./sideBar";
-import Navbar from "./navbar";
-const tamplate = () => {
+import Sidebar from "./sideBar/sideBar";
+import Navbar from "./navbar/navbar";
+import { useState } from 'react';
+import Content from '../content';
+const Tamplate = () => {
+    const [text , set_text] = useState('welcome')
+
     return ( 
         <div>
-        <Navbar/>
-        <Sidebar/>
+        <Navbar text={text} />
+        <Sidebar press={set_text} />
+        <Content/>  
         </div>
      );
 }
  
-export default tamplate;
+export default Tamplate;

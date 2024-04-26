@@ -1,204 +1,195 @@
+/* Import the Google Font */
+@import url('https://fonts.googleapis.com/css2?family=FontName:weight,style&display=swap');
+
 body{
-  background-color: rgb(232, 232, 232);
+  background-color: rgb(245, 245, 245);
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
 }
 
-.container1{
-  margin: 0;
-  position: fixed;
-  height: 100vh;
-  width: 13vw;
-  min-width: 13vw;
-  padding: 0px;
-  margin: -8px;
-  background: linear-gradient(to top, #3C4148 5%, #2A436A 50%) no-repeat;
-}
-.container2{
-  position: fixed;
-  display: flex;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  padding:0 auto;
-  margin-left: 12.5vw;
-  
-  top: 0;
-  height: 10vh;
-  width: 87vw;
-  background-color: rgb(255, 255, 255);
-}
+
+
 .content{
   position: fixed;
   height: 50px;
-  
+  overflow-x: hidden;
+  background-color: #ffc80000;
   margin-left: 13vw;
-  top: 11vh;
-  height: 88.5vh;
+  top: 11.5vh;
+  height: 88vw;
   width: 86vw;
-  
-}
-.logo{
-  position: absolute;
-  
-  
-  height: 110px;
-  width: 110px;
-  left: 5px;
-  
-  background-color: rgba(240, 248, 255, 0);
-  
-  
-  background-image: url('tamplate/assets/ESI_logo.png');
-  background-size: cover;
-  
-}
-.logo-container{
-  justify-content: center;
-  position: relative;
-  padding: 0;
-  margin-top: 40px;
-  margin-left: 50px;
-  height: 120px;
-  width: 120px;
-  
-  background-color: aliceblue;
- 
-  border-radius: 100px;
-  
-  
-}
-
-.buttons-container{
-  justify-content: space-evenly;
-  position: relative;
-  padding: 0;
-  left: 50px;
-  margin-top: 100px;
-  margin-left: -20px;
 }
 
 
-.sideb{
-  display:flex;
-  position: relative;
-  align-items: center;
-  justify-content: start;
-  
-  background-color: #007bff00;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  
- }
- .sideb:hover{
- 
-  justify-content: center;
-  border: none; /* Remove default button border */
-  border-bottom: 2px solid #f3f3f3; 
-  width: 150px;
- }
 
-.sideabout{
-  display:flex;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
- bottom: -19vh;
-  background-color: #007bff00;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
- }
- .btic1{
-  position: relative;
-  margin-left: 10px;
-  margin-right: 20px;
-  background-image: url('tamplate/assets/agreement.png');
-  background-size: cover;
-  width: 40px; 
-  height: 40px;
- }
- .btic2{
-  position: relative;
-  margin-left: 10px;
-  margin-right: 20px;
-  background-image: url('tamplate/assets/teaching.png');
-  background-size: cover;
-  width: 40px; 
-  height: 40px;
-  
- }
- .btic3{
-  position: relative;
-  margin-left: 10px;
-  margin-right: 20px;
-  background-image: url('tamplate/assets/calendar.png');
-  background-size: cover;
-  width: 40px; 
-  height: 40px;
- }
- .btic4{
-  position: relative;
-  margin-left: 10px;
-  margin-right: 20px;
-  background-image: url('tamplate/assets/diagram.png');
-  background-size: cover;
-  width: 40px; 
-  height: 40px;
- }
- .btic5{
-  position: relative;
-  margin-left: 10px;
-  margin-right: 20px;
-  background-image: url('tamplate/assets/profile.png');
-  background-size: cover;
-  width: 40px; 
-  height: 40px;
- }
- .btic6{
-  position: relative;
-  margin-left: 10px;
-  margin-right: 20px;
-  background-image: url('tamplate/assets/settings.png');
-  background-size: cover;
-  width: 40px; 
-  height: 40px;
- }
- .btic7{
-  position: relative;
-  margin-left: 10px;
-  margin-right: 20px;
-  background-image: url('tamplate/assets/group.png');
-  background-size: cover;
-  width: 40px; 
-  height: 40px;
- }
-.bttx{
-  font-weight: bold;
-}
 
-.text{
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 20px;
-  color: #818181;
-  font-weight: bold;
- 
-}
-.navbt{
-  background-image: url('tamplate/assets/arrow.png');
-  right: 5px;
-  margin: 10px;
-  cursor: pointer;
-  margin-top: 15px;
-  border: none;
-  background-color: #ffffff00;
-  position:absolute;
-  background-size: cover;
-  height: 40px;
-  width: 40px;
-  transition: background-color 1s ease;
-}
+
 .navbt:hover{
   margin-right:15px ;
+}
+.counters{
+  position: relative;
+  margin:10% auto ;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.teacher-count{
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 10%;
+  margin-right: 5vw;
+  width: 15vw;
+  height: 15vw;
+  font-weight: bold;
+  font-size: 100%;
+  color:#818181;
+  
+}
+.c-label{
+  position: relative;
+  font-size: 2vw; 
+  margin-bottom: 1vw ;
+  top: 0%;
+}
+.n-label{
+ font-size: 500%; 
+}
+.total-houre{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 10%;
+  margin-left: 5vw;
+  width: 15vw;
+  height: 15vw;
+  font-weight: bold;
+  font-size: 100%;
+  color:#818181;
+  
+}
+.labels{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5vw auto;
+}
+.label-1{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 3vw;
+  color: #3C4148;
+}
+.label-2{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color:#6e6e6e;
+}
+.teachers{
+  position: relative;
+  height: 47%;
+  display: flex;
+  flex-direction: column;
+  overflow-y:scroll;
+  
+}
+
+.link{
+  text-decoration: none;
+}
+.teacher{
+  position: relative;
+  display: flex;
+  padding: 40px;
+  margin: 1vw auto;
+  height: 100pc;
+  width: 80vw;
+  
+  background-color: #dedede;
+}
+
+.photo{
+  position: relative;
+  height: 2vw;
+  width: 2vw;
+  background-color: #007bff;
+}
+
+.floating-button {
+  position: fixed; /* Fixed positioning */
+  bottom: 20px; /* Distance from the bottom */
+  right: 20px; /* Distance from the right */
+  background-color: #007bff; /* Button color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 50%; /* Circular shape */
+  width: 50px; /* Width */
+  height: 50px; /* Height */
+  display: flex;
+  justify-content: center; /* Center icon */
+  align-items: center; /* Center icon */
+  font-size: 24px; /* Icon size */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect */
+.floating-button:hover {
+  background-color: #0056b3; /* Darker shade of blue */
+}
+
+
+/* Form container styles */
+.form-container {
+  margin: 20px;
+}
+
+/* Form group styles */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Label styles */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Form control styles */
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Submit button styles */
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Hover effect for the submit button */
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Form confirmation message styles */
+.form-confirmation {
+  color: green;
+  margin-bottom: 15px;
 }
