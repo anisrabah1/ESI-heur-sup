@@ -1,4 +1,6 @@
-const sidebar = () => {
+import { Link } from "react-router-dom";
+import './sideBar.css'
+function Sidebar  ({press}) {
     return (  
         
         <div className="container1"> 
@@ -6,15 +8,19 @@ const sidebar = () => {
             <div className="logo"/>
         </div>
         <div className="buttons-container">
-        <button className="sideb">
+<Link to={'/home'} className='link'>
+        <button className="sideb" onClick={()=>{press('welcome')}}>
                  <div className="btic1"/>
                 <div className="bttx">Home</div>
             </button>
+            </Link>
             <br />
-            <button className="sideb">
+            <Link to={'/teachers'}  className='link'>
+            <button className="sideb" onClick={()=>{press('teachers')}}>
                  <div className="btic2"/>
                 <div className="bttx">Teachers</div>
             </button>
+            </Link>
             <br />
             <button className="sideb">
                  <div className="btic3"/>
@@ -44,4 +50,4 @@ const sidebar = () => {
     );
 }
  
-export default sidebar;
+export default Sidebar;

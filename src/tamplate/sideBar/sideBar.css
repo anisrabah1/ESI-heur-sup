@@ -1,0 +1,162 @@
+.container1{
+    margin: 0;
+    position: fixed;
+    height: 100vh;
+    width: 13vw;
+    min-width: 13vw;
+    padding: 0px;
+    margin: -8px;
+    background: linear-gradient(to top, #3C4148 5%, #2A436A 50%) no-repeat;
+  }
+  .logo{
+    position: absolute;
+    
+    
+    height: 90%;
+    width: 90%;
+    left: 5px;
+    
+    background-color: rgba(240, 248, 255, 0);
+    
+    
+    background-image: url('../assets/ESI_logo.png');
+    background-size: cover;
+    
+  }
+  .logo-container{
+    justify-content: center;
+    position: relative;
+    padding: 0;
+    margin: 7%  auto ; 
+    
+    height: 7vw;
+    width: 7vw;
+    
+    background-color: aliceblue;
+   
+    border-radius: 100%;
+    
+    
+  }
+  
+  .buttons-container{
+    justify-content: space-evenly;
+    position: relative;
+   
+    left: 2vw;
+    right: 2vw;
+    
+    margin: 30% auto ;
+  }
+  
+  
+  .sideb{
+    display:flex;
+    position: relative;
+    
+    justify-content: center;
+    width: 70%;
+    background-color: #007bff00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition:  width 0.5s ease-in-out  ;
+   }
+   .sideb:hover{
+    
+    justify-content: center;
+     /* Remove default button border */
+    border-bottom: 2px solid #f3f3f3; 
+    width: 10vw;
+   }
+  
+  .sideabout{
+    display:flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+   bottom: -30vh;
+    background-color: #007bff00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   }
+   .btic1{
+    position: relative;
+    
+    background-image: url('../assets/agreement.png');
+    background-size: cover;
+    margin: auto 0% ;
+    margin-right: 2%;
+    width: 2vw; 
+    height: 2vw;
+   }
+   .btic2{
+    position: relative;
+    
+   
+    background-image: url('../assets/teaching.png');
+    background-size: cover;
+    margin: auto 0%;
+    margin-right: 2%;
+    width: 2vw; 
+    height: 2vw;
+    
+   }
+   .btic3{
+    position: relative;
+    
+    background-image: url('../assets/calendar.png');
+    background-size: cover;
+    margin: auto 0;
+    margin-right: 2%;
+    width: 2VW; 
+    height: 2vw;
+   }
+   .btic4{
+    position: relative;
+    
+    background-image: url('../assets/diagram.png');
+    background-size: cover;
+    margin: auto 0;
+    margin-right: 2%;
+    width: 2vw; 
+    height: 2vw;
+   }
+   .btic5{
+    position: relative;
+    
+    background-image: url('../assets/profile.png');
+    background-size: cover;
+    margin: auto 0;
+    margin-right: 2%;
+    width: 2vw; 
+    height: 2vw;
+   }
+   .btic6{
+    position: relative;
+    
+    background-image: url('../assets/settings.png');
+    background-size: cover;
+    margin: auto 0;
+    margin-right: 2%;
+    width: 2vw; 
+    height: 2vw;
+   }
+   .btic7{
+    position: relative;
+   
+    background-image: url('../assets/group.png');
+    background-size: cover;
+    margin: auto 4% ;
+    width: 2vw; 
+    height: 2vw;
+   }
+
+   .bttx{
+    font-weight: bold;
+    font-size: medium;
+  }

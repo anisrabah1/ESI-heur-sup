@@ -1,0 +1,50 @@
+.container2{
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    padding: auto;
+    margin-left: 12.5vw;
+    font-size: 1.5vw;
+    top: 0;
+    height: 5vw;
+    width: 87vw;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .text{
+    position: relative;
+    margin: -1.5% 3% ;
+    color: #011f43cb;
+    font-weight: bold;
+    font-size: 90%;
+   
+  }
+
+  .navbt{
+    background-image: url('../assets/arrow.png');
+    
+    margin: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    border: none;
+    background-color: #ffffff00;
+    position:relative;
+    background-size: cover;
+    height: 2.5vw;
+    width: 2.5vw;
+    transition: background-color 1s ease;
+  }
+  .search{
+    position: relative;
+    height:50%;
+    width: 25%;
+    top: 20%;
+    background-color: rgba(129, 129, 129, 0.619);
+    padding-left: 1%;
+    border-color: rgb(114, 114, 114);
+    box-shadow: none;
+    border-radius: 50px;
+  }
