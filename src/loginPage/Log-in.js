@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo,faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { useState ,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 // import { useHistory } from 'react-router-dom';
 
 
@@ -25,7 +26,7 @@ const navigate=useNavigate();
         e.preventDefault();
         console.log('submit');
         try {
-          const response = await fetch('https://d758-105-235-139-244.ngrok-free.app/api/v1/admin/login', {
+          const response = await fetch('http://172.20.10.4:3000/api/v1/admin/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -41,15 +42,16 @@ const navigate=useNavigate();
             console.log('ERROR :', data)
             throw new Error(data.message || 'Server Error'); 
           }
-    
+          
+          if(data.status==="success"){
+            Cookies.set("token",data.token,{expires:90})    // 90 days to disconect
+            navigate("creatEmploi");
+            console.log('succsee!');
+          }
           
           const { token } = data;
           setIsLoggedIn(true);
          
-          console.log('succsee!');
-        navigate("tamplate")
-
-
           // You can store the token in localStorage or a state management library like Redux
           // localStorage.setItem('token', token);
         } catch (error) {
@@ -58,7 +60,8 @@ const navigate=useNavigate();
         }
       };
     
-
+    
+      
     return (
         <section>
             
@@ -89,7 +92,7 @@ const navigate=useNavigate();
                         <div className='formBx'>
                
                              <h3>Welcome Back!</h3>
-                            <form onSubmit={offLigne} >
+                            <form onSubmit={handleLogin} >
                                 <div className='inputBx'>
                                     <span>Email:</span>
                                     <input type='email' name='' value={email}  onChange={(e)=>setEmail(e.target.value)}  />
