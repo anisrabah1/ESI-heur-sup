@@ -8,8 +8,8 @@ function Sidebar  ({press}) {
             <div className="logo"/>
         </div>
         <div className="buttons-container">
-<Link to={'/home'} className='link'>
-        <button className="sideb" onClick={()=>{press('welcome')}}>
+<Link to={'/'} className='link'>
+        <button className="sideb" onClick={()=>{press('welcome')}} >
                  <div className="btic1"/>
                 <div className="bttx">Home</div>
             </button>

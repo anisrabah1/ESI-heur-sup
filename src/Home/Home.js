@@ -1,4 +1,6 @@
 import { useState ,useEffect } from 'react';
+import Tamplate from '../tamplate/tamplate';
+import './Home.css';
 const Home = () => {
     const [total_t,set_total_t] = useState('64')
     const [total_h,set_total_h] = useState('123')
@@ -48,9 +50,13 @@ const Home = () => {
         };
     }, [total_t,total_h]); 
     return (
-         
-        <div className="home">
+        <div>
+            <Tamplate/>
+            <div className='content'>
+
             
+        <div className="home">
+             
             <div className="labels">
                 <div className="label-1">Welcome, Administrators!</div>
                 <div className="label-2">Accurate Calculations, Clear Reports. All in One Place</div>
@@ -70,6 +76,8 @@ const Home = () => {
             </div>
             </div>
             
+        </div>
+        </div>
         </div>
      );
 }

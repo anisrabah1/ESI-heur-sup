@@ -1,15 +1,15 @@
 import Sidebar from "./sideBar/sideBar";
 import Navbar from "./navbar/navbar";
 import { useState } from 'react';
-import Content from '../content';
-const Tamplate = () => {
+
+const Tamplate = ({search,setSearch}) => {
     const [text , set_text] = useState('welcome')
 
-    return ( 
+    return (  
         <div>
-        <Navbar text={text} />
-        <Sidebar press={set_text} />
-        <Content/>  
+        <Navbar text={text} search={search} setSearch={setSearch}/>
+        <Sidebar press={set_text}  />
+         
         </div>
      );
 }
