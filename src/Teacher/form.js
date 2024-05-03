@@ -7,9 +7,11 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Check';
 import IconButton from '@mui/material/IconButton';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import InputLabel from '@mui/material/InputLabel';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from "dayjs";
+import FormControl from '@mui/material/FormControl';
 
 import './form.css';
 const Form = ({submit,create}) => {
@@ -35,9 +37,19 @@ const Form = ({submit,create}) => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
+        
         setData({
             ...Data,
             [name]: value
+        });
+    };
+    const handleChangeT = (event) => {
+        console.log(event)
+    };
+    const handleDateChange = (date) => {
+        setData({
+            ...Data,
+            dateOfBirth: date ? date.format('YYYY-MM-DD') : null
         });
     };
 
@@ -71,6 +83,7 @@ const Form = ({submit,create}) => {
       });
     return ( 
         <div className="form">
+            
             <div className="formC">
             <Button
       component="label"
@@ -101,30 +114,77 @@ const Form = ({submit,create}) => {
                 <div className="form1"><TextField fullWidth id="outlined-basic" label="Major" variant="outlined" value={Data.major} name='major' onChange={handleChange}/></div>
             </div>
             <div className="formC">
-            <div className="form3">
+                <div className="form1">
+                <FormControl fullWidth>
+                <InputLabel id="">Position</InputLabel>
                 <Select
                 fullWidth
-          labelId="demo"
+          labelId="degree"
           id="demo-simple-select"
-          value={'age'}
-          label="Age"
+          value={Data.position}
+          label="position"
+          name='position'
+          onChange={handleChange}
           
         >
-          <MenuItem value={'Ten'}>Ten</MenuItem>
-          <MenuItem value={'Twenty'}>Twenty</MenuItem>
-          <MenuItem value={'Thirty'}>Thirty</MenuItem>
+            <MenuItem value={'662d0dbfed0ec17a9299c946'}>searcher</MenuItem>
+          
+          
         </Select>
+        </FormControl>
+        
+                </div>
+                <div className="form1">
+                <FormControl fullWidth>
+                <InputLabel id="degree">Degree</InputLabel>
+                <Select
+                fullWidth
+          labelId="degree"
+          id="demo-simple-select"
+          value={Data.degree}
+          label="Degree"
+          name='degree'
+          onChange={handleChange}
+          
+        >
+            <MenuItem value={'master'}>master</MenuItem>
+          <MenuItem value={'Doctor'}>Doctor</MenuItem>
+          
+        </Select>
+        </FormControl>
+                </div>
+            </div>
+            <div className="formC">
+            <div className="form3">
+            <FormControl fullWidth>
+                <InputLabel id="">Status</InputLabel>
+                <Select
+                fullWidth
+          labelId="degree"
+          id="demo-simple-select"
+          value={Data.employmentStatus}
+          label="employmentStatus"
+          name='employmentStatus'
+          onChange={handleChange}
+          
+        >
+            <MenuItem value={'FullTime'}>Full time</MenuItem>
+          
+          
+        </Select>
+        </FormControl>
                 </div>
                 <div className="form3">
                     
                     <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
       
-        <DatePicker label="Birth day"  value={ Data.dateOfBirth ? dayjs(Data.dateOfBirth) : null} name='dateOfBirth' onChange={handleChange}
+        <DatePicker label="Birth day"  value={ Data.dateOfBirth ? dayjs(Data.dateOfBirth) : null} name='dateOfBirth' onChange={handleDateChange}
         />
      
     </LocalizationProvider>
                 </div>
             </div>
+            
             <div className="formC">
             <IconButton aria-label="submit" fullWidth color="success" onClick={()=>{
                 // submit(true);
