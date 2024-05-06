@@ -1,4 +1,4 @@
-import './Teacher.css'
+import './Teachers.css'
 import Avatar from '@mui/material/Avatar';
 import { deepOrange,green,blue,grey } from '@mui/material/colors';
 import { useState ,useEffect } from 'react';
@@ -32,14 +32,14 @@ const Teacher_card
     }, []);
     return ( 
     
-    <div className="teacher" onClick={()=>{navigate('/')}} >
+    <div className="teacher"  onClick={()=>{navigate(`/teacher/${teacher.id}`)}} >
     
     <Avatar alt={teacher.firstName} src="/assets/n.png"  sx={{ width: window.innerWidth*0.1,
-        height: window.innerWidth*0.1 ,bgcolor: grey[700]}} className='photo_container'/>
+        height: window.innerWidth*0.1 ,bgcolor: blue[700]}} className='photo_container'/>
     
     
     <div className="info">
-        <div className="name">{teacher.firstName} {teacher.lastName}</div>
+        <div className="name">{teacher.firstName.toUpperCase()} {teacher.lastName.toUpperCase()}</div>
         <div className="sub_info ">
             <div className="sub_info1 ">
             <div className="email"><div className="Tlabel">Email :</div> {teacher.email}</div>

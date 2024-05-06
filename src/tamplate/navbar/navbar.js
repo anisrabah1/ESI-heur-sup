@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './navbar.css';
 // import { useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-function Navbar  ({text,search,setSearch})  {
+import { useLocation } from 'react-router-dom';
+function Navbar  ({search,setSearch})  {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
@@ -11,10 +11,24 @@ function Navbar  ({text,search,setSearch})  {
             setSearch(value);
         
     };
+    const location = useLocation();
+    const currentPath = location.pathname;
+    const [text , set_text]=useState();
+
+    useEffect(
+        ()=>{
+            if (currentPath === '/') {
+                set_text('welcome')
+            }else{
+                set_text('Teachers')
+            }
+        }
+    )
     return ( <div className="container2">
         
         <div className="text"><h1>{text}</h1></div>
-        <input class="search" type="text" placeholder="Search" onChange={handleInputChange}  />
+        {text==='Teachers' && 
+        <input class="search" type="text" placeholder="Search" onChange={handleInputChange}  />}
         
         <button className="navbt"></button>
     </div> );

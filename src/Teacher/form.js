@@ -21,16 +21,16 @@ const Form = ({submit,create}) => {
 
     const [Data,setData] = useState(
         {
-            firstName : 'anis',
-            lastName:'rabah',
-            email:'lija@gmail.com',
-            degree:'Licence',
-            phoneNumber:'0659896891',
-            major:'info',
-            employmentStatus:'Full-time',
+            firstName : '',
+            lastName:'',
+            email:'',
+            degree:'',
+            phoneNumber:'',
+            major:'',
+            employmentStatus:'',
             position:'662d0dbfed0ec17a9299c946',
-            dateOfBirth:'2003-07-02',
-            homeInstitution:'ESI',
+            dateOfBirth:'',
+            homeInstitution:'',
             
         }
     );
@@ -102,7 +102,7 @@ const Form = ({submit,create}) => {
                 <div className="form1"><TextField fullWidth id="outlined-basic" label="last name" variant="outlined" value={Data.lastName} name='lastName' onChange={handleChange}/></div>
             </div>
             <div className="formC">
-                <div className="form1"><TextField fullWidth id="outlined-basic" label="Email" variant="outlined" value={Data.email} name='email' /></div>
+                <div className="form1"><TextField fullWidth id="outlined-basic" label="Email" variant="outlined" value={Data.email} name='email' onChange={handleChange} /></div>
                 <div className="form1"><TextField fullWidth id="outlined-basic" label="Phone number" variant="outlined" value={Data.phoneNumber} name='phoneNumber' onChange={handleChange}/></div>
                 
 

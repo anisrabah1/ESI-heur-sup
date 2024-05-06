@@ -1,17 +1,14 @@
 import { useState ,useEffect } from 'react';
-import Form from './form'
+import Form from '../form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Teacher_card from './Teacher_card';
-import Tamplate from '../tamplate/tamplate';
+import Tamplate from '../../tamplate/tamplate';
 import { CircularProgress } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-import ApiUrls from '../APIs';
+import ApiUrls from '../../APIs';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -78,7 +75,7 @@ const Teachers = ({search,setSearch}) => {
             // Iterate over the properties of the object
             for (const key in currentObject) {
                 // Check if the property value contains the search string
-                if (typeof currentObject[key] === 'string' && currentObject[key].includes(search)) {
+                if (typeof currentObject[key] === 'string' && currentObject[key].toLowerCase().includes(search.toLowerCase())) {
                     // Add the new object to the array
                     buf.push(currentObject);
                     break;
@@ -93,15 +90,15 @@ const Teachers = ({search,setSearch}) => {
     // Create an instance of the ApiUrls class
 const apiUrls = new ApiUrls();
     const [t,set_t] = useState([
-        {firstName:'anis' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'wassim' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'souad' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'jabar' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'malik' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'mohamed' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'lamia' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'yassine' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{firstName:'fouad' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        {id:1, firstName:'anis' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:2,firstName:'wassim' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:3,firstName:'souad' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:4, firstName:'jabar' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:5, firstName:'malik' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:6, firstName:'mohamed' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:7, firstName:'lamia' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:8, firstName:'yassine' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+        ,{id:9, firstName:'fouad' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
     ])
     const [ts,set_ts] = useState([])
         useEffect (() => {

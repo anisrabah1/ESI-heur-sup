@@ -1,0 +1,7 @@
+.infos{
+    position: relative;
+    height: 47%;
+    display: flex;
+    flex-direction: column;
+    overflow-y:scroll;
+}
