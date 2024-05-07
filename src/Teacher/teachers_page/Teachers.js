@@ -53,7 +53,7 @@ const Teachers = ({search,setSearch}) => {
             const response = await fetch(apiUrls.getUrl('getTeachers'));
             // console.log(response)
             const data = await response.json();
-            // console.log(data)
+            console.log(data)
 
         set_t(data.teachers)
            setIsLoading(false)
@@ -90,19 +90,11 @@ const Teachers = ({search,setSearch}) => {
     // Create an instance of the ApiUrls class
 const apiUrls = new ApiUrls();
     const [t,set_t] = useState([
-        {id:1, firstName:'anis' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:2,firstName:'wassim' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:3,firstName:'souad' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:4, firstName:'jabar' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:5, firstName:'malik' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:6, firstName:'mohamed' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:7, firstName:'lamia' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:8, firstName:'yassine' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
-        ,{id:9, firstName:'fouad' , lastName:'rabah',email:'anis@gmail.com',phoneNumber:'0659896891',major:'info',homeInstitution:'esi',degree:'doctor' }
+       
     ])
     const [ts,set_ts] = useState([])
         useEffect (() => {
-            // fetchData();
+            fetchData();
             if(ts.length===0 ){
 set_ts(t)}else{
     addObjectIfStringContained()   
@@ -111,7 +103,7 @@ set_ts(t)}else{
  
             
            
-        },[search]);
+        },[search , t]);
         
         return ( 
             <div>
@@ -120,7 +112,7 @@ set_ts(t)}else{
                 <div className='content'>
                 
     {submit && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-      Here is a gentle confirmation that your action was successful.
+      create teacher was successful.
     </Alert>}
         <div className="teachers">
             

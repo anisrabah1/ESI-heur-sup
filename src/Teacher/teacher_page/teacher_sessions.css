@@ -1,0 +1,30 @@
+.session{
+    position: relative;
+    width: 92%;
+    height: 27vw;
+    background-color: rgb(255, 255, 255);
+    margin-top: 2%;
+    margin-left: 1%;
+    border-radius: 10px;
+    display: flex;
+    padding: 3%;
+    font-weight: bold;
+    color:rgb(72, 72, 72);
+    font-size: 1.6vw;
+    
+}
+.addB{
+    background-image: url('../assets/Calendar Add.png');
+    
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 100%;
+    cursor: pointer;
+    margin-top: 15px;
+    border:10px;
+    border-color: black;
+    position:relative;
+    background-size: cover;
+    height: 2.5vw;
+    width: 2.5vw;
+    transition: all 0.2s ease;
+}

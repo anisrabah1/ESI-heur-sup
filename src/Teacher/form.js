@@ -54,7 +54,7 @@ const Form = ({submit,create}) => {
     };
 
     function sub (){
-        fetch('http://172.20.10.4:3000/api/v1/teachers/', {
+        fetch('http://192.168.43.5:3000/api/v1/teachers/', {
             method: 'POST', // Specify the HTTP method as POST
             headers: {
                 'Content-Type': 'application/json' // Specify the content type as JSON
@@ -147,8 +147,11 @@ const Form = ({submit,create}) => {
           onChange={handleChange}
           
         >
-            <MenuItem value={'master'}>master</MenuItem>
-          <MenuItem value={'Doctor'}>Doctor</MenuItem>
+            <MenuItem value={'Master'}>Master</MenuItem>
+          <MenuItem value={'Licence'}>Licence</MenuItem>
+          <MenuItem value={'Doctorat'}>Doctorat</MenuItem>
+          <MenuItem value={'Specialized Diploma'}>Specialized Diploma</MenuItem>
+          <MenuItem value={'Professional Degrees'}>Professional Degrees</MenuItem>
           
         </Select>
         </FormControl>
@@ -168,7 +171,9 @@ const Form = ({submit,create}) => {
           onChange={handleChange}
           
         >
-            <MenuItem value={'FullTime'}>Full time</MenuItem>
+            <MenuItem value={'Full-time'}>Full time</MenuItem>
+            <MenuItem value={'Part-time'}>Part time</MenuItem>
+            <MenuItem value={'Contract'}>Contract</MenuItem>
           
           
         </Select>
@@ -187,10 +192,10 @@ const Form = ({submit,create}) => {
             
             <div className="formC">
             <IconButton aria-label="submit" fullWidth color="success" onClick={()=>{
-                // submit(true);
-                // sub();
-                console.log(Data);
-                // create(false);
+                submit(true);
+                sub();
+                // console.log(Data);
+                create(false);
             }}>
         <DeleteIcon />
       </IconButton>

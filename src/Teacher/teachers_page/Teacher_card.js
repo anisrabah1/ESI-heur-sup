@@ -32,7 +32,7 @@ const Teacher_card
     }, []);
     return ( 
     
-    <div className="teacher"  onClick={()=>{navigate(`/teacher/${teacher.id}`)}} >
+    <div className="teacher"  onClick={()=>{navigate(`/teacher/${teacher._id}`)}} >
     
     <Avatar alt={teacher.firstName} src="/assets/n.png"  sx={{ width: window.innerWidth*0.1,
         height: window.innerWidth*0.1 ,bgcolor: blue[700]}} className='photo_container'/>
