@@ -75,7 +75,7 @@ const Teachers = ({search,setSearch}) => {
             // Iterate over the properties of the object
             for (const key in currentObject) {
                 // Check if the property value contains the search string
-                if (typeof currentObject[key] === 'string' && currentObject[key].toLowerCase().includes(search.toLowerCase())) {
+                if (typeof currentObject[key] === 'string' && currentObject[key].includes(search)) {
                     // Add the new object to the array
                     buf.push(currentObject);
                     break;
@@ -95,15 +95,24 @@ const apiUrls = new ApiUrls();
     const [ts,set_ts] = useState([])
         useEffect (() => {
             fetchData();
-            if(ts.length===0 ){
-set_ts(t)}else{
-    addObjectIfStringContained()   
-}
             
- 
+        },[]);
+        useEffect(()=>{
             
-           
-        },[search , t]);
+                set_ts(t)
+                   
+                
+        },[t])
+        useEffect(()=>{
+            
+            if (search.length===0){
+                set_ts(t)
+                 }else{
+                    addObjectIfStringContained()  
+                 }   
+                 
+            
+    },[search])
         
         return ( 
             <div>

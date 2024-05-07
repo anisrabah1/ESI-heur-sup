@@ -8,42 +8,48 @@ import Teacher_dayOff from "./teacher_dayOff";
 import ApiUrls from '../../APIs';
 const Teacher_info = ({search,setSearch}) => {
     const {id}=useParams();
-    const {dataT,set_dataT}=useState();
-    const {close,set_close}=useState(false);
-    function sub (){
-      console.log(id)
-      fetch(`http://192.168.43.5:3000/api/v1/teachers/${id}`, {
-          method: 'GET', // Specify the HTTP method as POST
-          headers: {
-              'Content-Type': 'application/json' // Specify the content type as JSON
-          },
-         
-      })
-      .then(response => response.json()) // Parse the JSON response
-      .then(data => {
-          console.log('Response:', data);
-           // Handle the response data
-      })
-      .catch(error => {
-          console.error('Error:', error.message   ); // Handle errors
-      });
-      
-  };
+    const {dataT,set_DataT}=useState();
+    const {close,set_close}=useState(true);
+    const fetchData = async () => {
+        
+        try {
+            console.log()
+            const response = await fetch(`http://192.168.43.5:3000/api/v1/teachers/${id}`, {
+                method: 'GET', // Specify the HTTP method as POST
+                headers: {
+                    'Content-Type': 'application/json' // Specify the content type as JSON
+                },
+               
+            });
+            // console.log(response)
+            const data = await response.json();
+            console.log(data)
+
+        set_DataT(data)
+           
+            console.log('succsee!');
+          } catch (error) {
+             console.log(error)
+            
+          }
+    };
+    
   useEffect(()=>(
-   sub()
+   fetchData()
   ),[dataT,close])
     return ( 
         <div>
         <Tamplate search={search} setSearch={setSearch}/>
         <div className=" content">
          <div className="teacher-info">
-         <Teacher_details/>
+         <Teacher_details data={dataT}/>
          <Teacher_dayOff popup={set_close}/>
            <Teacher_sessions/>
            
          </div>
            
-        </div>{ close &&
+        </div>
+        { close &&
         <div className="modal-overlay" onClick={()=>{set_close(false)}}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <button className="close-button" onClick={()=>{set_close(false)}}>×</button>

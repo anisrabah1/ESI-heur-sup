@@ -1,6 +1,7 @@
 import './teacher_details.css'
 import Avatar from '@mui/material/Avatar';
-const Teacher_details = () => {
+const Teacher_details = ({data}) => {
+
     return ( 
         <div className="details_card">
             <div className="photo">
