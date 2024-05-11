@@ -1,0 +1,130 @@
+.card{
+min-width: 450px;
+max-width: 550px;
+background-image:linear-gradient(255deg ,#14386d, #2966c1    );
+border-radius: 14px;
+padding: 4px;
+height: 144px;
+margin: 4px 6px;
+}
+
+
+.card .first-Line{
+    display:flex;
+    align-items: center;
+    margin: 2px 0px 0px 10px;
+    align-content: center;
+}
+.card .first-Line h4{
+    text-transform: capitalize;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+}
+.card .duree{
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 2px 0px;
+    padding: 4px 8px;
+    font-size: 11px;
+    height: 28px;  
+    letter-spacing: 1px;
+    color :#111224;
+    background: rgba(255, 255, 255, 0.842);
+    width:180px;
+    margin-left: 20px;
+    color: black;
+    
+
+}
+.card .second-Line{
+    display:flex;
+    flex-wrap: wrap;
+    padding :4px 6px;
+    align-items: center;
+    margin: 10px 0px 0px 10px;
+}
+.card .second-Line h5{
+    margin-right: 30px;
+    text-transform:capitalize;
+}
+.card .second-Line p{
+   font-size: 15px;
+}
+.card .third-Line{
+    display:flex;
+    padding :4px 6px;
+    align-items: center;
+    margin: 2px 0px 0px 10px;
+}
+.card .third-Line p{
+    margin-right: 10px;
+    letter-spacing: 0.8px;
+    font-size: 13px;
+     font-weight:500 ;
+     text-transform:capitalize;
+
+}
+
+.card .foorth-Line{
+    display:flex;
+    padding :4px 6px;
+    align-items: center;
+    margin: 2px 0px 0px 10px;
+}
+
+.card .foorth-Line p{
+    margin-right: 10px;
+    letter-spacing: 0.8px;
+    font-size: 13px;
+     font-weight:500 ;
+     text-transform:capitalize;
+
+}
+
+
+.c2-3-4lines-icon{
+display: flex;
+width: 100%;
+}
+.c2-3-4lines{
+
+    width: 60%;
+}
+.icons{
+    display: flex;
+    align-items: start;
+    flex-wrap: wrap;
+    width: 40%;
+    padding: 0px 0px;
+    margin-left: 4%;
+    padding: 5% 0px;
+}
+
+
+
+.lord-icon :hover{
+    box-shadow: 1px 2px 40px 1px  #292c588a;
+    background-color: #1f33514b;
+}
+
+
+
+
+@media(max-width:600px){
+    .icons{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 40%;
+        margin-left: 4%;
+        
+    }
+    .lord-icon{    
+        margin: 3% 0% 0% 3%;
+       
+    }
+
+   
+
+}

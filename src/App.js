@@ -7,6 +7,8 @@ import Log_in from './loginPage/Log-in'
 
 import { BrowserRouter, Router, Route, Switch,Routes } from 'react-router-dom';
 import CreateEmploi from './Emploi/CreateEmploi';
+import SystemeParam from './Sys_param/SystemParam';
+
 
 
 
@@ -22,6 +24,7 @@ function App() {
 
         <Route path='tamplate' element={<Tamplate/>}></Route>
         <Route path='creatEmploi' element={<CreateEmploi/>}></Route>
+        <Route path='systemParam' element={<SystemeParam/>}></Route>
       </Routes>
       </BrowserRouter>
       

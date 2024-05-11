@@ -1,0 +1,195 @@
+.cnt{
+    padding: 20px;
+    
+}
+
+.session{
+    background-color: rgba(128, 128, 128, 0.169);
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 6px;
+    transition: all 0.4 ease;
+}
+.session .line{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    
+}
+
+.session:hover{
+   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.32);
+}
+
+#sess{
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 20px;
+    letter-spacing: 1px;
+}
+
+.session .details .indication{
+    font-size: 13px;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    color: rgb(255, 0, 0);
+    
+    text-transform: capitalize;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+.session .details .indic-add{
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.add-icon{
+    padding:10px 0px 0px 0px;
+}
+
+.session .details .session-card{
+    display: flex;
+    padding: 8px 0px;
+    border-bottom: 1px solid rgba(83, 83, 83, 0.411);
+    align-items: center;
+    
+    
+}
+.session .details .session-card .from ,
+.session .details .session-card .to{
+    display: flex;
+    width: 33%;
+    margin-right: 10px;
+    align-items: center;
+
+}
+.session .details .session-card .name{
+    display: flex;
+    width: 25%;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.session .details .session-card span {
+    margin: 0px 10px 0px 0px;
+    color: #2C4770;
+    font-size: 14px;
+}
+
+.session .details .session-card  input {
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 0px 8px 0px 4px;
+    padding: 4px 8px;
+    width: 70%;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color :#0c0c0c;
+    background: transparent;
+}
+
+.session .details .session-card  input[type="text"]{
+
+    
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 0px 8px 0px 4px;
+    padding: 4px 8px;
+    width: 80%;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color :#292c58;
+    background: transparent;
+
+
+}
+
+.details{
+    display: none;
+}
+
+.detailsOpened{
+    display: block;
+  
+}
+
+
+
+.form-group{
+        /* le module et Type */
+        display: flex;
+        border-bottom: solid 1px #143465;
+        justify-content: space-between;
+        padding: 10px 0px;
+}
+
+.input-param{
+    display: flex;
+    align-items: center;
+   
+}
+
+.input-param input {
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 0px 8px 0px 4px;
+    padding: 4px 8px;
+    width: 80%;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color :#292c58;
+    background: transparent;
+}
+
+.input-param span{
+    font-size: 15px;
+    display: inline-block;
+    color:black;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-right: 5px;
+    
+}
+
+.container-Btn-Add{
+    display: flex;
+    justify-content: center;
+}
+.btn-Add{
+    background-image:linear-gradient(255deg, #3274D9,#2F4971);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    height: 30px;
+    width: 165px;
+    border-radius: 12px;
+    letter-spacing: 0.8px;
+    margin-top: 8px auto;
+    transition:0.2s ;
+}
+
+.btn-Add:hover{
+    background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
+    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.363);
+    }
+    
+
+
+.add-icon:hover{
+    cursor: pointer;  
+}
+.delete-icon:hover{
+    cursor: pointer;  
+}
+.edit-icon:hover{
+    cursor: pointer;  
+}
+

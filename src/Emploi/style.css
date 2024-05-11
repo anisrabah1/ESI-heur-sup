@@ -1,9 +1,16 @@
 .container{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+   
+    
     text-align: center;
+    
+    width: 100%;
+}
+.container-Cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
 }
 
 .container h2{
@@ -37,6 +44,8 @@
     height: 100%;
     position: absolute;
     top: 0;
+    left: 0;
+    
     display: flex;
     justify-content: center;
     align-items:center ;
@@ -53,6 +62,7 @@
     opacity: 1;
     visibility: visible;
     transition:  0.9s ease-in-out; 
+    z-index: 2;
   }
 .popup-content{
     max-height: 70%;
@@ -99,13 +109,12 @@
     height: fit-content;
     margin: 2px 0px;
     padding: 4px 6px 8px 6px;
-    border-bottom: solid 1px #143465;
     display: flex;
    flex-direction: column;
 
 }
 
- h4{
+ .popup-content h4{
     color: #2f4971;
 }
 
@@ -116,6 +125,19 @@
     font-weight: 300;
     letter-spacing: 1px;
     
+}
+.houre-Style{
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 2px 0px;
+    padding: 4px 8px;
+    width: 90%;
+    font-size: 13px;
+    height: 30px;
+    
+    letter-spacing: 1px;
+    color :#292c58;
+    background: transparent;
 }
 
 .input-Box input ,select{
@@ -133,9 +155,10 @@
 
 .annee-groupe{
     display: flex; 
+    border-bottom: solid 1px #143465;
 }
 .annee-groupe .input-Box select{
-width: 88%;
+width: 80%;
 }
 
 
@@ -143,13 +166,19 @@ width: 88%;
 
 .module-type{    /* le module et Type */
     display: flex;
+    border-bottom: solid 1px #143465;
 }
 
 
-.module-type .input-Box input ,.module-type .input-Box select{
+.module-type  .container-Btn ,.module-type .input-Box select{
     width: 80%;
 }
-
+.container-Btn{
+    
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
 
 
 
@@ -164,6 +193,7 @@ width: 88%;
 }
 .input-Sub .input-Box{
     border-bottom: none;
+    width: 80%;
 }
 
 .input-Sub .btn-Create{
@@ -174,12 +204,11 @@ width: 88%;
     font-weight: 500;
     cursor: pointer;
     height: 30px;
-    width: 25%;
+    width: 60%;
     border-radius: 12px;
     letter-spacing: 0.8px;
     margin-top: 8px;
     transition:0.2s ;
-    
 }
 .input-Sub .btn-Create:hover{
 background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
@@ -198,12 +227,12 @@ input:focus{
     padding: 10px 30px;
     height: max-content ;
     width: max-content;
-    background-color: rgba(49, 48, 48, 0.441);
+    background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
 }
 
 .seances .seance-Card{
     border-radius: 20px;
-    border : solid 1px gray;
+    border : solid 1px rgb(135, 123, 123);
     width: 100%;
     height: fit-content;
     padding: 4px 10px;
@@ -211,6 +240,7 @@ input:focus{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: #b0b0b0;
 }
 
 .seances .seance-Card .seance-Date{
@@ -239,6 +269,11 @@ input:focus{
     padding-left: 4px;
 }
 
+.seances .seance-Card label {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: start;
+}
 
 
 
@@ -259,9 +294,7 @@ input:focus{
    .form-content{
     height: fit-content;
    } 
-   .heure-debut-fin .input-Box input{
-    width: 80%;
-   }
+  
    .annee-groupe input {
     width: 80%;
    }
@@ -273,7 +306,7 @@ input:focus{
         width: 90%;
        }
        .input-Sub .btn-Create{
-        width: 37%;
+        width: 50%;
     }
     .module-type .input-Box input ,.module-type .input-Box select{
         width: 90%;
@@ -290,6 +323,22 @@ input:focus{
     
     
     .input-Sub .btn-Create{
-        width: 50%;
+        width: 90%;
+    }
+
+    .annee-groupe select{
+        width: 94%;
     }
 }
+
+
+
+
+
+
+
+.disabled-element {
+    background-color: #1825381e;
+    pointer-events: none; /* Désactive les interactions de pointage */
+    opacity: 0.6; /* Optionnel : peut également ajouter une opacité pour indiquer visuellement que l'élément est désactivé */
+  }
