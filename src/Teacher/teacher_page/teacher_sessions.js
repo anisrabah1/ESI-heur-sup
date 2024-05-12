@@ -1,14 +1,17 @@
 import { useState ,useEffect } from 'react';
-import './teacher_sessions.css'
-const Teacher_sessions = () => {
+import './teacher_sessions.css';
+import Teacher_dayOff from "./teacher_dayOff";
+const Teacher_sessions = ({popup}) => {
     const [session,set_session] = useState([{id:1},{id:2}]);
-    useEffect(()=>{},[session])
+    useEffect(()=>{})
     return ( 
         <div>
 {session.map((m)=>(
               
               <div className="session">
                  Session {m.id}
+                 <Teacher_dayOff popup={popup} />
+                 
               </div>
               
           )) }

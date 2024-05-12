@@ -4,7 +4,7 @@ import { deepOrange,green,blue,grey } from '@mui/material/colors';
 import { useState ,useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-
+import ApiUrls from '../../APIs';
 const Teacher_card
  = ({teacher}) => {
     const navigate = useNavigate();
@@ -30,6 +30,25 @@ const Teacher_card
         //     window.removeEventListener('resize', updateScreenSize);
         // };
     }, []);
+    const apiUrls = new ApiUrls();
+    const DeletData = async () => {
+        
+        try {
+            console.log('this is me',`${apiUrls.getUrl('getTeachers')}/${teacher._id}`)
+            const response = await fetch(apiUrls.getUrl('getTeachers'));
+            // console.log(response)
+            const data = await response.json();
+            console.log(data)
+
+        
+           
+            console.log('Delete succsee!');
+          } catch (error) {
+             console.log(error)
+            
+          }
+    };
+
     return ( 
     
     <div className="teacher"  onClick={()=>{navigate(`/teacher/${teacher._id}`)}} >
@@ -57,7 +76,7 @@ const Teacher_card
     </div>
     
                
-                <button className="icon-button button1">
+                <button className="icon-button button1" >
                     
                 </button>
                

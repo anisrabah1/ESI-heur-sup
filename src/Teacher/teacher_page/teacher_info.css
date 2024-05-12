@@ -21,7 +21,7 @@ overflow-y:scroll;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    backdrop-filter: blur(2px); /* Blur effect */
+    backdrop-filter: blur(1px); /* Blur effect */
     display: flex;
     justify-content: center;
     align-items: center;

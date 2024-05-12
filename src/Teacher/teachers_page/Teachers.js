@@ -122,7 +122,8 @@ const apiUrls = new ApiUrls();
                 
     {submit && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
       create teacher was successful.
-    </Alert>}
+    </Alert>
+    }
         <div className="teachers">
             
             { !create && !isLoading && ts.map((m)=>(
@@ -132,7 +133,7 @@ const apiUrls = new ApiUrls();
             )) }
             {create && !isLoading &&
 <Form submit={setsubmit} create={set_create}/>
- }
+            }
  {!create && isLoading &&  <div className="loading"><CircularProgress /></div> }
 
 

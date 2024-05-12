@@ -6,13 +6,14 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Check';
 import IconButton from '@mui/material/IconButton';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import InputLabel from '@mui/material/InputLabel';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from "dayjs";
 import FormControl from '@mui/material/FormControl';
-
+import ApiUrls from '../APIs';
 import './form.css';
 const Form = ({submit,create}) => {
     
@@ -52,9 +53,9 @@ const Form = ({submit,create}) => {
             dateOfBirth: date ? date.format('YYYY-MM-DD') : null
         });
     };
-
+    const apiUrls = new ApiUrls();
     function sub (){
-        fetch('http://192.168.43.5:3000/api/v1/teachers/', {
+        fetch(apiUrls.getUrl('getTeachers'), {
             method: 'POST', // Specify the HTTP method as POST
             headers: {
                 'Content-Type': 'application/json' // Specify the content type as JSON

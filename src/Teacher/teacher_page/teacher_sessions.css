@@ -1,13 +1,14 @@
 .session{
     position: relative;
-    width: 92%;
-    height: 27vw;
+    width: 88%;
+    height: auto;
+    padding: 5%;
     background-color: rgb(255, 255, 255);
     margin-top: 2%;
     margin-left: 1%;
     border-radius: 10px;
     display: flex;
-    padding: 3%;
+    flex-direction: column;
     font-weight: bold;
     color:rgb(72, 72, 72);
     font-size: 1.6vw;
