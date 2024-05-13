@@ -7,6 +7,7 @@ class ApiUrls {
         this.endpoints = {
             getTeachers: `${this.baseUrl}/teachers`,
             getCreate: `${this.baseUrl}/`,
+            getAllSessions:`${this.baseUrl}/sessions`,
             
             // Add more endpoints as needed
         };

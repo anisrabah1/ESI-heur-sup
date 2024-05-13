@@ -1,6 +1,7 @@
 import { useState ,useEffect } from 'react';
 import './teacher_sessions.css';
 import Teacher_dayOff from "./teacher_dayOff";
+import CreateEmploi from "../Emploi/CreateEmploi"
 const Teacher_sessions = ({popup}) => {
     const [session,set_session] = useState([{id:1},{id:2}]);
     useEffect(()=>{})
@@ -11,7 +12,9 @@ const Teacher_sessions = ({popup}) => {
               <div className="session">
                  Session {m.id}
                  <Teacher_dayOff popup={popup} />
-                 
+                 <div>
+                 <CreateEmploi/>
+                 </div>
               </div>
               
           )) }

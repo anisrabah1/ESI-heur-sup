@@ -35,7 +35,7 @@ const Teacher_card
         
         try {
             console.log('this is me',`${apiUrls.getUrl('getTeachers')}/${teacher._id}`)
-            const response = await fetch(apiUrls.getUrl('getTeachers'));
+            const response = await fetch(`${apiUrls.getUrl('getTeachers')}/${teacher._id}`,{method:'DELETE'});
             // console.log(response)
             const data = await response.json();
             console.log(data)
@@ -76,7 +76,7 @@ const Teacher_card
     </div>
     
                
-                <button className="icon-button button1" >
+                <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();DeletData()}}>
                     
                 </button>
                
