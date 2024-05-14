@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import './sideBar.css'
-function Sidebar  ({press}) {
+function Sidebar  () {
     return (  
         
         <div className="container1"> 
@@ -8,15 +8,15 @@ function Sidebar  ({press}) {
             <div className="logo"/>
         </div>
         <div className="buttons-container">
-<Link to={'/home'} className='link'>
-        <button className="sideb" onClick={()=>{press('welcome')}}>
+<Link to={'/'} className='link'>
+        <button className="sideb"  >
                  <div className="btic1"/>
                 <div className="bttx">Home</div>
             </button>
             </Link>
             <br />
             <Link to={'/teachers'}  className='link'>
-            <button className="sideb" onClick={()=>{press('teachers')}}>
+            <button className="sideb" >
                  <div className="btic2"/>
                 <div className="bttx">Teachers</div>
             </button>

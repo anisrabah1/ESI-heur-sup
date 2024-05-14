@@ -35,16 +35,21 @@
     background-size: cover;
     height: 2.5vw;
     width: 2.5vw;
-    transition: background-color 1s ease;
+    transition: all 0.2s ease;
   }
   .search{
     position: relative;
     height:50%;
     width: 25%;
     top: 20%;
-    background-color: rgba(129, 129, 129, 0.619);
+    background-color: rgba(196, 196, 196, 0);
     padding-left: 1%;
     border-color: rgb(114, 114, 114);
+    
+    outline:auto;
+    outline-color: #858585;
     box-shadow: none;
     border-radius: 50px;
   }
+ 
+  

@@ -1,0 +1,344 @@
+.container{
+    position: absolute;
+   
+    
+    text-align: center;
+    
+    width: 100%;
+}
+.container-Cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+
+.container h2{
+    color: black;
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.button{
+    background-image:linear-gradient(255deg, #3275d9,#2f4971);
+    padding: 10px 15px;
+    color: #000000;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 5PX;
+    box-shadow: 6px 6px 29px -4px black;
+    margin: 15px;
+    text-decoration: none;
+    transition: 0.3s;
+    border: none;
+    font-size: 15px;
+}
+
+.button:hover{
+    background-image:linear-gradient(255deg, #3275d9d2,#2f4971ca);
+    font-size: 16px;
+}
+.popup{
+    background-color: hsla(0, 0%, 0%, 0.507);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+   
+
+    opacity: 0; /* Initially hidden */
+    visibility: hidden;
+    transition: opacity 0.9s ease-in-out, visibility 2s ease-in-out;  /* Less common approach */
+    
+   
+}
+
+.popup.open { /* Styles for when the popup is open */
+    opacity: 1;
+    visibility: visible;
+    transition:  0.9s ease-in-out; 
+    z-index: 2;
+  }
+.popup-content{
+    max-height: 70%;
+    height: fit-content;
+    width: 70%;
+    background: #fff;
+    padding: 18px;
+    border-radius: 8px;
+    position: relative;
+    overflow-y:auto ;
+}
+
+.icon{
+    position: absolute;
+    right:4px;
+    top: 2px;
+    
+    
+}
+.icon2{
+    transition: 0.5s;
+}
+.icon2:hover{
+    width: 23px;
+    height:23px ;
+}
+
+
+
+
+/*________Form_______*/
+.form-Content{
+    width: 100%;
+    height: max-content;
+    height: fit-content;
+    border-radius: 8px;
+    color:black;
+    outline: none;
+}
+
+
+.form-Content  .input-Box{
+    width: 100%;
+    height: fit-content;
+    margin: 2px 0px;
+    padding: 4px 6px 8px 6px;
+    display: flex;
+   flex-direction: column;
+
+}
+
+ .popup-content h4{
+    color: #2f4971;
+}
+
+.input-Box span{
+    font-size: 15px;
+    display: inline-block;
+    color:black;
+    font-weight: 300;
+    letter-spacing: 1px;
+    
+}
+.houre-Style{
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 2px 0px;
+    padding: 4px 8px;
+    width: 90%;
+    font-size: 13px;
+    height: 30px;
+    
+    letter-spacing: 1px;
+    color :#292c58;
+    background: transparent;
+}
+
+.input-Box input ,select{
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 2px 0px;
+    padding: 4px 8px;
+    width: 60%;
+    font-size: 13px;
+    
+    letter-spacing: 1px;
+    color :#292c58;
+    background: transparent;
+}
+
+.annee-groupe{
+    display: flex; 
+    border-bottom: solid 1px #143465;
+}
+.annee-groupe .input-Box select{
+width: 80%;
+}
+
+
+
+
+.module-type{    /* le module et Type */
+    display: flex;
+    border-bottom: solid 1px #143465;
+}
+
+
+.module-type  .container-Btn ,.module-type .input-Box select{
+    width: 80%;
+}
+.container-Btn{
+    
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+
+
+.input-Sub{
+    
+    display: flex;
+    align-items: center;
+    align-content: space-around;
+    flex-direction: row;
+
+    width: 100%;
+}
+.input-Sub .input-Box{
+    border-bottom: none;
+    width: 80%;
+}
+
+.input-Sub .btn-Create{
+    background-image:linear-gradient(255deg, #3274D9,#2F4971);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    height: 30px;
+    width: 60%;
+    border-radius: 12px;
+    letter-spacing: 0.8px;
+    margin-top: 8px;
+    transition:0.2s ;
+}
+.input-Sub .btn-Create:hover{
+background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
+box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.363);
+}
+
+
+
+input:focus{
+        
+      background: #3275d90f;
+}
+
+
+.seances{
+    padding: 10px 30px;
+    height: max-content ;
+    width: max-content;
+    background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
+}
+
+.seances .seance-Card{
+    border-radius: 20px;
+    border : solid 1px rgb(135, 123, 123);
+    width: 100%;
+    height: fit-content;
+    padding: 4px 10px;
+    box-shadow: 4px 4px 20px 6px rgba(0, 0, 0, 0.422);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #b0b0b0;
+}
+
+.seances .seance-Card .seance-Date{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.seances .seance-Card .seance-Module{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    margin-top: 4px;
+    
+}
+
+.seances .seance-Card .seance-Date div  , .seances .seance-Card .seance-Module div{
+    margin: 1px 2px;
+    
+}
+
+.seances .seance-Card .seance-Date div input , .seances .seance-Card .seance-Module div input{
+    width: 110px;
+    height:24px ;
+    border: none;
+    border-radius: 4px;
+    padding-left: 4px;
+}
+
+.seances .seance-Card label {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width:950px){
+   .heure-debut-fin{
+    display: flex;
+    
+   }
+   .form-content{
+    height: fit-content;
+   } 
+  
+   .annee-groupe input {
+    width: 80%;
+   }
+
+}
+@media(max-width:950px){
+    .annee-groupe input {
+
+        width: 90%;
+       }
+       .input-Sub .btn-Create{
+        width: 50%;
+    }
+    .module-type .input-Box input ,.module-type .input-Box select{
+        width: 90%;
+    }
+
+}
+@media(max-width:650px){
+    .input-Box input ,select{
+        width: 94%;
+    }
+    .module-type .input-Box input ,.module-type .input-Box select{
+        width: 94%;
+    }
+    
+    
+    .input-Sub .btn-Create{
+        width: 90%;
+    }
+
+    .annee-groupe select{
+        width: 94%;
+    }
+}
+
+
+
+
+
+
+
+.disabled-element {
+    background-color: #1825381e;
+    pointer-events: none; /* Désactive les interactions de pointage */
+    opacity: 0.6; /* Optionnel : peut également ajouter une opacité pour indiquer visuellement que l'élément est désactivé */
+  }

@@ -16,7 +16,7 @@ body{
   background-color: #ffc80000;
   margin-left: 13vw;
   top: 11.5vh;
-  height: 88vw;
+  height: 180vh;
   width: 86vw;
 }
 
@@ -27,80 +27,8 @@ body{
 .navbt:hover{
   margin-right:15px ;
 }
-.counters{
-  position: relative;
-  margin:10% auto ;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-.teacher-count{
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #ffffff;
-  border-radius: 10%;
-  margin-right: 5vw;
-  width: 15vw;
-  height: 15vw;
-  font-weight: bold;
-  font-size: 100%;
-  color:#818181;
-  
-}
-.c-label{
-  position: relative;
-  font-size: 2vw; 
-  margin-bottom: 1vw ;
-  top: 0%;
-}
-.n-label{
- font-size: 500%; 
-}
-.total-houre{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  background-color: #ffffff;
-  border-radius: 10%;
-  margin-left: 5vw;
-  width: 15vw;
-  height: 15vw;
-  font-weight: bold;
-  font-size: 100%;
-  color:#818181;
-  
-}
-.labels{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 5vw auto;
-}
-.label-1{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 3vw;
-  color: #3C4148;
-}
-.label-2{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  color:#6e6e6e;
-}
-.teachers{
-  position: relative;
-  height: 47%;
-  display: flex;
-  flex-direction: column;
-  overflow-y:scroll;
-  
-}
+
+
 
 .link{
   text-decoration: none;
@@ -116,12 +44,7 @@ body{
   background-color: #dedede;
 }
 
-.photo{
-  position: relative;
-  height: 2vw;
-  width: 2vw;
-  background-color: #007bff;
-}
+
 
 .floating-button {
   position: fixed; /* Fixed positioning */
@@ -148,48 +71,3 @@ body{
 }
 
 
-/* Form container styles */
-.form-container {
-  margin: 20px;
-}
-
-/* Form group styles */
-.form-group {
-  margin-bottom: 15px;
-}
-
-/* Label styles */
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-/* Form control styles */
-.form-control {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* Submit button styles */
-.submit-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Hover effect for the submit button */
-.submit-button:hover {
-  background-color: #0056b3;
-}
-
-/* Form confirmation message styles */
-.form-confirmation {
-  color: green;
-  margin-bottom: 15px;
-}
