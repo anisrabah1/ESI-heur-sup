@@ -128,7 +128,7 @@ const apiUrls = new ApiUrls();
             
             { !create && !isLoading && ts.map((m)=>(
               
-                <Teacher_card teacher={m} />
+                <Teacher_card teacher={m}/>
                 
             )) }
             {create && !isLoading &&

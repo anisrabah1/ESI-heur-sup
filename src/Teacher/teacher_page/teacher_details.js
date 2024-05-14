@@ -1,7 +1,8 @@
 import './teacher_details.css'
 import Avatar from '@mui/material/Avatar';
 const Teacher_details = ({data}) => {
-
+console.log(data);
+console.log('-------------------------------------------------------------------');
     return ( 
         <div className="details_card">
             <div className="photo">
@@ -9,7 +10,7 @@ const Teacher_details = ({data}) => {
             </div>
             <div className="details">
                 <div className="formC">
-                <div className="details-first-name form1"> <div className="details_label">First name : </div> anis rabah</div>
+                <div className="details-first-name form1"> <div className="details_label">First name : </div>anis rabah</div>
                 <div className="details-last-name form1"><div className="details_label">Last name : </div>khaldi</div>
                 </div>
                 <div className="formC">

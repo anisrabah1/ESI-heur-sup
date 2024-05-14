@@ -8,11 +8,13 @@ import TextField from '@mui/material/TextField';
 import Teacher_dayOff from "./teacher_dayOff";
 import ApiUrls from '../../APIs';
 import DayOff_popup from "./dayOff_popup";
+import Session_popup from "./session_popup";
 
 const Teacher_info = ({search,setSearch}) => {
     const {id}=useParams();
-    const [dataT,set_DataT]=useState();
-    const [close,set_close]=useState(false);
+    const [DataT,set_DataT]=useState();
+    const [sessionClose,set_sessionClose]=useState(false);
+    const [dayOffClose,set_dayOffClose]=useState(false);
     const apiUrls = new ApiUrls();
     const fetchData = async () => {
         
@@ -27,11 +29,11 @@ const Teacher_info = ({search,setSearch}) => {
             });
             // console.log(response)
             const data = await response.json();
-            console.log(data)
+            console.log(data.data.data);
 
-            // set_DataT(data)
-        
-            // console.log('succsee!');
+            set_DataT(data.data)
+            console.log(data.data.data);
+            console.log('succsee!info');
             
           } catch (error) {
              console.log(error)
@@ -47,15 +49,19 @@ const Teacher_info = ({search,setSearch}) => {
         <Tamplate search={search} setSearch={setSearch}/>
         <div className=" content">
          <div className="teacher-info">
-         <Teacher_details data={dataT}/>
+         <Teacher_details data={DataT}/>
          
-           <Teacher_sessions popup={set_close}/>
+           <Teacher_sessions sessionPopup={set_sessionClose} dayOffPopup={set_dayOffClose} teacherID={id}/>
            
          </div>
            
         </div>
-        { close &&
-        <DayOff_popup set_close={set_close}/>
+        { dayOffClose &&
+        <DayOff_popup set_close={set_dayOffClose}/>
+       }
+       {
+        sessionClose && 
+        <Session_popup set_close={set_sessionClose} />
        }
         </div>
      );

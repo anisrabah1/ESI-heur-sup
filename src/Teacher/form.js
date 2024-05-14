@@ -22,16 +22,18 @@ const Form = ({submit,create}) => {
 
     const [Data,setData] = useState(
         {
-            firstName : '',
-            lastName:'',
-            email:'',
-            degree:'',
-            phoneNumber:'',
-            major:'',
+            firstName : 'ousss',
+            lastName:'ouiyxc',
+            email:'arpoiuyghdi@esi-sba.dz',
+            degree:'Master',
+            phoneNumber:'0645684894',
+            major:'info',
             employmentStatus:'',
-            position:'662d0dbfed0ec17a9299c946',
-            dateOfBirth:'',
-            homeInstitution:'',
+            position:'663d576e241c0d0a5a146e1a',
+            dateOfBirth:'2003-07-02',
+            homeInstitution:'esi',
+            cardType:'CCP',
+            cardNumber:'1351354'
             
         }
     );

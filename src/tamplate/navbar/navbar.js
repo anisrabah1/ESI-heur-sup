@@ -20,7 +20,10 @@ function Navbar  ({search,setSearch})  {
             if (currentPath === '/') {
                 set_text('welcome')
             }else{
-                set_text('Teachers')
+                if (currentPath === '/teachers'){
+                set_text('Teachers')}else{
+                    set_text('Teacher')
+                }
             }
         }
     )
