@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import ApiUrls from '../../APIs';
 const Teacher_card
- = ({teacher}) => {
+ = ({teacher,submit}) => {
     const navigate = useNavigate();
 
     const [screenSize, setScreenSize] = useState({
@@ -34,6 +34,7 @@ const Teacher_card
     const DeletData = async () => {
         
         try {
+            submit(true);
             console.log('this is me',`${apiUrls.getUrl('getTeachers')}/${teacher._id}`)
             const response = await fetch(`${apiUrls.getUrl('getTeachers')}/${teacher._id}`,{method:'DELETE'});
             // console.log(response)
@@ -43,6 +44,7 @@ const Teacher_card
         
            
             console.log('Delete succsee!');
+            submit(false);
           } catch (error) {
              console.log(error)
             

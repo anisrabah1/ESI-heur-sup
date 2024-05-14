@@ -12,7 +12,21 @@ import Session_popup from "./session_popup";
 
 const Teacher_info = ({search,setSearch}) => {
     const {id}=useParams();
-    const [DataT,set_DataT]=useState();
+    const [createSessionID,setCreateSessionID]=useState();
+    const [DataT,set_DataT]=
+    useState({
+        
+dateOfBirth: '',
+
+degree: "",
+email: "",
+employmentStatus: "",
+firstName: '',
+homeInstitution: "",
+lastName: "",
+major: "",
+phoneNumber: "",
+    });
     const [sessionClose,set_sessionClose]=useState(false);
     const [dayOffClose,set_dayOffClose]=useState(false);
     const apiUrls = new ApiUrls();
@@ -29,11 +43,9 @@ const Teacher_info = ({search,setSearch}) => {
             });
             // console.log(response)
             const data = await response.json();
-            console.log(data.data.data);
+           
 
-            set_DataT(data.data)
-            console.log(data.data.data);
-            console.log('succsee!info');
+            set_DataT(data.data.data);
             
           } catch (error) {
              console.log(error)
@@ -43,7 +55,7 @@ const Teacher_info = ({search,setSearch}) => {
     
   useEffect(()=>{
    fetchData();
-});
+},[]);
     return ( 
         <div>
         <Tamplate search={search} setSearch={setSearch}/>
@@ -51,17 +63,17 @@ const Teacher_info = ({search,setSearch}) => {
          <div className="teacher-info">
          <Teacher_details data={DataT}/>
          
-           <Teacher_sessions sessionPopup={set_sessionClose} dayOffPopup={set_dayOffClose} teacherID={id}/>
+           <Teacher_sessions sessionPopup={set_sessionClose} dayOffPopup={set_dayOffClose} teacherID={id} sessionCreate={setCreateSessionID}/>
            
          </div>
            
         </div>
         { dayOffClose &&
-        <DayOff_popup set_close={set_dayOffClose}/>
+        <DayOff_popup set_close={set_dayOffClose} id={createSessionID} />
        }
        {
         sessionClose && 
-        <Session_popup set_close={set_sessionClose} />
+        <Session_popup set_close={set_sessionClose} teacherID={id} />
        }
         </div>
      );

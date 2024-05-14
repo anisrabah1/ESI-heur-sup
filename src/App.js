@@ -6,6 +6,7 @@ import { useState ,useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router  } from 'react-router-dom';
 import Loading from './loading';
+  import Log_in from './Login/Log-in'
 import Teacher_info from './Teacher/teacher_page/Teacher_info';
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
       <Router>
         <Routes>
         <Route path='/test' element={<Loading/>}/>
-        <Route index element={<Home/>}/>
+        <Route path='/home' element={<Home/>}/>
+        <Route index element={<Log_in/>}/>
       <Route path='teachers' element={<Teachers search={search} setSearch={setSearch}/>}/>
       <Route path='/teacher/:id' element={<Teacher_info search={search} setSearch={setSearch}/>}/>
         </Routes>

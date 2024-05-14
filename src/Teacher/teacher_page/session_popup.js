@@ -8,8 +8,9 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import ApiUrls from '../../APIs';
+import { toaster } from 'evergreen-ui'
 
-const Session_popup = ({set_close}) => {
+const Session_popup = ({set_close,teacherID}) => {
 
 
     const [GlobSessions,setGlobSessions] = useState ([{name:"globale seesion 1"},{name:'globale seesion 2'},{name:'globale seesion 3'}]);
@@ -21,13 +22,16 @@ const Session_popup = ({set_close}) => {
     const fetchSessions = async () => {
       
       try {
-        console.log('succsee! glob');
+        
           const response = await fetch(`${apiUrls.getUrl('getGlobSessions')}`);
-          // console.log(response)
+          
           const data = await response.json();
+         
+          toaster.notify(data.message); 
           setGlobSessions(data.sessions );
         } catch (error) {
            console.log(error)
+           toaster.notify(error); 
           
         }
   };
@@ -44,12 +48,14 @@ const Session_popup = ({set_close}) => {
             },
             body: JSON.stringify(selected)
         }
+
         );
-          // console.log(response)
+        const data = await response.json();
+        console.log(data)
           
           
           
-          console.log('succsee! glob');
+          
         } catch (error) {
            console.log(error)
           
@@ -58,13 +64,19 @@ const Session_popup = ({set_close}) => {
   };
   useEffect(()=>{
     fetchSessions();
-  },[selected])
-  useEffect(()=>{},[GlobSessions])
+  },[])
+  useEffect(()=>{},[])
     return ( 
         <div className="modal-overlay" onClick={()=>{set_close(false)}}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>
-            {GlobSessions.map((m)=>(
-                <div className="formC textSession">{m.sessionName}</div>
+            {GlobSessions && GlobSessions.map((m)=>(
+                <div className="formC textSession" onClick={()=>{
+                  setSelected({session:`${m._id}`,
+                    semester: "662d2b33e01ed9954a5feca4",
+                });
+                  console.log(selected);
+                  createSession(teacherID);
+                }}>{m.sessionName}</div>
             ))}
             
             
