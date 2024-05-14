@@ -18,6 +18,8 @@ import { Spin } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
+import {  toaster } from 'evergreen-ui'
+
 // Mapping between French and English names of the days of the week
 const dayMappings = {
   Samedi: "Saturday",
@@ -415,7 +417,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
 
   const mySubmit = async (e) => {
     e.preventDefault();
-    console.log("_____________zbi________________" + selectedSalle);
+    console.log("___________in this________________" + selectedSalle);
     const newSeance = {
       seanceDay: day,
       startHour: hourStart,
@@ -454,10 +456,12 @@ export default function CreateEmploi({sessionId,teacherId}) {
       console.log(data.data);
       console.log("Creation___ seance__!");
       if (!response.ok) {
+        toaster.danger(data.message );
         console.log("ERROR :", data);
         throw new Error(data.message || "Server Error");
       }
-
+      console.log("successfuly");
+      toaster.success('seance successfuly created')
       // Update state to trigger re-render
       setIsFetch((prev) => !prev);
     } catch (error) {
@@ -488,7 +492,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
 
       // Deletion was successful
       console.log("Deleting success!");
-
+      toaster.success('seance successfuly deleted !')
       // Update state to trigger re-render
       setIsFetch((prev) => !prev);
 

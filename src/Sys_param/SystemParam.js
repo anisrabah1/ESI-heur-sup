@@ -25,6 +25,8 @@ export default function SystemeParam() {
     console.log("Click on No");
   };
 
+  
+
   const [openSec, setOpenSec] = useState(false);
   const [openGrade, setOpenGrade] = useState(false);
   const [openSeanceType, setOpenSeanceType] = useState(false);
@@ -197,9 +199,7 @@ export default function SystemeParam() {
   };
 
   return (
-   <>
-   <Tamplate/>
-   <div className="content">
+   
 
    
     
@@ -228,7 +228,7 @@ export default function SystemeParam() {
                     <input
                       type="text"
                       onChange={(e) => setSessionName(e.target.value)}
-                      defaultValue="sem2"
+                      
                     />
                   </div>
                   <div className="input-param">
@@ -236,7 +236,7 @@ export default function SystemeParam() {
                     <input
                       type="date"
                       onChange={(e) => setStartDate(e.target.value)}
-                      defaultValue="2025-02-14"
+                      
                     />
                   </div>
                   <div className="input-param">
@@ -244,7 +244,7 @@ export default function SystemeParam() {
                     <input
                       type="date"
                       onChange={(e) => setEndDate(e.target.value)}
-                      defaultValue="2025-05-14"
+                      
                     />
                   </div>
                 </div>
@@ -409,14 +409,15 @@ export default function SystemeParam() {
         <div
           className="line"
           onClick={() => {
-            setOpenSec(!openSec);
+            setOpenSec(prev => !prev);
+            console.log(openSec);
           }}
         >
           <p id="sess">Sessions</p>
           <div
             className="more-icon"
             onClick={() => {
-              setOpenSec(!openSec);
+              setOpenSec(prev => !prev);
             }}
           >
             <lord-icon
@@ -427,13 +428,13 @@ export default function SystemeParam() {
           </div>
         </div>
 
-        <div className={`details ${openSec ? "detailsOpened" : ""}`}>
+        <div className={`details ${openSec ? "detailsOpened" : ''}`}>
           {!sessions ? (
             <div className="indic-add">
               <div className="indication"> no sessions !</div>
             </div>
           ) : (
-            sessions.map((item) => {
+             sessions.map((item) => {
               return (
                 <div className="session-card">
                   <div className="name">
@@ -800,7 +801,6 @@ export default function SystemeParam() {
       </div>
     </div>
 
-    </div>
-   </>
+    
   );
 }
