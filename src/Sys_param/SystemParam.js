@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiUrl from "../global_Vars/apiConfig";
-import "../Emploi/style.css";
+import  "../Emploi/style.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
@@ -15,9 +15,16 @@ import "./pageStyle.css";
 
 import Tamplate from '../tamplate/tamplate';
 
+import { Checkbox } from "antd";
+
 
 export default function SystemeParam() {
   const [isShown, setIsShown] = useState(false);
+
+  const onChangeY = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+    setPersonal(e.target.checked);
+  };
 
   
   const cancel = (e) => {
@@ -120,7 +127,7 @@ export default function SystemeParam() {
   const [coefficient, setCoefficient] = useState(1.5);
 
   const [offDayTypeName, setOffDayTypeName] = useState("malade");
-  const [personal, setPersonal] = useState(true);
+  const [personal, setPersonal] = useState(false);
 
   const mySubmit = async (e, whereToPost, objectToPost) => {
     e.preventDefault();
@@ -200,7 +207,9 @@ export default function SystemeParam() {
 
   return (
    
-
+<div>
+            <Tamplate/>
+                        <div className='content'>
    
     
     <div className="cnt" >
@@ -384,11 +393,11 @@ export default function SystemeParam() {
                     />
                   </div>
                   <div className="input-param">
-                    <span>Personel </span>
-                    <input
-                      type="number"
-                      onChange={(e) => setPersonal(e.target.value)}
-                    />
+                    <span>Personel :</span>
+                    <Checkbox 
+                     onChange={onChangeY}>
+
+                   </Checkbox>
                   </div>
                 </div>
                 <div className="container-Btn-Add">
@@ -406,33 +415,33 @@ export default function SystemeParam() {
       )}
 
       <div className="sessionY">
-        <div
-          className="line"
-          onClick={() => {
-            setOpenSec(prev => !prev);
-            console.log(openSec);
-          }}
-        >
-          <p id="sess">Sessions</p>
-          <div
-            className="more-icon"
-            onClick={() => {
-              setOpenSec(prev => !prev);
-            }}
-          >
-            <lord-icon
-              src="https://cdn.lordicon.com/rmkahxvq.json"
-              trigger="hover"
-              style={{ width: "30px", height: "30px" }}
-            ></lord-icon>
-          </div>
-        </div>
-
-        <div className={`details ${openSec ? "detailsOpened" : ''}`}>
-          {!sessions ? (
-            <div className="indic-add">
-              <div className="indication"> no sessions !</div>
+            <div
+              className="line"
+              onClick={() => {
+                setOpenSec(prev => !prev);
+                console.log(openSec);
+              }}
+            >
+              <p id="sess">Sessions</p>
+              <div
+                className="more-icon"
+                onClick={() => {
+                  setOpenSec(prev => !prev);
+                }}
+              >
+                <lord-icon
+                  src="https://cdn.lordicon.com/rmkahxvq.json"
+                  trigger="hover"
+                  style={{ width: "30px", height: "30px" }}
+                ></lord-icon>
+              </div>
             </div>
+
+        <div className={`details-param ${openSec ? "details-param-Opened" : ''}`}>
+          {!sessions ? (
+              <div className="indic-add">
+                <div className="indication"> no sessions !</div>
+              </div>
           ) : (
              sessions.map((item) => {
               return (
@@ -496,9 +505,9 @@ export default function SystemeParam() {
               );
             })
           )}
-          {/* _________________________________________________________________________________ */}
+        
 
-          <div style={{ display: "flex", justifyContent: "end" }}>
+          <div style={{ display: "flex", justifyContent: "end"  ,width:'100%'}}>
             <div className="add-icon" onClick={handleClickOpen}>
               <lord-icon
                 src="https://cdn.lordicon.com/hqymfzvj.json"
@@ -507,20 +516,20 @@ export default function SystemeParam() {
               ></lord-icon>
             </div>
           </div>
+
         </div>
       </div>
 
       <div className="sessionY">
-        <div
-          className="line"
-          onClick={() => {
-            setOpenGrade(!openGrade);
-          }}
-        >
+        <div className="line"
+                onClick={(e) => {
+                  setOpenGrade(!openGrade);
+                }}
+              >
           <p id="sess">Teacher Grade</p>
           <div
             className="more-icon"
-            onClick={() => {
+            onClick={(e) => {
               setOpenGrade(!openGrade);
             }}
           >
@@ -532,7 +541,7 @@ export default function SystemeParam() {
           </div>
         </div>
 
-        <div className={`details ${openGrade ? "detailsOpened" : ""}`}>
+        <div className={`details-param ${openGrade ? "details-param-Opened" : ''}`}>
           {!grades ? (
             <div className="indic-add">
               <div className="indication"> no grades!</div>
@@ -549,44 +558,46 @@ export default function SystemeParam() {
                     <span>Amount</span>
                     <input type="number" value={item.amountPerSeance} />
                   </div>
-                  <div className="edit-icon">
-                    <lord-icon
-                      src="https://cdn.lordicon.com/lecprnjb.json"
-                      trigger="hover"
-                      colors="primary:#2c4770"
-                      style={{ width: "22px", height: "22px" }}
-                    ></lord-icon>
-                  </div>
-                  <div
-                    className="delete-icon"
-                    onClick={(e) => {
-                      setIsShown(true);
-                      e.preventDefault();
-                    }}
-                  >
-                    <Popconfirm
-                      title="Delete the session"
-                      description="Are you sure to delete this task?"
-                      onConfirm={() =>
-                        deleting("positions", item._id, setGrades)
-                      }
-                      onCancel={cancel}
-                      okText="Yes"
-                      cancelText="No"
-                    >
-                      <div>
+                  <div className="edit-and-delete-session-container-horizontal">
+                      <div className="edit-icon">
                         <lord-icon
-                          src="https://cdn.lordicon.com/nqtddedc.json"
+                          src="https://cdn.lordicon.com/lecprnjb.json"
                           trigger="hover"
                           colors="primary:#2c4770"
-                          style={{
-                            width: "22px",
-                            height: "22px",
-                            marginLeft: "8px",
-                          }}
+                          style={{ width: "22px", height: "22px" }}
                         ></lord-icon>
                       </div>
-                    </Popconfirm>
+                      <div
+                        className="delete-icon"
+                        onClick={(e) => {
+                          setIsShown(true);
+                          e.preventDefault();
+                        }}
+                      >
+                        <Popconfirm
+                          title="Delete the session"
+                          description="Are you sure to delete this task?"
+                          onConfirm={() =>
+                            deleting("positions", item._id, setGrades)
+                          }
+                          onCancel={cancel}
+                          okText="Yes"
+                          cancelText="No"
+                        >
+                          <div>
+                            <lord-icon
+                              src="https://cdn.lordicon.com/nqtddedc.json"
+                              trigger="hover"
+                              colors="primary:#2c4770"
+                              style={{
+                                width: "22px",
+                                height: "22px",
+                                marginLeft: "8px",
+                              }}
+                            ></lord-icon>
+                          </div>
+                        </Popconfirm>
+                      </div>
                   </div>
                 </div>
               );
@@ -596,7 +607,7 @@ export default function SystemeParam() {
 
        
 
-          <div style={{ display: "flex", justifyContent: "end" }}>
+          <div style={{display: "flex", justifyContent: "end"  ,width:'100%'}}>
             <div className="add-icon" onClick={handleClickAddingGrade}>
               <lord-icon
                 src="https://cdn.lordicon.com/hqymfzvj.json"
@@ -630,7 +641,7 @@ export default function SystemeParam() {
           </div>
         </div>
 
-        <div className={`details ${openSeanceType ? "detailsOpened" : ""}`}>
+        <div className={`details-param ${openSeanceType ? "details-param-Opened" : ""}`}>
           <div className="indic-add">
             {!seanceType && (
               <div className="indication"> no seance Types !</div>
@@ -648,6 +659,7 @@ export default function SystemeParam() {
                     <span>Coefficient</span>
                     <input type="number" value={item.coefficient} />
                   </div>
+                  <div className="edit-and-delete-session-container-horizontal">
                   <div className="edit-icon">
                     <lord-icon
                       src="https://cdn.lordicon.com/lecprnjb.json"
@@ -687,6 +699,7 @@ export default function SystemeParam() {
                       </div>
                     </Popconfirm>
                   </div>
+                  </div>
                 </div>
               );
             })}
@@ -694,7 +707,7 @@ export default function SystemeParam() {
 
          
 
-          <div style={{ display: "flex", justifyContent: "end" }}>
+          <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
             <div className="add-icon" onClick={handleClickAddingSeanceType}>
               <lord-icon
                 src="https://cdn.lordicon.com/hqymfzvj.json"
@@ -728,7 +741,7 @@ export default function SystemeParam() {
           </div>
         </div>
 
-        <div className={`details ${offDayOpen ? "detailsOpened" : ""}`}>
+        <div className={`details-param ${offDayOpen ? "details-param-Opened" : ""}`}>
           <div className="indic-add">
             {!offDay && <div className="indication"> no off-Days types !</div>}
           </div>
@@ -741,9 +754,11 @@ export default function SystemeParam() {
                     <input type="text" value={item.offDayTypeName} />
                   </div>
                   <div className="from">
-                    <span>Personel</span>
-                    <input type="text" value={item.personal} />
+
+                   {item.personal ?  <span>Personel</span> : (<span>Non Personel</span>)} 
+                    
                   </div>
+                  <div className="edit-and-delete-session-container-horizontal">
                   <div className="edit-icon">
                     <lord-icon
                       src="https://cdn.lordicon.com/lecprnjb.json"
@@ -783,12 +798,13 @@ export default function SystemeParam() {
                       </div>
                     </Popconfirm>
                   </div>
+                  </div>
                 </div>
               );
             })}
           {/* --------------------------------------------------------------------------- */}
 
-          <div style={{ display: "flex", justifyContent: "end" }}>
+          <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
             <div className="add-icon" onClick={handleClickAddingOffDay}>
               <lord-icon
                 src="https://cdn.lordicon.com/hqymfzvj.json"
@@ -801,6 +817,7 @@ export default function SystemeParam() {
       </div>
     </div>
 
-    
+    </div>
+    </div>
   );
 }
