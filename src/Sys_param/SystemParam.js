@@ -12,13 +12,14 @@ import React from "react";
 
 import "./pageStyle.css";
 
+
+import Tamplate from '../tamplate/tamplate';
+
+
 export default function SystemeParam() {
   const [isShown, setIsShown] = useState(false);
 
-  const confirm = (e) => {
-    console.log(e);
-    console.log("Click on Yes");
-  };
+  
   const cancel = (e) => {
     console.log(e);
     console.log("Click on No");
@@ -196,7 +197,13 @@ export default function SystemeParam() {
   };
 
   return (
-    <div className="cnt">
+   <>
+   <Tamplate/>
+   <div className="content">
+
+   
+    
+    <div className="cnt" >
       {isOpen && (
         <div className={`popup ${isOpen ? "open" : ""}`}>
           <div className="popup-content">
@@ -398,7 +405,7 @@ export default function SystemeParam() {
         </div>
       )}
 
-      <div className="session">
+      <div className="sessionY">
         <div
           className="line"
           onClick={() => {
@@ -502,7 +509,7 @@ export default function SystemeParam() {
         </div>
       </div>
 
-      <div className="session">
+      <div className="sessionY">
         <div
           className="line"
           onClick={() => {
@@ -585,32 +592,9 @@ export default function SystemeParam() {
             })
           )}
           {/* --------------------------------------------------------------------------- */}
-          <div className="session-card">
-            <div className="name">
-              <span>Name </span>
-              <input type="text" value="statique" />
-            </div>
-            <div className="from">
-              <span>Amount</span>
-              <input type="number" />
-            </div>
-            <div className="edit-icon">
-              <lord-icon
-                src="https://cdn.lordicon.com/lecprnjb.json"
-                trigger="hover"
-                colors="primary:#2c4770"
-                style={{ width: "22px", height: "22px" }}
-              ></lord-icon>
-            </div>
-            <div className="delete-icon">
-              <lord-icon
-                src="https://cdn.lordicon.com/nqtddedc.json"
-                trigger="hover"
-                colors="primary:#2c4770"
-                style={{ width: "22px", height: "22px", marginLeft: "8px" }}
-              ></lord-icon>
-            </div>
-          </div>
+
+       
+
           <div style={{ display: "flex", justifyContent: "end" }}>
             <div className="add-icon" onClick={handleClickAddingGrade}>
               <lord-icon
@@ -623,7 +607,7 @@ export default function SystemeParam() {
         </div>
       </div>
 
-      <div className="session">
+      <div className="sessionY">
         <div
           className="line"
           onClick={() => {
@@ -707,32 +691,8 @@ export default function SystemeParam() {
             })}
           {/* --------------------------------------------------------------------------- */}
 
-          <div className="session-card">
-            <div className="name">
-              <span>Name </span>
-              <input type="text" value="statique" />
-            </div>
-            <div className="from">
-              <span>Coefficient</span>
-              <input type="number" />
-            </div>
-            <div className="edit-icon">
-              <lord-icon
-                src="https://cdn.lordicon.com/lecprnjb.json"
-                trigger="hover"
-                colors="primary:#2c4770"
-                style={{ width: "22px", height: "22px" }}
-              ></lord-icon>
-            </div>
-            <div className="delete-icon">
-              <lord-icon
-                src="https://cdn.lordicon.com/nqtddedc.json"
-                trigger="hover"
-                colors="primary:#2c4770"
-                style={{ width: "22px", height: "22px", marginLeft: "8px" }}
-              ></lord-icon>
-            </div>
-          </div>
+         
+
           <div style={{ display: "flex", justifyContent: "end" }}>
             <div className="add-icon" onClick={handleClickAddingSeanceType}>
               <lord-icon
@@ -745,7 +705,7 @@ export default function SystemeParam() {
         </div>
       </div>
 
-      <div className="session">
+      <div className="sessionY">
         <div
           className="line"
           onClick={() => {
@@ -839,5 +799,8 @@ export default function SystemeParam() {
         </div>
       </div>
     </div>
+
+    </div>
+   </>
   );
 }

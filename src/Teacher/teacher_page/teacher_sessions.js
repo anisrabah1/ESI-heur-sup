@@ -1,20 +1,20 @@
 import { useState ,useEffect } from 'react';
 import './teacher_sessions.css';
 import Teacher_dayOff from "./teacher_dayOff";
-import CreateEmploi from "../Emploi/CreateEmploi"
-const Teacher_sessions = ({popup}) => {
+import CreateEmploi from "../../Emploi/CreateEmploi"
+const Teacher_sessions = ({popup,teacher_id}) => {
     const [session,set_session] = useState([{id:1},{id:2}]);
     useEffect(()=>{})
     return ( 
         <div>
-{session.map((m)=>(
+{session && session.map((m)=>(
               
               <div className="session">
                  Session {m.id}
-                 <Teacher_dayOff popup={popup} />
-                 <div>
-                 <CreateEmploi/>
-                 </div>
+                 
+                 <CreateEmploi sessionId={m.id}  teacherId={teacher_id}/>
+                 
+                 
               </div>
               
           )) }

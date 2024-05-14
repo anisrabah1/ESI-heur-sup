@@ -82,7 +82,7 @@ const navigate=useNavigate();
           
           if(data.status==="success"){
             Cookies.set("token",data.token,{expires:90})    // 90 days to disconect
-            navigate("creatEmploi");
+            navigate("main");
             console.log('succsee!');
             setIsSpinning(false);
           }

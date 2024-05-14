@@ -49,7 +49,7 @@ const Teacher_info = ({search,setSearch}) => {
          <div className="teacher-info">
          <Teacher_details data={dataT}/>
          
-           <Teacher_sessions popup={set_close}/>
+           <Teacher_sessions popup={set_close} teacher_id={id}/>
            
          </div>
            

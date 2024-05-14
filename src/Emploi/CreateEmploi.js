@@ -38,7 +38,16 @@ const dayMappings2 = {
 };
 const lesJours = Object.keys(dayMappings);
 
-export default function CreateEmploi() {
+
+
+
+
+
+
+
+
+export default function CreateEmploi({sessionId,teacherId}) {
+
   dayjs.extend(customParseFormat);
   const onChange = (time, timeString) => {
     console.log(timeString);
@@ -118,11 +127,13 @@ export default function CreateEmploi() {
 
     fetchData(
       "teacherSessions",
-      "662fd86ea0a31891a0454ade",
+      '662c1513ba129bf7b1cb438f',
       "seances",
       setCards
     );
   }, [isFetch]);
+
+  //fetch________Departement !
 
   useEffect(() => {
     const fetchData = async () => {
@@ -400,19 +411,7 @@ export default function CreateEmploi() {
 
   const [wait, setWait] = useState(false);
 
-  //   const seance = {
-  //     seanceDay: "Sunday",
-  //     startHour: "10:00",
-  //     endHour: "13:00",
-  //     group: "662a58ca40b914adc8370592",
-  //     level: "66075803ba1501b5cf8edc2f",
-  //     semester: "6626c358e27889543821a568",
-  //     department: "6607572dba1501b5cf8edc19",
-  //     seanceType: "662ad6243b0e958c646c8b67", // TD : 662ad5e270358c3d8a41cc59 , TP : 662ad6243b0e958c646c8b67 , cour : 662b548512cc1bd7c62cc1b1
-  //     // "section" : "6626ac86eddb6454f58adc21",
-  //     subject: "6626e409fbf71d72f4b2c874",
-  //     room: "66280c1c19a1193c4e0361ab",
-  //   };
+ 
 
   const mySubmit = async (e) => {
     e.preventDefault();
@@ -438,7 +437,7 @@ export default function CreateEmploi() {
       const response = await fetch(
         "http://" +
           apiUrl +
-          ":3000/api/v1/teacherSessions/662fd86ea0a31891a0454ade/seances",
+          ":3000/api/v1/teacherSessions/662c1513ba129bf7b1cb438f/seances",
         {
           method: "POST",
           body: JSON.stringify(newSeance),
@@ -453,7 +452,7 @@ export default function CreateEmploi() {
       setIsLoading(false);
       const data = await response.json();
       console.log(data.data);
-      console.log("Creation_____!");
+      console.log("Creation___ seance__!");
       if (!response.ok) {
         console.log("ERROR :", data);
         throw new Error(data.message || "Server Error");
@@ -502,38 +501,23 @@ export default function CreateEmploi() {
     }
   };
 
-  //       useEffect(()=>
-  // {
-  //     fetch(url)
-  //     .then(response=>{
-
-  //         console.log(response.ok);
-  //         if(!response.ok){
-  //             throw Error('can not connect to the server');
-  //         }
-  //         return response.json();
-  //     })
-  //     .then(data=>{
-  //         console.log(data);
-  //         setPost(data);
-  //         setIsWaiting(false);
-  //     }).catch(e=>{
-  //         console.log("e.message = "+e.message);
-  //         setIsWaiting(false);
-  //         console.log("-----"+url)
-  //     })
-  // }
-
-  // ,[url]
-  // );
+  
 
   return (
     <>
       <div className="container">
-        <h2>Creation Emploi du temps</h2>
-        <button className="button" onClick={handleClickOpen}>
-          Create
-        </button>
+        
+        
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h3>Seances :</h3>
+            <div className="add-icon" onClick={handleClickOpen}>
+              <lord-icon
+                src="https://cdn.lordicon.com/hqymfzvj.json"
+                trigger="hover"
+                style={{ width: "30px", height: "30px" }}
+              ></lord-icon>
+            </div>
+          </div>
         <Spin tip="Loading..." fullscreen="true" spinning={isSpinning}></Spin>
 
         <div className="container-Cards">
