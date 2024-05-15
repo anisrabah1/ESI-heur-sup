@@ -1,0 +1,220 @@
+.container-System-param *{
+    margin:0 ;
+    padding: 0;
+    box-sizing : border-box;
+    font-family:'Poppins' ,sans-serif ;
+    
+}
+
+.container-System-param{
+    height: 100%;
+    width: 100%;
+}
+.cnt {
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+    background-color: rgba(128, 128, 128, 0.116);
+    height: 100%;
+    width: 100%;
+}
+
+
+.sessionY {
+    background-color: rgba(130, 107, 107, 0.169);
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 14px;
+    transition: all 0.4s ease;
+    
+}
+
+.details-param{
+    max-width: 100%;
+}
+
+.sessionY .line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.sessionY:hover {
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.32);
+}
+
+#sess {
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 20px;
+    letter-spacing: 1px;
+}
+
+.sessionY .details-param .indication {
+    font-size: 13px;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    color: rgb(255, 0, 0);
+    text-transform: capitalize;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+.sessionY .details-param .indic-add {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.add-icon:hover,
+.delete-icon:hover,
+.edit-icon:hover {
+    cursor: pointer;
+}
+
+.sessionY .details-param .session-card {
+    display: flex;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(83, 83, 83, 0.411);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sessionY .details-param .session-card .from,
+.sessionY .details-param .session-card .to {
+    display: flex;
+    width: 33%;
+    margin-right: 10px;
+    align-items: center;
+}
+
+.sessionY .details-param .session-card .name {
+    display: flex;
+    width: 40%;
+    align-items: center;
+    margin-right: 10px;
+   
+}
+
+.sessionY .details-param .session-card span {
+    margin: 0px 10px 0px 0px;
+    color: #2c4770;
+    font-size: 14px;
+    
+    width: 30%;
+}
+
+.sessionY .details-param .session-card input {
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 0px 8px 0px 4px;
+    padding: 4px 8px;
+    width: 70%;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #0c0c0c;
+    background: transparent;
+}
+
+.sessionY .details-param .session-card input[type="text"] {
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 0px 8px 0px 4px;
+    padding: 4px 8px;
+    width: 80%;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #292c58;
+    background: transparent;
+}
+
+.details-param {
+    width: 100%;
+    display: none;
+}
+
+.details-param-Opened {
+    width: 100%;
+    display: block;
+    
+}
+
+.form-group {
+    display: flex;
+    border-bottom: solid 1px #143465;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+
+.input-param {
+    display: flex;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.input-param input {
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 0px 8px 0px 4px;
+    padding: 4px 8px;
+    width: 100%; /* Adjusted to be responsive */
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #292c58;
+    background: transparent;
+}
+
+.input-param span {
+    font-size: 15px;
+    display: inline-block;
+    color: black;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-right: 5px;
+}
+
+.container-Btn-Add {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-Add {
+    background-image: linear-gradient(255deg, #3274d9, #2f4971);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    height: 30px;
+    width: 165px;
+    border-radius: 12px;
+    letter-spacing: 0.8px;
+    margin-top: 8px auto;
+    transition: 0.2s;
+}
+
+.btn-Add:hover {
+    background-image: linear-gradient(255deg, #3275d9f4, #2f4971f3);
+    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.363);
+}
+
+.add-icon:hover {
+    cursor: pointer;
+}
+
+.delete-icon:hover {
+    cursor: pointer;
+}
+
+.edit-icon:hover {
+    cursor: pointer;
+}
+
+
+.edit-and-delete-session-container-horizontal{
+    display: flex;
+
+}

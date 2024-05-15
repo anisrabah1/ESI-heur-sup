@@ -1,0 +1,43 @@
+.form{
+    background-color: rgba(255, 255, 255, 0.884);
+    position: relative;
+    width: 89%;
+    
+    height: 100vw;
+    border-radius: 20px;
+    box-shadow: 0px 0px 2px 2px rgba(0, 255, 234, 0.767);
+    padding-left: 5%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+}
+.formC{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 3%;
+}
+.form1{
+    position: relative;
+    width: 40%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: stretch;
+}
+.form3{
+    position: relative;
+    width: 30%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: stretch;
+}
+.birth{
+    position: relative;
+    width: 100%;
+    font-weight: bold;
+    font-size: 100%;display: flex;
+    align-items: center;
+    color: rgb(125, 125, 125);
+}
