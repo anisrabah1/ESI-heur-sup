@@ -36,6 +36,7 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) =>
     return ( 
         <div>
 {session && session.map((m)=>(
+{session && session.map((m)=>(
               
               <div className="session">
                  Session {m._id}<br></br>

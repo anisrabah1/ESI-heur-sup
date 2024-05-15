@@ -52,33 +52,33 @@ const Home = () => {
     return (
         <div>
             <Tamplate/>
-            <div className='content'>
+                        <div className='content'>
 
-            
-        <div className="home">
-             
-            <div className="labels">
-                <div className="label-1">Welcome, Administrators!</div>
-                <div className="label-2">Accurate Calculations, Clear Reports. All in One Place</div>
-            </div>
-            <div className="counters">
-            <div className="teacher-count">
-                <center>
-                <div className="c-label">total teachers</div>
-                <div className="n-label">{currentNumber}</div>
-                </center>
-            </div>
-            <div className="total-houre">
-            <center>
-                <div className="c-label">total additional hours</div>
-                <div className="n-label">{currentNumber2}</div>
-                </center>
-            </div>
-            </div>
-            
-        </div>
-        </div>
-        </div>
+                        
+                    <div className="home">
+                        
+                        <div className="labels">
+                            <div className="label-1">Welcome, Administrators!</div>
+                            <div className="label-2">Accurate Calculations, Clear Reports. All in One Place</div>
+                        </div>
+                        <div className="counters">
+                        <div className="teacher-count">
+                            <center>
+                            <div className="c-label">total teachers</div>
+                            <div className="n-label">{currentNumber}</div>
+                            </center>
+                        </div>
+                        <div className="total-houre">
+                        <center>
+                            <div className="c-label">total additional hours</div>
+                            <div className="n-label">{currentNumber2}</div>
+                            </center>
+                        </div>
+                        </div>
+                        
+                    </div>
+                    </div>
+                    </div>
      );
 }
  
