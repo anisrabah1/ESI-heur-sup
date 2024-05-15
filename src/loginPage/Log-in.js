@@ -102,7 +102,7 @@ const navigate=useNavigate();
 
       
     return (
-        <section>
+        <section className='container-login-page'>
              <Spin tip="Loading..."
            fullscreen='true'
            spinning={isSpinning}

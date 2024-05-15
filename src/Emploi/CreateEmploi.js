@@ -508,7 +508,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
   
 
   return (
-    <>
+    <div className="container-Create-empoi">
       <div className="container">
         
         
@@ -548,7 +548,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
                   <div className="c2-3-4lines-icon">
                     <div className="c2-3-4lines">
                       <div className="second-Line">
-                        <h5>{item.seanceType.seanceTypeName}</h5>
+                       {item.seanceType.seanceTypeName && <h5>{item.seanceType.seanceTypeName}</h5> }
                         <p>{item.subject.subjectName} </p>
                       </div>
                       <div className="third-Line">
@@ -561,18 +561,18 @@ export default function CreateEmploi({sessionId,teacherId}) {
                         <p>{item.room.roomName}</p>
                       </div>
                     </div>
-                    <div className="icons">
+                    <div className="icons-card-seance">
                       <div
                         className="lord-icon"
-                        style={{ margin: "0px 0px 0px 10%" }}
+                        style={{ }}
                       >
                         <lord-icon
                           src="https://cdn.lordicon.com/lyrrgrsl.json"
                           trigger="hover"
                           colors="primary:#ffffff"
                           style={{
-                            width: "48px",
-                            height: "46px",
+                            width: "38px",
+                            height: "36px",
                             margin: "0px 0px 0px 10%",
                           }}
                           techer
@@ -581,7 +581,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
 
                       <div
                         className="lord-icon"
-                        style={{ margin: "0px 0px 0px 5%" }}
+                        style={{  }}
                       >
                         <Popconfirm
                           title="Delete the seance"
@@ -596,8 +596,8 @@ export default function CreateEmploi({sessionId,teacherId}) {
                             state="morph-trash-full"
                             colors="primary:#ffffff"
                             style={{
-                              width: "48px",
-                              height: "48px",
+                              width: "38px",
+                              height: "38px",
                               margin: "0px 0px 0px 15%",
                             }}
                           ></lord-icon>
@@ -922,6 +922,6 @@ export default function CreateEmploi({sessionId,teacherId}) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -69,7 +69,7 @@
 }
 .teachers{
     position: relative;
-    height: 47%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     overflow-y:scroll;

@@ -91,7 +91,7 @@ width: 100%;
 
     width: 60%;
 }
-.icons{
+.icons-card-seance{
     display: flex;
     align-items: start;
     flex-wrap: wrap;
@@ -99,6 +99,7 @@ width: 100%;
     padding: 0px 0px;
     margin-left: 4%;
     padding: 5% 0px;
+    
 }
 
 
@@ -112,13 +113,13 @@ width: 100%;
 
 
 @media(max-width:600px){
-    .icons{
+    .icons-card-seance{
         display: flex;
         flex-direction: column;
         align-items: center;
         flex-wrap: wrap;
-        width: 40%;
-        margin-left: 4%;
+        width: 34%;
+        justify-content: space-around;
         
     }
     .lord-icon{    

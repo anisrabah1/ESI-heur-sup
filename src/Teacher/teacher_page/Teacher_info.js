@@ -46,12 +46,11 @@ const Teacher_info = ({search,setSearch}) => {
         <div>
         <Tamplate search={search} setSearch={setSearch}/>
         <div className=" content">
-         <div className="teacher-info">
-         <Teacher_details data={dataT}/>
+         
          
            <Teacher_sessions popup={set_close} teacher_id={id}/>
            
-         </div>
+         
            
         </div>
         { close &&

@@ -207,617 +207,616 @@ export default function SystemeParam() {
 
   return (
    
-<div>
+<div >
             <Tamplate/>
-                        <div className='content'>
-   
-    
-    <div className="cnt" >
-      {isOpen && (
-        <div className={`popup ${isOpen ? "open" : ""}`}>
-          <div className="popup-content">
-            <div className="icon" onClick={handleClickClose}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                size="lg"
-                style={{ color: "#2f4971" }}
-                className="icon2"
-              />
-            </div>
-            <h4>Add Session </h4>
-            <div className="form-Content">
-              <form
-                onSubmit={(e) => {
-                  mySubmit(e, "sessions", { sessionName, startDate, endDate });
-                }}
-              >
-                <div className="form-group">
-                  <div className="input-param">
-                    <span>Name</span>
-                    <input
-                      type="text"
-                      onChange={(e) => setSessionName(e.target.value)}
-                      
-                    />
-                  </div>
-                  <div className="input-param">
-                    <span>Start </span>
-                    <input
-                      type="date"
-                      onChange={(e) => setStartDate(e.target.value)}
-                      
-                    />
-                  </div>
-                  <div className="input-param">
-                    <span>End</span>
-                    <input
-                      type="date"
-                      onChange={(e) => setEndDate(e.target.value)}
-                      
-                    />
-                  </div>
-                </div>
-                <div className="container-Btn-Add">
-                  <input
-                    type="submit"
-                    value={isLoading ? "En cours..." : "Add"}
-                    name=""
-                    className="btn-Add"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-      {addingGrade && (
-        <div className={`popup ${addingGrade ? "open" : ""}`}>
-          <div className="popup-content">
-            <div className="icon" onClick={handleClickClose}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                size="lg"
-                style={{ color: "#2f4971" }}
-                className="icon2"
-              />
-            </div>
-            <h4>Grade teacher </h4>
-            <div className="form-Content">
-              <form
-                onSubmit={(e) => {
-                  mySubmit(e, "positions", { positionName, amountPerSeance });
-                }}
-              >
-                <div className="form-group">
-                  <div className="input-param">
-                    <span>Grade Name</span>
-                    <input
-                      type="text"
-                      onChange={(e) => setPositionName(e.target.value)}
-                    />
-                  </div>
-                  <div className="input-param">
-                    <span>Amount </span>
-                    <input
-                      type="number"
-                      onChange={(e) => setAmountPerSeance(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="container-Btn-Add">
-                  <input
-                    type="submit"
-                    value={isLoading ? "En cours..." : "Add"}
-                    name=""
-                    className="btn-Add"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {addingSeanceType && (
-        <div className={`popup ${addingSeanceType ? "open" : ""}`}>
-          <div className="popup-content">
-            <div className="icon" onClick={handleClickClose}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                size="lg"
-                style={{ color: "#2f4971" }}
-                className="icon2"
-              />
-            </div>
-            <h4>Seance type </h4>
-            <div className="form-Content">
-              <form
-                onSubmit={(e) => {
-                  mySubmit(e, "seanceTypes", { seanceTypeName, coefficient });
-                }}
-              >
-                <div className="form-group">
-                  <div className="input-param">
-                    <span>Seance Name</span>
-                    <input
-                      type="text"
-                      onChange={(e) => setSeanceTypeName(e.target.value)}
-                    />
-                  </div>
-                  <div className="input-param">
-                    <span>Coefficient </span>
-                    <input
-                      type="text"
-                      onChange={(e) => setCoefficient(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="container-Btn-Add">
-                  <input
-                    type="submit"
-                    value={isLoading ? "En cours..." : "Add"}
-                    name=""
-                    className="btn-Add"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {addingOffDay && (
-        <div className={`popup ${addingOffDay ? "open" : ""}`}>
-          <div className="popup-content">
-            <div className="icon" onClick={handleClickClose}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                size="lg"
-                style={{ color: "#2f4971" }}
-                className="icon2"
-              />
-            </div>
-            <h4>Off day </h4>
-            <div className="form-Content">
-              <form
-                onSubmit={(e) => {
-                  mySubmit(e, "offDayTypes", { offDayTypeName, personal });
-                }}
-              >
-                <div className="form-group">
-                  <div className="input-param">
-                    <span>Name</span>
-                    <input
-                      type="text"
-                      onChange={(e) => setOffDayTypeName(e.target.value)}
-                    />
-                  </div>
-                  <div className="input-param">
-                    <span>Personel :</span>
-                    <Checkbox 
-                     onChange={onChangeY}>
-
-                   </Checkbox>
-                  </div>
-                </div>
-                <div className="container-Btn-Add">
-                  <input
-                    type="submit"
-                    value={isLoading ? "En cours..." : "Add"}
-                    name=""
-                    className="btn-Add"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="sessionY">
-            <div
-              className="line"
-              onClick={() => {
-                setOpenSec(prev => !prev);
-                console.log(openSec);
-              }}
-            >
-              <p id="sess">Sessions</p>
-              <div
-                className="more-icon"
-                onClick={() => {
-                  setOpenSec(prev => !prev);
-                }}
-              >
-                <lord-icon
-                  src="https://cdn.lordicon.com/rmkahxvq.json"
-                  trigger="hover"
-                  style={{ width: "30px", height: "30px" }}
-                ></lord-icon>
-              </div>
-            </div>
-
-        <div className={`details-param ${openSec ? "details-param-Opened" : ''}`}>
-          {!sessions ? (
-              <div className="indic-add">
-                <div className="indication"> no sessions !</div>
-              </div>
-          ) : (
-             sessions.map((item) => {
-              return (
-                <div className="session-card">
-                  <div className="name">
-                    <span>Name </span>
-                    <input type="text" value={item.sessionName} />
-                  </div>
-                  <div className="from">
-                    <span>From</span>
-                    <input
-                      type="date"
-                      value={item.startDate.substring(0, 10)}
-                    />
-                  </div>
-                  <div className="to">
-                    <span>To </span>
-                    <input type="date" value={item.endDate.substring(0, 10)} />
-                  </div>
-
-                  <div className="edit-icon">
-                    <lord-icon
-                      src="https://cdn.lordicon.com/lecprnjb.json"
-                      trigger="hover"
-                      colors="primary:#2c4770"
-                      style={{ width: "22px", height: "22px" }}
-                    ></lord-icon>
-                  </div>
-                  <div
-                    className="delete-icon"
-                    onClick={(e) => {
-                      setIsShown(true);
-                      e.preventDefault();
-                    }}
-                  >
-                    <Popconfirm
-                      title="Delete the session"
-                      description="Are you sure to delete this task?"
-                      onConfirm={() =>
-                        deleting("sessions", item._id, setSessions)
-                      }
-                      onCancel={cancel}
-                      okText="Yes"
-                      cancelText="No"
-                    >
-                      <div>
-                        <lord-icon
-                          src="https://cdn.lordicon.com/nqtddedc.json"
-                          trigger="hover"
-                          colors="primary:#2c4770"
-                          style={{
-                            width: "22px",
-                            height: "22px",
-                            marginLeft: "8px",
-                          }}
-                        ></lord-icon>
-                      </div>
-                    </Popconfirm>
-                  </div>
-                </div>
-              );
-            })
-          )}
-        
-
-          <div style={{ display: "flex", justifyContent: "end"  ,width:'100%'}}>
-            <div className="add-icon" onClick={handleClickOpen}>
-              <lord-icon
-                src="https://cdn.lordicon.com/hqymfzvj.json"
-                trigger="hover"
-                style={{ width: "30px", height: "30px" }}
-              ></lord-icon>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div className="sessionY">
-        <div className="line"
-                onClick={(e) => {
-                  setOpenGrade(!openGrade);
-                }}
-              >
-          <p id="sess">Teacher Grade</p>
-          <div
-            className="more-icon"
-            onClick={(e) => {
-              setOpenGrade(!openGrade);
-            }}
-          >
-            <lord-icon
-              src="https://cdn.lordicon.com/rmkahxvq.json"
-              trigger="hover"
-              style={{ width: "30px", height: "30px" }}
-            ></lord-icon>
-          </div>
-        </div>
-
-        <div className={`details-param ${openGrade ? "details-param-Opened" : ''}`}>
-          {!grades ? (
-            <div className="indic-add">
-              <div className="indication"> no grades!</div>
-            </div>
-          ) : (
-            grades.map((item) => {
-              return (
-                <div className="session-card">
-                  <div className="name">
-                    <span>Name </span>
-                    <input type="text" value={item.positionName} />
-                  </div>
-                  <div className="from">
-                    <span>Amount</span>
-                    <input type="number" value={item.amountPerSeance} />
-                  </div>
-                  <div className="edit-and-delete-session-container-horizontal">
-                      <div className="edit-icon">
-                        <lord-icon
-                          src="https://cdn.lordicon.com/lecprnjb.json"
-                          trigger="hover"
-                          colors="primary:#2c4770"
-                          style={{ width: "22px", height: "22px" }}
-                        ></lord-icon>
-                      </div>
-                      <div
-                        className="delete-icon"
-                        onClick={(e) => {
-                          setIsShown(true);
-                          e.preventDefault();
+    <div className='content'>
+      <div className='container-System-param'>
+            <div className="cnt" >
+              {isOpen && (
+                <div className={`popup ${isOpen ? "open" : ""}`}>
+                  <div className="popup-content">
+                    <div className="icon" onClick={handleClickClose}>
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        size="lg"
+                        style={{ color: "#2f4971" }}
+                        className="icon2"
+                      />
+                    </div>
+                    <h4>Add Session </h4>
+                    <div className="form-Content">
+                      <form
+                        onSubmit={(e) => {
+                          mySubmit(e, "sessions", { sessionName, startDate, endDate });
                         }}
                       >
-                        <Popconfirm
-                          title="Delete the session"
-                          description="Are you sure to delete this task?"
-                          onConfirm={() =>
-                            deleting("positions", item._id, setGrades)
-                          }
-                          onCancel={cancel}
-                          okText="Yes"
-                          cancelText="No"
-                        >
-                          <div>
+                        <div className="form-group">
+                          <div className="input-param">
+                            <span>Name</span>
+                            <input
+                              type="text"
+                              onChange={(e) => setSessionName(e.target.value)}
+                              
+                            />
+                          </div>
+                          <div className="input-param">
+                            <span>Start </span>
+                            <input
+                              type="date"
+                              onChange={(e) => setStartDate(e.target.value)}
+                              
+                            />
+                          </div>
+                          <div className="input-param">
+                            <span>End</span>
+                            <input
+                              type="date"
+                              onChange={(e) => setEndDate(e.target.value)}
+                              
+                            />
+                          </div>
+                        </div>
+                        <div className="container-Btn-Add">
+                          <input
+                            type="submit"
+                            value={isLoading ? "En cours..." : "Add"}
+                            name=""
+                            className="btn-Add"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {addingGrade && (
+                <div className={`popup ${addingGrade ? "open" : ""}`}>
+                  <div className="popup-content">
+                    <div className="icon" onClick={handleClickClose}>
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        size="lg"
+                        style={{ color: "#2f4971" }}
+                        className="icon2"
+                      />
+                    </div>
+                    <h4>Grade teacher </h4>
+                    <div className="form-Content">
+                      <form
+                        onSubmit={(e) => {
+                          mySubmit(e, "positions", { positionName, amountPerSeance });
+                        }}
+                      >
+                        <div className="form-group">
+                          <div className="input-param">
+                            <span>Grade Name</span>
+                            <input
+                              type="text"
+                              onChange={(e) => setPositionName(e.target.value)}
+                            />
+                          </div>
+                          <div className="input-param">
+                            <span>Amount </span>
+                            <input
+                              type="number"
+                              onChange={(e) => setAmountPerSeance(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                        <div className="container-Btn-Add">
+                          <input
+                            type="submit"
+                            value={isLoading ? "En cours..." : "Add"}
+                            name=""
+                            className="btn-Add"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {addingSeanceType && (
+                <div className={`popup ${addingSeanceType ? "open" : ""}`}>
+                  <div className="popup-content">
+                    <div className="icon" onClick={handleClickClose}>
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        size="lg"
+                        style={{ color: "#2f4971" }}
+                        className="icon2"
+                      />
+                    </div>
+                    <h4>Seance type </h4>
+                    <div className="form-Content">
+                      <form
+                        onSubmit={(e) => {
+                          mySubmit(e, "seanceTypes", { seanceTypeName, coefficient });
+                        }}
+                      >
+                        <div className="form-group">
+                          <div className="input-param">
+                            <span>Seance Name</span>
+                            <input
+                              type="text"
+                              onChange={(e) => setSeanceTypeName(e.target.value)}
+                            />
+                          </div>
+                          <div className="input-param">
+                            <span>Coefficient </span>
+                            <input
+                              type="text"
+                              onChange={(e) => setCoefficient(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                        <div className="container-Btn-Add">
+                          <input
+                            type="submit"
+                            value={isLoading ? "En cours..." : "Add"}
+                            name=""
+                            className="btn-Add"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {addingOffDay && (
+                <div className={`popup ${addingOffDay ? "open" : ""}`}>
+                  <div className="popup-content">
+                    <div className="icon" onClick={handleClickClose}>
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        size="lg"
+                        style={{ color: "#2f4971" }}
+                        className="icon2"
+                      />
+                    </div>
+                    <h4>Off day </h4>
+                    <div className="form-Content">
+                      <form
+                        onSubmit={(e) => {
+                          mySubmit(e, "offDayTypes", { offDayTypeName, personal });
+                        }}
+                      >
+                        <div className="form-group">
+                          <div className="input-param">
+                            <span>Name</span>
+                            <input
+                              type="text"
+                              onChange={(e) => setOffDayTypeName(e.target.value)}
+                            />
+                          </div>
+                          <div className="input-param">
+                            <span>Personel :</span>
+                            <Checkbox 
+                            onChange={onChangeY}>
+
+                          </Checkbox>
+                          </div>
+                        </div>
+                        <div className="container-Btn-Add">
+                          <input
+                            type="submit"
+                            value={isLoading ? "En cours..." : "Add"}
+                            name=""
+                            className="btn-Add"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="sessionY">
+                    <div
+                      className="line"
+                      onClick={() => {
+                        setOpenSec(prev => !prev);
+                        console.log(openSec);
+                      }}
+                    >
+                      <p id="sess">Sessions</p>
+                      <div
+                        className="more-icon"
+                        onClick={() => {
+                          setOpenSec(prev => !prev);
+                        }}
+                      >
+                        <lord-icon
+                          src="https://cdn.lordicon.com/rmkahxvq.json"
+                          trigger="hover"
+                          style={{ width: "30px", height: "30px" }}
+                        ></lord-icon>
+                      </div>
+                    </div>
+
+                <div className={`details-param ${openSec ? "details-param-Opened" : ''}`}>
+                  {!sessions ? (
+                      <div className="indic-add">
+                        <div className="indication"> no sessions !</div>
+                      </div>
+                  ) : (
+                    sessions.map((item) => {
+                      return (
+                        <div className="session-card">
+                          <div className="name">
+                            <span>Name </span>
+                            <input type="text" value={item.sessionName} />
+                          </div>
+                          <div className="from">
+                            <span>From</span>
+                            <input
+                              type="date"
+                              value={item.startDate.substring(0, 10)}
+                            />
+                          </div>
+                          <div className="to">
+                            <span>To </span>
+                            <input type="date" value={item.endDate.substring(0, 10)} />
+                          </div>
+
+                          <div className="edit-icon">
                             <lord-icon
-                              src="https://cdn.lordicon.com/nqtddedc.json"
+                              src="https://cdn.lordicon.com/lecprnjb.json"
                               trigger="hover"
                               colors="primary:#2c4770"
-                              style={{
-                                width: "22px",
-                                height: "22px",
-                                marginLeft: "8px",
-                              }}
+                              style={{ width: "22px", height: "22px" }}
                             ></lord-icon>
                           </div>
-                        </Popconfirm>
-                      </div>
+                          <div
+                            className="delete-icon"
+                            onClick={(e) => {
+                              setIsShown(true);
+                              e.preventDefault();
+                            }}
+                          >
+                            <Popconfirm
+                              title="Delete the session"
+                              description="Are you sure to delete this task?"
+                              onConfirm={() =>
+                                deleting("sessions", item._id, setSessions)
+                              }
+                              onCancel={cancel}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <div>
+                                <lord-icon
+                                  src="https://cdn.lordicon.com/nqtddedc.json"
+                                  trigger="hover"
+                                  colors="primary:#2c4770"
+                                  style={{
+                                    width: "22px",
+                                    height: "22px",
+                                    marginLeft: "8px",
+                                  }}
+                                ></lord-icon>
+                              </div>
+                            </Popconfirm>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                
+
+                  <div style={{ display: "flex", justifyContent: "end"  ,width:'100%'}}>
+                    <div className="add-icon" onClick={handleClickOpen}>
+                      <lord-icon
+                        src="https://cdn.lordicon.com/hqymfzvj.json"
+                        trigger="hover"
+                        style={{ width: "30px", height: "30px" }}
+                      ></lord-icon>
+                    </div>
                   </div>
+
                 </div>
-              );
-            })
-          )}
-          {/* --------------------------------------------------------------------------- */}
+              </div>
 
-       
-
-          <div style={{display: "flex", justifyContent: "end"  ,width:'100%'}}>
-            <div className="add-icon" onClick={handleClickAddingGrade}>
-              <lord-icon
-                src="https://cdn.lordicon.com/hqymfzvj.json"
-                trigger="hover"
-                style={{ width: "30px", height: "30px" }}
-              ></lord-icon>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="sessionY">
-        <div
-          className="line"
-          onClick={() => {
-            setOpenSeanceType(!openSeanceType);
-          }}
-        >
-          <p id="sess">Seance Type</p>
-          <div
-            className="more-icon"
-            onClick={() => {
-              setOpenSeanceType(!openSeanceType);
-            }}
-          >
-            <lord-icon
-              src="https://cdn.lordicon.com/rmkahxvq.json"
-              trigger="hover"
-              style={{ width: "30px", height: "30px" }}
-            ></lord-icon>
-          </div>
-        </div>
-
-        <div className={`details-param ${openSeanceType ? "details-param-Opened" : ""}`}>
-          <div className="indic-add">
-            {!seanceType && (
-              <div className="indication"> no seance Types !</div>
-            )}
-          </div>
-          {seanceType &&
-            seanceType.map((item) => {
-              return (
-                <div className="session-card">
-                  <div className="name">
-                    <span>Name </span>
-                    <input type="text" value={item.seanceTypeName} />
-                  </div>
-                  <div className="from">
-                    <span>Coefficient</span>
-                    <input type="number" value={item.coefficient} />
-                  </div>
-                  <div className="edit-and-delete-session-container-horizontal">
-                  <div className="edit-icon">
-                    <lord-icon
-                      src="https://cdn.lordicon.com/lecprnjb.json"
-                      trigger="hover"
-                      colors="primary:#2c4770"
-                      style={{ width: "22px", height: "22px" }}
-                    ></lord-icon>
-                  </div>
+              <div className="sessionY">
+                <div className="line"
+                        onClick={(e) => {
+                          setOpenGrade(!openGrade);
+                        }}
+                      >
+                  <p id="sess">Teacher Grade</p>
                   <div
-                    className="delete-icon"
+                    className="more-icon"
                     onClick={(e) => {
-                      setIsShown(true);
-                      e.preventDefault();
+                      setOpenGrade(!openGrade);
                     }}
                   >
-                    <Popconfirm
-                      title="Delete the seance Type ?"
-                      description="Are you sure to delete this task?"
-                      onConfirm={() =>
-                        deleting("seanceTypes", item._id, setSeanceType)
-                      }
-                      onCancel={cancel}
-                      okText="Yes"
-                      cancelText="No"
-                    >
-                      <div>
-                        <lord-icon
-                          src="https://cdn.lordicon.com/nqtddedc.json"
-                          trigger="hover"
-                          colors="primary:#2c4770"
-                          style={{
-                            width: "22px",
-                            height: "22px",
-                            marginLeft: "8px",
-                          }}
-                        ></lord-icon>
-                      </div>
-                    </Popconfirm>
-                  </div>
-                  </div>
-                </div>
-              );
-            })}
-          {/* --------------------------------------------------------------------------- */}
-
-         
-
-          <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
-            <div className="add-icon" onClick={handleClickAddingSeanceType}>
-              <lord-icon
-                src="https://cdn.lordicon.com/hqymfzvj.json"
-                trigger="hover"
-                style={{ width: "30px", height: "30px" }}
-              ></lord-icon>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="sessionY">
-        <div
-          className="line"
-          onClick={() => {
-            setOffDayOpen(!offDayOpen);
-          }}
-        >
-          <p id="sess">Off Day Type</p>
-          <div
-            className="more-icon"
-            onClick={() => {
-              setOffDayOpen(!offDayOpen);
-            }}
-          >
-            <lord-icon
-              src="https://cdn.lordicon.com/rmkahxvq.json"
-              trigger="hover"
-              style={{ width: "30px", height: "30px" }}
-            ></lord-icon>
-          </div>
-        </div>
-
-        <div className={`details-param ${offDayOpen ? "details-param-Opened" : ""}`}>
-          <div className="indic-add">
-            {!offDay && <div className="indication"> no off-Days types !</div>}
-          </div>
-          {offDay &&
-            offDay.map((item) => {
-              return (
-                <div className="session-card">
-                  <div className="name">
-                    <span>Type Name </span>
-                    <input type="text" value={item.offDayTypeName} />
-                  </div>
-                  <div className="from">
-
-                   {item.personal ?  <span>Personel</span> : (<span>Non Personel</span>)} 
-                    
-                  </div>
-                  <div className="edit-and-delete-session-container-horizontal">
-                  <div className="edit-icon">
                     <lord-icon
-                      src="https://cdn.lordicon.com/lecprnjb.json"
+                      src="https://cdn.lordicon.com/rmkahxvq.json"
                       trigger="hover"
-                      colors="primary:#2c4770"
-                      style={{ width: "22px", height: "22px" }}
+                      style={{ width: "30px", height: "30px" }}
                     ></lord-icon>
                   </div>
-                  <div
-                    className="delete-icon"
-                    onClick={(e) => {
-                      setIsShown(true);
-                      e.preventDefault();
-                    }}
-                  >
-                    <Popconfirm
-                      title="Delete Off Day Type ?"
-                      description="Are you sure to delete this task?"
-                      onConfirm={() =>
-                        deleting("offDayTypes", item._id, setOffDay)
-                      }
-                      onCancel={cancel}
-                      okText="Yes"
-                      cancelText="No"
-                    >
-                      <div>
-                        <lord-icon
-                          src="https://cdn.lordicon.com/nqtddedc.json"
-                          trigger="hover"
-                          colors="primary:#2c4770"
-                          style={{
-                            width: "22px",
-                            height: "22px",
-                            marginLeft: "8px",
-                          }}
-                        ></lord-icon>
-                      </div>
-                    </Popconfirm>
-                  </div>
+                </div>
+
+                <div className={`details-param ${openGrade ? "details-param-Opened" : ''}`}>
+                  {!grades ? (
+                    <div className="indic-add">
+                      <div className="indication"> no grades!</div>
+                    </div>
+                  ) : (
+                    grades.map((item) => {
+                      return (
+                        <div className="session-card">
+                          <div className="name">
+                            <span>Name </span>
+                            <input type="text" value={item.positionName} />
+                          </div>
+                          <div className="from">
+                            <span>Amount</span>
+                            <input type="number" value={item.amountPerSeance} />
+                          </div>
+                          <div className="edit-and-delete-session-container-horizontal">
+                              <div className="edit-icon">
+                                <lord-icon
+                                  src="https://cdn.lordicon.com/lecprnjb.json"
+                                  trigger="hover"
+                                  colors="primary:#2c4770"
+                                  style={{ width: "22px", height: "22px" }}
+                                ></lord-icon>
+                              </div>
+                              <div
+                                className="delete-icon"
+                                onClick={(e) => {
+                                  setIsShown(true);
+                                  e.preventDefault();
+                                }}
+                              >
+                                <Popconfirm
+                                  title="Delete the session"
+                                  description="Are you sure to delete this task?"
+                                  onConfirm={() =>
+                                    deleting("positions", item._id, setGrades)
+                                  }
+                                  onCancel={cancel}
+                                  okText="Yes"
+                                  cancelText="No"
+                                >
+                                  <div>
+                                    <lord-icon
+                                      src="https://cdn.lordicon.com/nqtddedc.json"
+                                      trigger="hover"
+                                      colors="primary:#2c4770"
+                                      style={{
+                                        width: "22px",
+                                        height: "22px",
+                                        marginLeft: "8px",
+                                      }}
+                                    ></lord-icon>
+                                  </div>
+                                </Popconfirm>
+                              </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                  {/* --------------------------------------------------------------------------- */}
+
+              
+
+                  <div style={{display: "flex", justifyContent: "end"  ,width:'100%'}}>
+                    <div className="add-icon" onClick={handleClickAddingGrade}>
+                      <lord-icon
+                        src="https://cdn.lordicon.com/hqymfzvj.json"
+                        trigger="hover"
+                        style={{ width: "30px", height: "30px" }}
+                      ></lord-icon>
+                    </div>
                   </div>
                 </div>
-              );
-            })}
-          {/* --------------------------------------------------------------------------- */}
+              </div>
 
-          <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
-            <div className="add-icon" onClick={handleClickAddingOffDay}>
-              <lord-icon
-                src="https://cdn.lordicon.com/hqymfzvj.json"
-                trigger="hover"
-                style={{ width: "30px", height: "30px" }}
-              ></lord-icon>
+              <div className="sessionY">
+                <div
+                  className="line"
+                  onClick={() => {
+                    setOpenSeanceType(!openSeanceType);
+                  }}
+                >
+                  <p id="sess">Seance Type</p>
+                  <div
+                    className="more-icon"
+                    onClick={() => {
+                      setOpenSeanceType(!openSeanceType);
+                    }}
+                  >
+                    <lord-icon
+                      src="https://cdn.lordicon.com/rmkahxvq.json"
+                      trigger="hover"
+                      style={{ width: "30px", height: "30px" }}
+                    ></lord-icon>
+                  </div>
+                </div>
+
+                <div className={`details-param ${openSeanceType ? "details-param-Opened" : ""}`}>
+                  <div className="indic-add">
+                    {!seanceType && (
+                      <div className="indication"> no seance Types !</div>
+                    )}
+                  </div>
+                  {seanceType &&
+                    seanceType.map((item) => {
+                      return (
+                        <div className="session-card">
+                          <div className="name">
+                            <span>Name </span>
+                            <input type="text" value={item.seanceTypeName} />
+                          </div>
+                          <div className="from">
+                            <span>Coefficient</span>
+                            <input type="number" value={item.coefficient} />
+                          </div>
+                          <div className="edit-and-delete-session-container-horizontal">
+                          <div className="edit-icon">
+                            <lord-icon
+                              src="https://cdn.lordicon.com/lecprnjb.json"
+                              trigger="hover"
+                              colors="primary:#2c4770"
+                              style={{ width: "22px", height: "22px" }}
+                            ></lord-icon>
+                          </div>
+                          <div
+                            className="delete-icon"
+                            onClick={(e) => {
+                              setIsShown(true);
+                              e.preventDefault();
+                            }}
+                          >
+                            <Popconfirm
+                              title="Delete the seance Type ?"
+                              description="Are you sure to delete this task?"
+                              onConfirm={() =>
+                                deleting("seanceTypes", item._id, setSeanceType)
+                              }
+                              onCancel={cancel}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <div>
+                                <lord-icon
+                                  src="https://cdn.lordicon.com/nqtddedc.json"
+                                  trigger="hover"
+                                  colors="primary:#2c4770"
+                                  style={{
+                                    width: "22px",
+                                    height: "22px",
+                                    marginLeft: "8px",
+                                  }}
+                                ></lord-icon>
+                              </div>
+                            </Popconfirm>
+                          </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  {/* --------------------------------------------------------------------------- */}
+
+                
+
+                  <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
+                    <div className="add-icon" onClick={handleClickAddingSeanceType}>
+                      <lord-icon
+                        src="https://cdn.lordicon.com/hqymfzvj.json"
+                        trigger="hover"
+                        style={{ width: "30px", height: "30px" }}
+                      ></lord-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="sessionY">
+                <div
+                  className="line"
+                  onClick={() => {
+                    setOffDayOpen(!offDayOpen);
+                  }}
+                >
+                  <p id="sess">Off Day Type</p>
+                  <div
+                    className="more-icon"
+                    onClick={() => {
+                      setOffDayOpen(!offDayOpen);
+                    }}
+                  >
+                    <lord-icon
+                      src="https://cdn.lordicon.com/rmkahxvq.json"
+                      trigger="hover"
+                      style={{ width: "30px", height: "30px" }}
+                    ></lord-icon>
+                  </div>
+                </div>
+
+                <div className={`details-param ${offDayOpen ? "details-param-Opened" : ""}`}>
+                  <div className="indic-add">
+                    {!offDay && <div className="indication"> no off-Days types !</div>}
+                  </div>
+                  {offDay &&
+                    offDay.map((item) => {
+                      return (
+                        <div className="session-card">
+                          <div className="name">
+                            <span>Type Name </span>
+                            <input type="text" value={item.offDayTypeName} />
+                          </div>
+                          <div className="from">
+
+                          {item.personal ?  <span>Personel</span> : (<span>Non Personel</span>)} 
+                            
+                          </div>
+                          <div className="edit-and-delete-session-container-horizontal">
+                          <div className="edit-icon">
+                            <lord-icon
+                              src="https://cdn.lordicon.com/lecprnjb.json"
+                              trigger="hover"
+                              colors="primary:#2c4770"
+                              style={{ width: "22px", height: "22px" }}
+                            ></lord-icon>
+                          </div>
+                          <div
+                            className="delete-icon"
+                            onClick={(e) => {
+                              setIsShown(true);
+                              e.preventDefault();
+                            }}
+                          >
+                            <Popconfirm
+                              title="Delete Off Day Type ?"
+                              description="Are you sure to delete this task?"
+                              onConfirm={() =>
+                                deleting("offDayTypes", item._id, setOffDay)
+                              }
+                              onCancel={cancel}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <div>
+                                <lord-icon
+                                  src="https://cdn.lordicon.com/nqtddedc.json"
+                                  trigger="hover"
+                                  colors="primary:#2c4770"
+                                  style={{
+                                    width: "22px",
+                                    height: "22px",
+                                    marginLeft: "8px",
+                                  }}
+                                ></lord-icon>
+                              </div>
+                            </Popconfirm>
+                          </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  {/* --------------------------------------------------------------------------- */}
+
+                  <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
+                    <div className="add-icon" onClick={handleClickAddingOffDay}>
+                      <lord-icon
+                        src="https://cdn.lordicon.com/hqymfzvj.json"
+                        trigger="hover"
+                        style={{ width: "30px", height: "30px" }}
+                      ></lord-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-
-    </div>
-    </div>
+</div>
   );
 }

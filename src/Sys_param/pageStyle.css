@@ -1,3 +1,15 @@
+.container-System-param *{
+    margin:0 ;
+    padding: 0;
+    box-sizing : border-box;
+    font-family:'Poppins' ,sans-serif ;
+    
+}
+
+.container-System-param{
+    height: 100%;
+    width: 100%;
+}
 .cnt {
     padding: 20px;
     position: relative;
