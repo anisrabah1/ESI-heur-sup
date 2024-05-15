@@ -41,7 +41,7 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) =>
                  startDate {m.startDate}<br></br>
                  startDate {m.endDate}
                  {/* here is the emploi */}
-                 <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id}/>
+                 
                  <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id}/>
               </div>
               

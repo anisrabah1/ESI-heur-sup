@@ -61,7 +61,7 @@ phoneNumber: "",
         <Tamplate search={search} setSearch={setSearch}/>
         <div className=" content">
          <div className="teacher-info">
-         <Teacher_details data={DataT}/>
+         {/* <Teacher_details data={DataT}/> */}
          
            <Teacher_sessions sessionPopup={set_sessionClose} dayOffPopup={set_dayOffClose} teacherID={id} sessionCreate={setCreateSessionID}/>
            

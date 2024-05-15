@@ -4,16 +4,17 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import ApiUrls from '../APIs';
+// import ApiUrls from '../APIs';
 import { Spin } from "antd";
 import {  toaster } from 'evergreen-ui'
+import apiUrl from '../global_Vars/apiConfig';
 
 
 export default function Log_in (){
 
 
    
-    const apiUrl = new ApiUrls();
+    // const apiUrl = new ApiUrls();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -62,7 +63,7 @@ const navigate=useNavigate();
         {isOffline && (  toaster.warning('Please check your internet connection !'))}
         try {
             setIsSpinning(true);
-          const response = await fetch(apiUrl.getUrl('login'), {
+            const response = await fetch('http://'+apiUrl+':3000/api/v1/admin/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

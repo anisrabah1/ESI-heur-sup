@@ -15,7 +15,7 @@ import SystemeParam from './Sys_param/SystemParam';
 
 
 import Loading from './loading';
-  import Log_in from './Login/Log-in'
+  import Log_in from './loginPage/Log-in'
 import Teacher_info from './Teacher/teacher_page/Teacher_info';
 
 function App() {
