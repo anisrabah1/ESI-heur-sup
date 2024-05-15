@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import ApiUrls from '../../APIs';
+import Cookies from "js-cookie";
 import { toaster } from 'evergreen-ui'
 
 const Session_popup = ({set_close,teacherID}) => {
@@ -20,44 +21,52 @@ const Session_popup = ({set_close,teacherID}) => {
 
 
     const fetchSessions = async () => {
-      
+      const token = Cookies.get("token");
       try {
         
-          const response = await fetch(`${apiUrls.getUrl('getGlobSessions')}`);
+          const response = await fetch(`${apiUrls.getUrl('getGlobSessions')}`,{
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              Authorization: `Bearer ${token}`,
+            },
+          });
           
           const data = await response.json();
          
           toaster.notify(data.message); 
+          
           setGlobSessions(data.sessions );
         } catch (error) {
-           console.log(error)
+           
            toaster.notify(error); 
           
         }
   };
  
     const createSession = async (id) => {
-      
+      const token = Cookies.get("token");
       try {
          
           const response = await fetch(`${apiUrls.getUrl('getTeachers')}/${id}/teacherSessions`,
         {
             method: 'POST', // Specify the HTTP method as POST
             headers: {
-                'Content-Type': 'application/json' // Specify the content type as JSON
+              "Content-type": "application/json; charset=UTF-8",
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(selected)
         }
 
         );
         const data = await response.json();
-        console.log(data)
+        toaster.notify(data.message); 
           
           
           
           
         } catch (error) {
-           console.log(error)
+           
+           toaster.notify(error); 
           
         }
         

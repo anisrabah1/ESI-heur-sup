@@ -53,14 +53,17 @@ const Teachers = ({search,setSearch}) => {
         try {
             console.log('this is me',apiUrls.getUrl('getTeachers'))
             const response = await fetch(apiUrls.getUrl('getTeachers'),{
+                
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
                     Authorization: `Bearer ${token}`,
                   },
             });
-            // console.log(response)
+            console.log('-----------------------------------------');
+            console.log('response');
+            console.log(response.message);
             const data = await response.json();
-            console.log(data)
+            console.log('data', data)
 
         set_t(data.teachers)
            setIsLoading(false)

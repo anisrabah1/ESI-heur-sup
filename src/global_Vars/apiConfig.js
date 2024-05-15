@@ -1,5 +1,5 @@
 // apiConfig.js
 
-const apiUrl = "172.20.10.4";
+const apiUrl = "192.168.43.5";
 
 export default apiUrl;

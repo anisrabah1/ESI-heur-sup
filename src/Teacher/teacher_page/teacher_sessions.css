@@ -1,8 +1,8 @@
 .session{
     position: relative;
-    width: 82vw;
+    width: 88%;
     height: auto;
-    padding: 16px;
+    padding: 5%;
     background-color: rgb(255, 255, 255);
     margin-top: 2%;
     margin-left: 1%;
@@ -12,8 +12,6 @@
     font-weight: bold;
     color:rgb(72, 72, 72);
     font-size: 1.6vw;
-    box-shadow: 1px 1px 6px 6px rgba(134, 132, 132, 0.416);
-    min-height: 350px;
     
 }
 .addB{
