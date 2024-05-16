@@ -57,7 +57,7 @@ section .contentBx {
 
 }
 
-.box-indic{
+.box_indic{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -99,7 +99,7 @@ section .contentBx .indication p{
 
 
 
-.box-indic .chose .admin ,.box-indic .chose .teacher{
+.box-indic .chose .admin ,.box-indic .chose .teacher_login{
     width: 100px;
     height: 100px;
     
@@ -118,12 +118,12 @@ section .contentBx .indication p{
     cursor: pointer;
 }
 
-.box-indic .chose .admin img , .teacher img {
+.box-indic .chose .admin img , .teacher_login img {
     width: 40px;
     margin-bottom:4px ;
 }
 
-.box-indic .chose .teacher:hover{
+.box-indic .chose .teacher_login:hover{
     background-color: #A6C3E6;
     border: solid 0.1px #2f497163;
     cursor: pointer;
@@ -197,4 +197,3 @@ section .contentBx .formBx .forget a:hover{
     text-decoration: underline;
     cursor: pointer;  
 } 
-

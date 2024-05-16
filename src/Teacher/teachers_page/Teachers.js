@@ -10,7 +10,7 @@ import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import ApiUrls from '../../APIs';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from "js-cookie";
 
 
     
@@ -18,6 +18,7 @@ const Teachers = ({search,setSearch}) => {
     const [create, set_create] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [submit, setsubmit] = useState(false);
+    const [refetch, Setrefetch] = useState(false);
     const navigate = useNavigate();
 
     
@@ -47,17 +48,27 @@ const Teachers = ({search,setSearch}) => {
     };
 
     const fetchData = async () => {
+        const token = Cookies.get("token");
         setIsLoading(true)
         try {
             console.log('this is me',apiUrls.getUrl('getTeachers'))
-            const response = await fetch(apiUrls.getUrl('getTeachers'));
-            // console.log(response)
+            const response = await fetch(apiUrls.getUrl('getTeachers'),{
+                
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    Authorization: `Bearer ${token}`,
+                  },
+            });
+            console.log('-----------------------------------------');
+            console.log('response');
+            console.log(response.message);
             const data = await response.json();
-            console.log(data)
+            console.log('data', data)
 
         set_t(data.teachers)
            setIsLoading(false)
             console.log('succsee!');
+            
           } catch (error) {
              console.log(error)
             
@@ -85,7 +96,7 @@ const Teachers = ({search,setSearch}) => {
             }
         }
         set_ts(buf)
-
+        
         console.log(ts)    }
     // Create an instance of the ApiUrls class
 const apiUrls = new ApiUrls();
@@ -95,7 +106,6 @@ const apiUrls = new ApiUrls();
     const [ts,set_ts] = useState([])
         useEffect (() => {
             fetchData();
-            
         },[]);
         useEffect(()=>{
             
@@ -120,15 +130,12 @@ const apiUrls = new ApiUrls();
                 <Tamplate search={search} setSearch={setSearch}/>
                 <div className='content'>
                 
-    {submit && <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-      create teacher was successful.
-    </Alert>
-    }
+    
         <div className="teachers">
             
             { ts && !create && !isLoading && ts.map((m)=>(
               
-                <Teacher_card teacher={m} />
+                <Teacher_card teacher={m} submit={isLoading}/>
                 
             )) }
             {create && !isLoading &&

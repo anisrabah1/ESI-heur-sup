@@ -11,12 +11,40 @@
     position: relative;
     text-align: center;
     width: 100%;
+    
+    border-top:solid 1px black ;
+    border-bottom:solid 1px black ;
+
+    margin-top: 15px;
+    padding: 4px;
 }
 .container-Cards{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding: 6px 0px;
+    width: 100%;
+    height: fit-content;
     
+}
+
+.container-Cards-more-icone {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s ease-in-out, height 2s ease-in-out , width 2s ease-in-out;
+}
+
+.container-Cards-more-icone-AFTER {
+    opacity: 1;
+    height: auto; /* This makes sure it grows to its full height */
+    transition: opacity 0.2s ease-in-out, height 0.2s ease-in-out, width 2s ease-in-out;
+}
+
+
+.more-icon-tk{
+    display: flex;
+    transition: all 1s;
 }
 
 .container h3{
@@ -61,7 +89,7 @@
 
     opacity: 0; /* Initially hidden */
     visibility: hidden;
-    transition: opacity 0.9s ease-in-out, visibility 2s ease-in-out;  /* Less common approach */
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;  /* Less common approach */
     
    
 }
@@ -69,18 +97,33 @@
 .popup.open { /* Styles for when the popup is open */
     opacity: 1;
     visibility: visible;
-    transition:  0.9s ease-in-out; 
+    transition:  0.2s ease-in-out; 
     z-index: 2;
   }
 .popup-content{
-    max-height: 100%;
+    max-height: 90%;
     height: fit-content;
     width: 70%;
     background: #fff;
-    padding: 18px;
+    
     border-radius: 8px;
     position: relative;
     overflow-y:auto ;
+    padding: 18px;
+   
+}
+
+.popup-content-forAddingHSup{
+    max-height: 90%;
+    height: fit-content;
+    width: 600px;
+    background: #fff;
+    
+    border-radius: 8px;
+    position: relative;
+    overflow-y:auto ;
+    padding: 18px;
+   
 }
 
 .icon{
@@ -122,8 +165,80 @@
 
 }
 
+
+.form-Content .input-Box-Adding-HSup{
+    width: 100%;
+    height: fit-content;
+    margin: 2px 0px;
+    padding: 4px 16px 8px 6px;
+    display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content:space-between;
+   margin-top: 10px;
+}
+.form-Content .input-Box-Adding-HSup #rnk {
+    width:80%
+}
+.form-Content .input-Box-Adding-HSup #rnk  {
+    width:80%;
+    margin-right: 2px;
+}
+/*_____________Adding Heure Supp ______________*/
+.form-Content .input-Box-Adding-HSup select{
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 2px 0px;
+    padding: 4px 8px;
+    width: 20%;
+    font-size: 13px;
+    height: 30px;
+    letter-spacing: 1px;
+    color :#292c58;
+    background: transparent;
+    margin-left: 5%;
+}
+.form-Content .input-Box-Adding-HSup span {
+    font-size: 15px;
+    display: inline-block;
+    color:black;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 1px rgba(128, 128, 128, 0.251);
+}
+.heure-supp-y{    /* le module et Type */
+    display: flex;
+   
+}
+
+.input-Box-Adding-HSup .btn-Create{
+    background-image:linear-gradient(255deg, #3274D9,#2F4971);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    height: 32px;
+    width:fit-content;
+    padding: 2px 20px;
+    border-radius: 12px;
+    letter-spacing: 0.8px;
+    transition:0.2s ;
+    margin-right: 10%;
+}
+
+.input-Box-Adding-HSup .btn-Create:hover{
+    background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
+    box-shadow: 2px 2px 30px 1px rgba(0, 0, 0, 0.363); 
+}
+
+
+
+
+/*____________________________________________________________*/
  .popup-content h4{
     color: #2f4971;
+    font-size: 15px;
 }
 
 .input-Box span{
@@ -146,6 +261,22 @@
     letter-spacing: 1px;
     color :#292c58;
     background: transparent;
+    
+}
+
+.houre-Style-Adding{
+    border: solid 0.2px #2f497100;
+    border-radius: 12px;
+    margin: 2px 0px;
+    padding: 4px 8px;
+    width: 76%;
+    font-size: 13px;
+    height: 28px;
+    
+    letter-spacing: 1px;
+    color :#292c58;
+    background: transparent;
+    
 }
 
 .input-Box input ,select{

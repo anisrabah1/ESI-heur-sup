@@ -5,9 +5,12 @@ class ApiUrls {
     constructor() {
         this.baseUrl = 'http://localhost:3000/api/v1'
         this.endpoints = {
+            login: `${this.baseUrl}/admin/login`,
             getTeachers: `${this.baseUrl}/teachers`,
             getCreate: `${this.baseUrl}/`,
-            getAllSessions:`${this.baseUrl}/sessions`,
+            getAllSessions:`${this.baseUrl}/teacherSessions`,
+            getGlobSessions:`${this.baseUrl}/sessions`,
+            getPositions:`${this.baseUrl}/positions`,
             
             // Add more endpoints as needed
         };

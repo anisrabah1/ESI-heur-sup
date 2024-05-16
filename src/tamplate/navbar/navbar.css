@@ -15,6 +15,9 @@
   }
 
   .text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     margin: -1.5% 3% ;
     color: #011f43cb;

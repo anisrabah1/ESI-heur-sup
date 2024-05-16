@@ -81,7 +81,7 @@
     position: absolute;
     align-items: center;
     justify-content: center;
-   bottom: -30vh;
+    bottom: -30vh;
     background-color: #007bff00;
     color: white;
     border: none;
@@ -90,7 +90,6 @@
    }
    .btic1{
     position: relative;
-    
     background-image: url('../assets/Home 1.png');
     background-size: cover;
     margin: auto 0% ;

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import ApiUrls from '../../APIs';
 const Teacher_card
- = ({teacher}) => {
+ = ({teacher,submit}) => {
     const navigate = useNavigate();
 
     const [screenSize, setScreenSize] = useState({
@@ -34,6 +34,7 @@ const Teacher_card
     const DeletData = async () => {
         
         try {
+            submit(true);
             console.log('this is me',`${apiUrls.getUrl('getTeachers')}/${teacher._id}`)
             const response = await fetch(`${apiUrls.getUrl('getTeachers')}/${teacher._id}`,{method:'DELETE'});
             // console.log(response)
@@ -43,6 +44,7 @@ const Teacher_card
         
            
             console.log('Delete succsee!');
+            submit(false);
           } catch (error) {
              console.log(error)
             
@@ -51,7 +53,10 @@ const Teacher_card
 
     return ( 
     
-    <div className="teacher"  onClick={()=>{navigate(`/teacher/${teacher._id}`)}} >
+    <div className="teacher"  onClick={()=>{
+        
+        navigate(`/teacher/${teacher._id}`);
+        }} >
     
     <Avatar alt={teacher.firstName} src="/assets/n.png"  sx={{ width: window.innerWidth*0.1,
         height: window.innerWidth*0.1 ,bgcolor: blue[700]}} className='photo_container'/>

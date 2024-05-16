@@ -1,19 +1,20 @@
-import './Login.css';
+import log from './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import apiUrl from '../global_Vars/apiConfig';
+// import ApiUrls from '../APIs';
 import { Spin } from "antd";
 import {  toaster } from 'evergreen-ui'
+import apiUrl from '../global_Vars/apiConfig';
 
 
 export default function Log_in (){
 
 
    
-
+    // const apiUrl = new ApiUrls();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -62,7 +63,7 @@ const navigate=useNavigate();
         {isOffline && (  toaster.warning('Please check your internet connection !'))}
         try {
             setIsSpinning(true);
-          const response = await fetch('http://'+apiUrl+':3000/api/v1/admin/login', {
+            const response = await fetch('http://'+apiUrl+':3000/api/v1/admin/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ const navigate=useNavigate();
             body: JSON.stringify({ email, password }),
           });
           setIsSpinning(false);
-          console.log(response)
+          console.log(response.message)
     
           const data = await response.json();
           console.log(data.data)
@@ -82,7 +83,7 @@ const navigate=useNavigate();
           
           if(data.status==="success"){
             Cookies.set("token",data.token,{expires:90})    // 90 days to disconect
-            navigate("main");
+            navigate("/home");
             console.log('succsee!');
             setIsSpinning(false);
           }
@@ -128,7 +129,7 @@ const navigate=useNavigate();
                                 <img src={require("./admin.webp")} />
                                 <p>Admin</p>
                             </div>
-                            <div className='teacher' onClick={toCreateEmploi}> 
+                            <div className='teacher_login' onClick={toCreateEmploi}> 
                                 <img src={require("./teachers.png")} />
                                 <p>Teacher</p>
                             </div>

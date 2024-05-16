@@ -8,7 +8,7 @@ function Sidebar  () {
             <div className="logo"/>
         </div>
         <div className="buttons-container">
-        <Link to={'/main'} className='link'>
+<Link to={'/home'} className='link'>
         <button className="sideb"  >
                  <div className="btic1"/>
                 <div className="bttx">Home</div>
@@ -37,9 +37,11 @@ function Sidebar  () {
                 <div className="bttx">Profile</div>
             </button>
             <br />
-            <Link to={'/systemParam'} className="sideb">
+            <Link to={'/systemParam'}  className='link'>
+            <button className="sideb">
                  <div className="btic6"/>
                 <div className="bttx">Settings</div>
+                </button>
             </Link>
             <button className="sideabout">
                  <div className="btic7"/>

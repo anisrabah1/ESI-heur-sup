@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Check';
 import IconButton from '@mui/material/IconButton';
-
+import { toaster } from 'evergreen-ui';
 import InputLabel from '@mui/material/InputLabel';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -29,12 +29,15 @@ const Form = ({submit,create}) => {
             phoneNumber:'',
             major:'',
             employmentStatus:'',
-            position:'662d0dbfed0ec17a9299c946',
+            position:'',
             dateOfBirth:'',
             homeInstitution:'',
+            cardType:'CCP',
+            cardNumber:'1357854'
             
         }
     );
+    const [positions , setPositions]= useState();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -64,10 +67,30 @@ const Form = ({submit,create}) => {
         })
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
-            console.log('Response:', data); // Handle the response data
+            
+            toaster.notify(data.message); // Handle the response data
         })
         .catch(error => {
-            console.error('Error:', error.message   ); // Handle errors
+            toaster.notify(error.message); // Handle errors
+        });
+        
+    };
+    useEffect(()=>{
+        getpositions();
+    },[])
+    function getpositions (){
+        fetch(apiUrls.getUrl('getPositions'))
+        .then(response => response.json()) // Parse the JSON response
+        .then(data => {
+            
+            
+            setPositions(data.positions);
+            
+             // Handle the response data
+        })
+        .catch(error => {
+            toaster.notify(error.message);
+             // Handle errors
         });
         
     };
@@ -128,7 +151,10 @@ const Form = ({submit,create}) => {
           onChange={handleChange}
           
         >
-            <MenuItem value={'662d0dbfed0ec17a9299c946'}>searcher</MenuItem>
+            {positions && positions.map((e)=>(
+                <MenuItem value={e._id}>{e.positionName}</MenuItem>
+            ))}
+            
           
           
         </Select>
