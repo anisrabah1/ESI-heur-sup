@@ -574,7 +574,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
   };
 
 
-  const deleteAddHour =()=>{
+  const deleteAddHour = async ()=>{
     try {
       setIsLoading(true);
       const token = Cookies.get("token");
@@ -583,6 +583,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
         `http://${apiUrl}:3000/api/v1/teacherSessions/662c1513ba129bf7b1cb438f/seances/${seanceId}/unset-add-hour`,
         {
           method: "PATCH",
+          body: JSON.stringify(updatedSeance),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
             Authorization: `Bearer ${token}`,
@@ -608,7 +609,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
       console.log(error.message);
     }
   };
-  }
+  
 
   const [hoveredIcons, setHoveredIcons] = useState({});
 
