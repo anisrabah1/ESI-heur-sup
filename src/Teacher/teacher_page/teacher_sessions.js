@@ -5,6 +5,8 @@ import ApiUrls from '../../APIs';
 import { toaster } from 'evergreen-ui';
 import Cookies from "js-cookie";
 import CreateEmploi from '../../Emploi/CreateEmploi';
+
+
 const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) => {
     const [session,set_session] = useState([]);
     const apiUrls = new ApiUrls();
@@ -43,7 +45,7 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) =>
                  startDate {m.startDate}<br></br>
                  startDate {m.endDate}
                  {/* here is the emploi */}
-                 <CreateEmploi/>
+                 <CreateEmploi sessionId={m._id}/>
                  <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id}/>
               </div>
               

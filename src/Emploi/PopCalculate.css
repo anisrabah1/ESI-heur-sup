@@ -1,0 +1,100 @@
+.popUp-Calculate{
+    background-color: hsla(0, 0%, 0%, 0.507);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+   
+
+    opacity: 0; /* Initially hidden */
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;  /* Less common approach */
+    
+}
+
+.popUp-Calculate.open { /* Styles for when the popup is open */
+    opacity: 1;
+    visibility: visible;
+    transition:  0.2s ease-in-out; 
+    z-index: 2;
+  }
+  
+  .popUp-Calculate .resultsY{
+    max-height: 90%;
+    height:fit-content;
+    width: fit-content;
+    background: #fff;
+    
+    border-radius: 8px;
+    position: relative;
+    overflow-y:auto ;
+    padding: 30px 50px 24px 20px;
+   
+  }
+
+  .resultsY .lineY {
+    display: flex;
+    justify-content: start;
+    margin: 10px 0px;
+  }
+  .resultsY .lineY[id='heure-sup-line']{
+    margin-top: 10px;
+  }
+
+  .resultsY .lineY .keyY{
+    font-size: 18px;
+    color:#000420;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    margin-right: 10px;
+  }
+
+  .resultsY .lineY .valueY{
+    font-size: 18px;
+    color:#00a00d;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    margin-right: 10px;
+  }
+
+  .resultsY .lineY .unitéY{
+    font-size: 16px;
+    color:#0026038c;
+    font-weight: 450;
+    letter-spacing: 0.2px;
+    margin-right: 10px;
+  }
+
+
+ #btn-To-Calculate{
+    background-image:linear-gradient(255deg, #3274D9,#2F4971);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+#btn-To-Calculate:hover{
+    background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
+}
+
+
+#calculate-heure{ /* botton li yji m3a les cards bah yhsseb charge horaire*/
+  background-image:linear-gradient(255deg, #3274D9,#2F4971);
+  color: #fff;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+#calculate-heure:hover{
+  background-image:linear-gradient(255deg, #3275d9f4,#2f4971f3);
+  box-shadow: 1px 2px 40px 1px  #292c588a;
+}

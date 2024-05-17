@@ -1,24 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
-  faPenToSquare,
+  
 } from "@fortawesome/free-solid-svg-icons";
+
 import "./style.css";
 import "./cards.css";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiUrl from "../global_Vars/apiConfig";
 
-import lottie from "lottie-web";
-import { defineElement } from "@lordicon/element";
 
-import { TimePicker, TimePickerProps } from "antd";
+
+import { TimePicker } from "antd";
 import { Popconfirm } from "antd";
 import { Spin } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 import {  toaster } from 'evergreen-ui'
+
+import "./PopCalculate.css"
+import PopCalculate from "./PopCalculate";
+ 
+
 
 // Mapping between French and English names of the days of the week
 const dayMappings = {
@@ -47,7 +52,7 @@ const lesJours = Object.keys(dayMappings);
 
 
 
-export default function CreateEmploi({sessionId,teacherId}) {
+export default function CreateEmploi({sessionId}) {
 
   const [detailsOpened,setDetailsOpened]=useState(false);
 
@@ -92,6 +97,9 @@ export default function CreateEmploi({sessionId,teacherId}) {
 
   const [cards, setCards] = useState(null);
 
+  const [startFetchingStructure ,setStartFetchingStructure]=useState();
+
+
   useEffect(() => {
     const fetchData = async (
       whereFetch,
@@ -130,7 +138,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
 
     fetchData(
       "teacherSessions",
-      '662c1513ba129bf7b1cb438f',
+      sessionId,
       "seances",
       setCards
     );
@@ -416,7 +424,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
 
  
 
-  const mySubmit = async (e) => {
+  const mySubmit = async (e,teacherSessionId) => {
     e.preventDefault();
     console.log("___________in this________________" + selectedSalle);
     const newSeance = {
@@ -428,7 +436,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
       semester: selectedSem,
       department: selectedDep,
       seanceType: selectedType, // TD : 662ad5e270358c3d8a41cc59 , TP : 662ad6243b0e958c646c8b67 , cour : 662b548512cc1bd7c62cc1b1
-      // "section" : "6626ac86eddb6454f58adc21",
+      
       section: selectedSection,
       subject: selectedModule,
       room: selectedSalle,
@@ -440,7 +448,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
       const response = await fetch(
         "http://" +
           apiUrl +
-          ":3000/api/v1/teacherSessions/662c1513ba129bf7b1cb438f/seances",
+          ":3000/api/v1/teacherSessions/"+teacherSessionId+"/seances",
         {
           method: "POST",
           body: JSON.stringify(newSeance),
@@ -516,7 +524,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
   const [addingHourSup,setAddingHourSup]=useState(false);
   const [selectedAddHour,setSelectedAddHour]=useState(0.5);
   const handleClickToAddHourSup = (item) => {
-    setAddingHourSup(true)
+    setAddingHourSup(true);
     setSeanceToPatch(item);
     console.log(item);
   }
@@ -528,50 +536,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
   const [seanceToPatch ,setSeanceToPatch]=useState ();
   
   
-  const mydelete = async (e) => {
-    
-    
-    const updatedSeance = {
-       
-        addHour : true, 
-        numberOfAddHours :selectedAddHour,
-    
-    };
-
-    try {
-      setIsLoading(true);
-      const token = Cookies.get("token");
-      const seanceId = seanceToPatch._id; // Replace this with the actual seance ID
-      const response = await fetch(
-        `http://${apiUrl}:3000/api/v1/teacherSessions/662c1513ba129bf7b1cb438f/seances/${seanceId}/set-add-hour`,
-        {
-          method: "PATCH",
-          body: JSON.stringify(updatedSeance),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log(response);
-      setIsLoading(false);
-      const data = await response.json();
-      console.log(data.data);
-      console.log("Update___ seance__!");
-      if (!response.ok) {
-        toaster.danger(data.message);
-        console.log("ERROR :", data);
-        throw new Error(data.message || "Server Error");
-      }
-      console.log("successfully");
-      toaster.success('seance successfully updated');
-      // Update state to trigger re-render
-      setIsFetch((prev) => !prev);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  
 
 
   const deleteAddHour = async ()=>{
@@ -580,10 +545,9 @@ export default function CreateEmploi({sessionId,teacherId}) {
       const token = Cookies.get("token");
       const seanceId = seanceToPatch._id; // Replace this with the actual seance ID
       const response = await fetch(
-        `http://${apiUrl}:3000/api/v1/teacherSessions/662c1513ba129bf7b1cb438f/seances/${seanceId}/unset-add-hour`,
+        `http://${apiUrl}:3000/api/v1/teacherSessions/${sessionId}/seances/${seanceId}/unset-add-hour`,
         {
           method: "PATCH",
-          body: JSON.stringify(updatedSeance),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
             Authorization: `Bearer ${token}`,
@@ -595,7 +559,6 @@ export default function CreateEmploi({sessionId,teacherId}) {
       setIsLoading(false);
       const data = await response.json();
       console.log(data.data);
-      console.log("Update___ seance__!");
       if (!response.ok) {
         toaster.danger(data.message);
         console.log("ERROR :", data);
@@ -625,9 +588,84 @@ export default function CreateEmploi({sessionId,teacherId}) {
 
   // console.log('Hovered Icons:', hoveredIcons);
 
+  const myUpdate = async (seanceId,sessionId) => {
+   
+    
+    const updatedSeance = {
+      addHour : true, 
+    numberOfAddHours : selectedAddHour, 
+    };
 
+
+    try {
+      setIsLoading(true);
+      const token = Cookies.get("token");
+      const response = await fetch(
+        `http://${apiUrl}:3000/api/v1/teacherSessions/${sessionId}/seances/${seanceId}/set-add-hour`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(updatedSeance),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response);
+      setIsLoading(false);
+      const data = await response.json();
+      console.log(data.data);
+      console.log("Update___ seance__!");
+      if (!response.ok) {
+        toaster.danger(data.message);
+        console.log("ERROR :", data);
+        throw new Error(data.message || "Server Error");
+      }
+      console.log("successfully");
+      toaster.success('Successfully Updated contains :'+selectedAddHour+' Add-hours');
+      setAddingHourSup(false); // close popup
+      // Update state to trigger re-render
+      setIsFetch((prev) => !prev);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
+  const[ouvert,setOuvert]=useState(false);
+  const [result,setResult]=useState(null);
+  const fetchHourlyCharge = async () => {
+    try {
+      const token = Cookies.get("token");
+      let response = await fetch(
+        `http://${apiUrl}:3000/api/v1/teacherSessions/${sessionId}/seances/HourlyCharge`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
+            'Cache-Control': 'no-cache'
+          },
+        }
+      );
+      let data = await response.json();
+      setResult(data.hourlyCharge);
+      console.log(data.hourlyCharge);
+      if (!response.ok) {
+        console.log("ERROR :", data);
+        throw new Error(data.message || "Server Error");
+            }
+        } catch (error) {
+        console.log(error.message);
+        }
+    };
   return (
+    
     <div className="container-Create-empoi">
+
+    <PopCalculate ouvert={ouvert} setOuvert={setOuvert} result={result} fetchHourlyCharge ={fetchHourlyCharge}/>
+
       <div className="container">
         
         
@@ -675,7 +713,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
                         {cards &&
                           cards.map((item) => {
                   return (
-                    <div className="card" onClick={(e)=>console.log(item.addHour)}>
+                    <div className="card" onClick={(e)=>console.log(sessionId)}>
                       <div style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}} > 
                               <div className="first-Line">
                     
@@ -695,7 +733,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
                                           </div>
                                 </div>
                                 <Popconfirm
-                              title="Delete this additional Hour?"
+                              title="Delete additional Hour?"
                               description="Are you sure to delete this additional Hour?"
                               okText="Yes"
                               cancelText="No"
@@ -703,8 +741,11 @@ export default function CreateEmploi({sessionId,teacherId}) {
                             >
                                {item.addHour && <div
                                     className="add-hour-Y"
-                                    onMouseEnter={() => handleMouseEnter(item._id)}
+                                    onMouseEnter={() => {handleMouseEnter(item._id)
+                                      setSeanceToPatch(item);
+                                    }}
                                     onMouseLeave={() => handleMouseLeave(item._id)}
+                                    
                                   >
                                     {hoveredIcons[item._id] ? (
                                       <img src={require('./delete_hsupp.png')} alt="Delete Icon"  />
@@ -806,7 +847,14 @@ export default function CreateEmploi({sessionId,teacherId}) {
                 trigger="hover"
                 style={{ width: "30px", height: "30px" ,marginRight:'1%'}}
               ></lord-icon>
+
+              
             </div>
+            <button id='calculate-heure' onClick={(e)=>{
+              setOuvert(true);
+              console.log(ouvert);
+              fetchHourlyCharge();
+            }}>Calculer </button>
         </div>
         
         
@@ -839,7 +887,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
               </div>
                     <div className="form-Content">
                         <form 
-                         onSubmit={(e)=>{ myUpdate();
+                         onSubmit={(e)=>{ myUpdate(seanceToPatch._id,sessionId);
                           e.preventDefault();
                          }}
                         >
@@ -896,7 +944,7 @@ export default function CreateEmploi({sessionId,teacherId}) {
             <h4>Formulaire Ajouter séance</h4>
 
             <div className="form-Content">
-              <form onSubmit={mySubmit}>
+              <form onSubmit={(e)=>mySubmit(e,sessionId)}>
                 <div className="module-type">
                   <div className="input-Box">
                     <span>Le jour</span>
