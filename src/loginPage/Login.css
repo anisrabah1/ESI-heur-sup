@@ -54,6 +54,7 @@ section .contentBx {
     width: 52%;
     height: 100%;
     flex-shrink: 2;
+   
 
 }
 
@@ -70,7 +71,8 @@ section .contentBx {
 
 
 section .contentBx .formBx{
-    width: 60%;
+    width: 95%;
+    
 }
 
 
@@ -94,6 +96,7 @@ section .contentBx .indication p{
     flex-wrap: wrap;
     font-size: 16px;
     font-weight: 550;
+    justify-content: center;
     
 }
 
@@ -144,6 +147,7 @@ section .contentBx h3{
 
 section .contentBx .formBx .inputBx{
     margin-bottom: 20px;
+   
 
 }
 

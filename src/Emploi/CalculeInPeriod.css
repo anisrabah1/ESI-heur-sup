@@ -1,0 +1,60 @@
+
+.resultsY-in-Period-close {
+    max-height: 0;
+    overflow: hidden;
+    width: fit-content;
+    background: #fff;
+    border-radius: 8px;
+    position: relative;
+    padding: 10px 50px 24px 20px;
+    opacity: 0;
+    transition: max-height 0.8s ease-out, opacity 0.5s ease-out;
+}
+
+.resultsY-in-Period-close.openpen {
+    max-height: 500px; /* Adjust this value based on the expected content height */
+    opacity: 1;
+}
+
+
+.line-in-calculate-period {
+    margin: 15px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.from-to-Y{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 4px;
+}
+
+
+.from-to-Y span {
+    margin: 0px 10px 0px 0px;
+    color: #2c4770;
+    font-size: 14px;
+    
+    width: fit-content;
+}
+
+
+.from-to-Y input {
+    border: solid 0.2px #2f4971;
+    border-radius: 12px;
+    margin: 0px 8px 0px 4px;
+    padding: 4px 8px;
+    width: max-content;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #0c0c0c;
+    background: transparent;
+}
+
+.ContainerY-btn-To-Calculate{
+   margin-left: 2%;
+   display: flex;
+   align-items: center;
+}

@@ -1,0 +1,8 @@
+.text-print:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.icon-print{
+    cursor: pointer;
+}

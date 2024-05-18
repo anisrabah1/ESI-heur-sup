@@ -29,16 +29,16 @@
 }
 
 .container-Cards-more-icone {
+    max-height: 0;
     opacity: 0;
-    height: 0;
     overflow: hidden;
-    transition: opacity 0.2s ease-in-out, height 2s ease-in-out , width 2s ease-in-out;
+    transition: max-height 0.2s ease-in-out, opacity 0.1s ease-in-out;
 }
 
-.container-Cards-more-icone-AFTER {
+.container-Cards-more-icone.AFTER {
+    max-height: 500px; /* Adjust this value to a large enough value */
     opacity: 1;
-    height: auto; /* This makes sure it grows to its full height */
-    transition: opacity 0.2s ease-in-out, height 0.2s ease-in-out, width 2s ease-in-out;
+    transition: max-height 0.2s ease-in-out, opacity 0.1s ease-in-out;
 }
 
 
@@ -134,11 +134,11 @@
     
 }
 .icon2{
-    transition: 0.5s;
+    transition: 0.3s;
+    
 }
 .icon2:hover{
-    width: 23px;
-    height:23px ;
+   transform: scale(1.25);
 }
 
 

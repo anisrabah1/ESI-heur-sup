@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 import apiUrl from "../global_Vars/apiConfig";
 
 
-
+import { Tooltip } from 'antd';
 import { TimePicker } from "antd";
 import { Popconfirm } from "antd";
 import { Spin } from "antd";
@@ -22,6 +22,8 @@ import {  toaster } from 'evergreen-ui'
 
 import "./PopCalculate.css"
 import PopCalculate from "./PopCalculate";
+import CalculeInPeriod from './CalculeInPeriod';
+
  
 
 
@@ -51,8 +53,7 @@ const lesJours = Object.keys(dayMappings);
 
 
 
-
-export default function CreateEmploi({sessionId}) {
+export default function CreateEmploi({sessionId , sessionDates,teacherInfos}) {
 
   const [detailsOpened,setDetailsOpened]=useState(false);
 
@@ -66,6 +67,8 @@ export default function CreateEmploi({sessionId}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [isFetch, setIsFetch] = useState(false);
+
+  const [ouvertPourPeriod,setOuvertPourPeriod]=useState(false)
 
   const handleClickOpen = async () => {
     setIsOpen(true);
@@ -423,7 +426,7 @@ export default function CreateEmploi({sessionId}) {
   const [wait, setWait] = useState(false);
 
  
-
+//add seance _____________________//
   const mySubmit = async (e,teacherSessionId) => {
     e.preventDefault();
     console.log("___________in this________________" + selectedSalle);
@@ -477,6 +480,9 @@ export default function CreateEmploi({sessionId}) {
       console.log(error.message);
     }
   };
+  
+  
+  
   const deleteSeance = async (id) => {
     try {
       const token = Cookies.get("token");
@@ -523,10 +529,24 @@ export default function CreateEmploi({sessionId}) {
   //_______________________________________________
   const [addingHourSup,setAddingHourSup]=useState(false);
   const [selectedAddHour,setSelectedAddHour]=useState(0.5);
-  const handleClickToAddHourSup = (item) => {
+  const [dureeH,setDureeH]=useState();
+  const [ coef , setCoef] =useState([]);
+  const handleClickToAddHourSup = (item,Hstart,Hend) => {
     setAddingHourSup(true);
     setSeanceToPatch(item);
-    console.log(item);
+    const start =  parseInt(Hstart.substring(0,2));
+    const end =  parseInt(Hend.substring(0,2));
+    const minS =  parseInt(Hstart.substring(3,5));
+    const minE =  parseInt(Hend.substring(3,5));
+    let diff = (end - start );
+    if(minE !== minS){diff=diff+0.5}
+    let tab =[];
+    for (let i =0.5 ; i<=diff ;i=i+0.5){
+      tab.push(i);
+    }
+    setDureeH(diff);
+    setCoef(tab);
+    console.log('Dureé = = ' + diff);
   }
   
   const handleCloseAddingHoureSup =()=>{
@@ -534,8 +554,6 @@ export default function CreateEmploi({sessionId}) {
   }
   
   const [seanceToPatch ,setSeanceToPatch]=useState ();
-  
-  
   
 
 
@@ -635,8 +653,10 @@ export default function CreateEmploi({sessionId}) {
 
   const[ouvert,setOuvert]=useState(false);
   const [result,setResult]=useState(null);
+  const[isCalculating,setIsCalculating]=useState(false);
   const fetchHourlyCharge = async () => {
     try {
+      setIsCalculating(true);
       const token = Cookies.get("token");
       let response = await fetch(
         `http://${apiUrl}:3000/api/v1/teacherSessions/${sessionId}/seances/HourlyCharge`,
@@ -649,9 +669,11 @@ export default function CreateEmploi({sessionId}) {
           },
         }
       );
+      setIsCalculating(false);
       let data = await response.json();
       setResult(data.hourlyCharge);
       console.log(data.hourlyCharge);
+      console.log('________________');
       if (!response.ok) {
         console.log("ERROR :", data);
         throw new Error(data.message || "Server Error");
@@ -663,8 +685,14 @@ export default function CreateEmploi({sessionId}) {
   return (
     
     <div className="container-Create-empoi">
+       <CalculeInPeriod  ouvertPourPeriod={ouvertPourPeriod} setOuvertPourPeriod={setOuvertPourPeriod}
+            sessionDates={sessionDates} techerSessionId={sessionId}
 
-    <PopCalculate ouvert={ouvert} setOuvert={setOuvert} result={result} fetchHourlyCharge ={fetchHourlyCharge}/>
+            />
+      <PopCalculate ouvert={ouvert} setOuvert={setOuvert} result={result} fetchHourlyCharge ={fetchHourlyCharge}
+        sessionDates={sessionDates} techerSessionId={sessionId} isCalculating={isCalculating}
+        seances={cards} teacherInfos={teacherInfos}
+        />
 
       <div className="container">
         
@@ -679,18 +707,20 @@ export default function CreateEmploi({sessionId}) {
               ></lord-icon>
             </div>
              */}
-          {!detailsOpened ? <div className={`more-icon-tk ${detailsOpened ? "more-icon-tk-after" : ""}`} 
-          onClick={(e)=>{
-            setDetailsOpened(prev=>!prev)
-            console.log(detailsOpened+'+++++++++++++++++++');
-          }} >
-            <lord-icon
-                      src="https://cdn.lordicon.com/rmkahxvq.json"
-                      trigger="hover"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
-            </div>
-            : 
+  {!detailsOpened ? 
+                  <div 
+                  className={`more-icon-tk ${detailsOpened ? "more-icon-tk-after" : ""}`} 
+                  onClick={(e)=>{
+                    setDetailsOpened(prev=>!prev)
+                    console.log(detailsOpened+'+++++++++++++++++++');
+                  }} >
+                    <lord-icon
+                              src="https://cdn.lordicon.com/rmkahxvq.json"
+                              trigger="hover"
+                              style={{ width: "30px", height: "30px" }}
+                            ></lord-icon>
+                    </div>
+                    : 
             
             <div className="more-icone" style={{display:'flex' , justifyContent:'end' }}
                     onClick={(e)=>{
@@ -708,12 +738,12 @@ export default function CreateEmploi({sessionId}) {
         <Spin tip="Loading..." fullscreen="true" spinning={isSpinning}></Spin>
 
         
-        <div className={`container-Cards-more-icone ${detailsOpened ? "container-Cards-more-icone-AFTER" : ""}`}>
+        <div className={`container-Cards-more-icone ${detailsOpened ? "AFTER" : ""}`}>
                 <div className='container-Cards'>
                         {cards &&
                           cards.map((item) => {
                   return (
-                    <div className="card" onClick={(e)=>console.log(sessionId)}>
+                    <div className="card" onClick={(e)=>console.log(item.startHour)}>
                       <div style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}} > 
                               <div className="first-Line">
                     
@@ -739,7 +769,9 @@ export default function CreateEmploi({sessionId}) {
                               cancelText="No"
                                 onConfirm={deleteAddHour}
                             >
-                               {item.addHour && <div
+                               {item.addHour && 
+                               <Tooltip title={`contient ${item.numberOfAddHours} heures Sup`} color='#87d068'>
+                               <div
                                     className="add-hour-Y"
                                     onMouseEnter={() => {handleMouseEnter(item._id)
                                       setSeanceToPatch(item);
@@ -752,7 +784,9 @@ export default function CreateEmploi({sessionId}) {
                                     ) : (
                                     <img src={require('./hsup_inthis_seance.png')} alt="Hover Icon"  />
                                     )}
-                                  </div>}
+                                  </div>
+                                </Tooltip>
+                                  }
                               </Popconfirm>
                       </div>
                       <div className="c2-3-4lines-icon">
@@ -775,7 +809,7 @@ export default function CreateEmploi({sessionId}) {
                           <div title="Add Hour Sup"
                               className="lord-icon"
                               
-                              onClick={()=>{handleClickToAddHourSup(item)
+                              onClick={()=>{handleClickToAddHourSup(item,item.startHour,item.endHour);
                                 
                               }} //-------------------------------
                             >
@@ -850,17 +884,23 @@ export default function CreateEmploi({sessionId}) {
 
               
             </div>
-            <button id='calculate-heure' onClick={(e)=>{
-              setOuvert(true);
-              console.log(ouvert);
-              fetchHourlyCharge();
-            }}>Calculer </button>
+                    <button id='calculate-heure' onClick={(e)=>{
+                      setOuvert(true);
+                      console.log(ouvert);
+                      fetchHourlyCharge();
+                    }}>Calculer </button>
+             <div className="">
+                    <button id="btn-To-Calculate" 
+                     onClick={()=>setOuvertPourPeriod(true)}
+                    >Calculer dans certains periode</button>
+                </div>
         </div>
         
         
       </div>
 
-       
+  {/* ____________________________Popup Adding Hour Sup______________________________________________________________________  */}
+
           <div className={`popup ${addingHourSup ? "open" : ""}`}>
             <div className="popup-content-forAddingHSup">
               <div className="icon" onClick={handleCloseAddingHoureSup}>
@@ -901,17 +941,19 @@ export default function CreateEmploi({sessionId}) {
                                       onFocus={
                                         (e) => {
                                           setSelectedAddHour(e.target.value);
+                                          console.log('Dureé  reelle= ' + dureeH);
                                         }}
                                         onChange={
                                           (e) => {
                                             setSelectedAddHour(e.target.value);
                                           }}
                                       >
-
-                                          <option value='0.5' >0.5</option>
-                                          <option value='1'>1</option>
-                                          <option value='1.5'>1.5</option>
-                                          <option value='2'>2</option>
+                                    {coef && coef.map((c)=>{
+                                      return(
+                                        <option value={c}>{c}</option>
+                                      )
+                                    })}  
+                                         
                                       </select>
                                       </div>
                                       <div className="co">

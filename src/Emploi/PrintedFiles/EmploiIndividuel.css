@@ -1,0 +1,77 @@
+.container-Feuille *{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container-Feuille {
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 20px;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.header-left p {
+    margin: 0;
+    line-height: 1.4;
+}
+.header-right img {
+    max-height: 100px;
+}
+main h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.tableY {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.tableY  th, .tableY td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+.tableY .thY {
+    background-color: #f2f2f2;
+}
+.footerY {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.signature, .department {
+    text-align: center;
+}
+.signature-line, .stamp {
+    margin-top: 40px;
+}
+
+
+
+@media print {
+    .container-Feuille {
+      width: 29.7cm;
+      height:21cm ;
+      margin: 0;
+      box-sizing: border-box;
+        border: none;
+    }
+  
+    .printable-page h1 {
+      font-size: 24pt;
+    }
+  
+    .printable-page p {
+      font-size: 12pt;
+    }
+  
+    .no-print {
+      display: none;
+    }
+  }

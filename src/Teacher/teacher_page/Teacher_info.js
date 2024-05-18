@@ -9,35 +9,37 @@ import Teacher_dayOff from "./teacher_dayOff";
 import ApiUrls from '../../APIs';
 import DayOff_popup from "./dayOff_popup";
 import Session_popup from "./session_popup";
+import Cookies from "js-cookie";
 
 const Teacher_info = ({search,setSearch}) => {
     const {id}=useParams();
     const [createSessionID,setCreateSessionID]=useState();
     const [DataT,set_DataT]=
     useState({
-        
-dateOfBirth: '',
+                    
+            dateOfBirth: '',
 
-degree: "",
-email: "",
-employmentStatus: "",
-firstName: '',
-homeInstitution: "",
-lastName: "",
-major: "",
-phoneNumber: "",
+            degree: "",
+            email: "",
+            employmentStatus: "",
+            firstName: '',
+            homeInstitution: "",
+            lastName: "",
+            major: "",
+            phoneNumber: "",
     });
     const [sessionClose,set_sessionClose]=useState(false);
     const [dayOffClose,set_dayOffClose]=useState(false);
     const apiUrls = new ApiUrls();
     const fetchData = async () => {
-        
+        const token = Cookies.get("token");
         try {
             console.log()
             const response = await fetch(`${apiUrls.getUrl('getTeachers')}/${id}`, {
                 method: 'GET', // Specify the HTTP method as POST
                 headers: {
-                    'Content-Type': 'application/json' // Specify the content type as JSON
+                    'Content-Type': 'application/json', // Specify the content type as JSON
+                    Authorization: `Bearer ${token}`
                 },
                
             });
@@ -45,8 +47,9 @@ phoneNumber: "",
             const data = await response.json();
            
 
-            set_DataT(data.data.data);
+            set_DataT(data.data);
             
+            console.log(data.data);
           } catch (error) {
              console.log(error)
             
@@ -61,9 +64,12 @@ phoneNumber: "",
         <Tamplate search={search} setSearch={setSearch}/>
         <div className=" content">
          
-         {/* <Teacher_details data={DataT}/> */}
+        
          
-           <Teacher_sessions sessionPopup={set_sessionClose} dayOffPopup={set_dayOffClose} teacherID={id} sessionCreate={setCreateSessionID}/>
+           <Teacher_sessions sessionPopup={set_sessionClose} 
+           dayOffPopup={set_dayOffClose} teacherID={id} sessionCreate={setCreateSessionID}
+           teacherInfos={DataT}
+           />
            
          
            

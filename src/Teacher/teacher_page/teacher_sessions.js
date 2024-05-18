@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import CreateEmploi from '../../Emploi/CreateEmploi';
 
 
-const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) => {
+const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate,teacherInfos}) => {
     const [session,set_session] = useState([]);
     const apiUrls = new ApiUrls();
     
@@ -40,13 +40,13 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) =>
         <div>
 {session && session.map((m)=>(
               
-              <div className="session">
+              <div className="session" onClick={()=>console.log(teacherInfos)}>
                  Session {m._id}<br></br>
                  startDate {m.startDate}<br></br>
                  startDate {m.endDate}
                  {/* here is the emploi */}
-                 <CreateEmploi sessionId={m._id}/>
-                 <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id}/>
+                 <CreateEmploi sessionId={m._id}  sessionDates={[m.startDate,m.endDate]}  teacherInfos={teacherInfos}/>
+                 <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id} />
               </div>
               
           )) }

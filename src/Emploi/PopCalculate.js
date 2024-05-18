@@ -4,11 +4,10 @@ import {
   faCircleXmark
 } from "@fortawesome/free-solid-svg-icons";
 
-import Cookies from "js-cookie";
-import apiUrl from "../global_Vars/apiConfig";
-
-
-export default function PopCalculate ({ouvert,setOuvert,result,fetchHourlyCharge}){
+import { Spin } from "antd";
+import { useNavigate } from 'react-router-dom';
+export default function PopCalculate ({ouvert,setOuvert,result,isCalculating,seances,teacherInfos}){
+    const navigate=useNavigate();
 
 
     // const [total_t,set_total_t] = useState('64')
@@ -58,32 +57,42 @@ export default function PopCalculate ({ouvert,setOuvert,result,fetchHourlyCharge
     //         clearInterval(intervalId2);
     //     };
     // }, [total_t,total_h]); 
-
+const[detls,setDetls]=useState(result);
     
-
-
-
-    
-    
-
+    const handleNavigate = () => {
+      console.log(teacherInfos);
+        navigate('/to-printView', {
+          state: { 
+            seances: seances, 
+            result: result, 
+            teacherInfos : teacherInfos,
+          }
+        });
+      };
 
 
     const handleCloseCalculate = () => {
         setOuvert(false);
       }
 
+    
+    
     return(
+
+
         <div className={`popUp-Calculate ${ouvert ? 'open' : ''}`}>
+           
             <div className="resultsY">
                 <div className="icon" onClick={handleCloseCalculate}>
                     <FontAwesomeIcon
                     icon={faCircleXmark}
-                    size="lg"
+                    
                     style={{ color: "#2f4971" }}
                     className="icon2"
                     />
                 </div>
-                <div className="lineY">
+           <Spin tip="Loading..." spinning={isCalculating}>
+                <div className="lineY" style={{borderBottom:'solid 1px black',paddingBottom:'10px'}}>
                     <p className="keyY">Heures Total :</p> <p className='valueY'>{result ? result.totalHour : 0}</p> <p  className='unitéY'>Heures</p>
                 </div>
                 <div >
@@ -101,18 +110,28 @@ export default function PopCalculate ({ouvert,setOuvert,result,fetchHourlyCharge
                     })}
 
                 </div>
-                <div className="lineY" id="heure-sup-line">
+                <div className="lineY" id="heure-sup-line" style={{borderTop:'solid 1px black',padding:'10px 0px',marginTop:'10px'}}>
                     <p className="keyY">Heures Supplémentaires :</p> 
                    <p className='valueY'>{result && result.addHours ? result.addHours : 0}</p>
                      <span className='unitéY'>Heures</span>
                 </div>
+                <div className="" style={{marginTop:'8%' }}>
+                                        <button id="btn-To-Calculate" 
+                                         onClick={ 
+                                            handleNavigate
+                                            
+                                         } 
+                                        >Imprimer</button>
+                                    </div> 
 
-                <div className="">
-                    <button id="btn-To-Calculate" 
-                    >Calculer dans certains periode</button>
-                </div>
+                
+            </Spin> 
             </div>
 
         </div>
-    )
+
+
+    
+
+)
 }

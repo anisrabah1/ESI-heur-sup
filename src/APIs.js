@@ -3,7 +3,7 @@ import { Public } from "@mui/icons-material";
 // Define a class to hold API URLs
 class ApiUrls {
     constructor() {
-        this.baseUrl = 'http://172.20.10.4:3000/api/v1'
+        this.baseUrl = 'http://localhost:3000/api/v1'
         this.endpoints = {
             login: `${this.baseUrl}/admin/login`,
             getTeachers: `${this.baseUrl}/teachers`,
