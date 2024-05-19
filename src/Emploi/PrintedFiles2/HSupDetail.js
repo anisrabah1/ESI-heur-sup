@@ -14,6 +14,90 @@ export default function HSupDetail(dataToPrint) {
   );
   const [modules, setModules] = useState(dataToPrint.dataToPrint.modules);
 
+  const renderMonthData = (monthName, monthData) => (
+    <>
+      <td>
+        <div
+          style={{
+            fontSize: "16px",
+            textAlign: "center",
+          }}
+        >
+          {`شهر ${monthName}`}
+        </div>
+        {Array.from({ length: 6 }, (_, i) => {
+          const weekNumber = `week-${i + 1}`;
+          const weekData = monthData[weekNumber];
+          return (
+            <span key={weekNumber}>
+              {`الأسبوع ${i + 1}: `}
+              {weekData && weekData.days
+                ? weekData.days.map((day, index) => (
+                    <span key={index} style={{ fontSize: "16px" }}>
+                      [{day.date.substring(8, 10)}]
+                    </span>
+                  ))
+                : "[ ]"}
+              <br />
+            </span>
+          );
+        })}
+      </td>
+      <td>
+        <span>
+          <br />
+        </span>
+        {Array.from({ length: 6 }, (_, i) => {
+          const weekNumber = `week-${i + 1}`;
+          const weekData = monthData[weekNumber];
+          return (
+            <span key={weekNumber} style={{ fontSize: "16px" }}>
+              {weekData && weekData.days
+                ? weekData.days.map((day, index) => (
+                    <span key={index}>[{`${day.numberOfAddHours} سا `}]</span>
+                  ))
+                : "[ ]"}
+              <br />
+            </span>
+          );
+        })}
+      </td>
+      <td style={{ fontSize: "16px", textAlign: "center" }}>
+        {monthData.totalHoursForMonth}
+      </td>
+    </>
+  );
+
+  const renderAllMonths = (item) => {
+    const months = [
+      { name: "جانفي", data: item.days.January },
+      { name: "فيفري", data: item.days.February },
+      { name: "مارس", data: item.days.March },
+      { name: "افريل", data: item.days.April },
+      { name: "ماي", data: item.days.May },
+      { name: "جوان", data: item.days.June },
+      { name: "جويلية", data: item.days.July },
+      { name: "اوت", data: item.days.August },
+      { name: "سبتمبر", data: item.days.September },
+      { name: "أكتوبر", data: item.days.October },
+      { name: "نوفمبر", data: item.days.November },
+      { name: "ديسمبر", data: item.days.December },
+    ];
+
+    return (
+      <>
+        {months.map(
+          (month) =>
+            month.data && (
+              <tr key={month.name}>
+                {renderMonthData(month.name, month.data)}
+              </tr>
+            )
+        )}
+      </>
+    );
+  };
+
   return (
     <div className="container-Feuille2">
       <header>
@@ -84,12 +168,11 @@ export default function HSupDetail(dataToPrint) {
             </div>
           </div>
         </div>
-
         <div className="cnt-tables-data">
           {mounths &&
             mounths.map((item, index) => {
               return (
-                <div className="cnt-tab1">
+                <div className="cnt-tab1" key={index}>
                   <div
                     style={{
                       textAlign: "center",
@@ -97,1138 +180,40 @@ export default function HSupDetail(dataToPrint) {
                       fontWeight: "600",
                     }}
                   >
-                    {" "}
                     الرتبة :
                     <span className="infoY">{`   ${item.positionName}`} </span>
                   </div>
-                  <table class="tableYY">
+                  <table className="tableYY">
                     <thead>
                       <tr>
                         <th>اليوم و التاريخ</th>
                         <th>عدد الساعات</th>
+                        <th>المجموع</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      {item.days.September && (
-                        <tr>
-                          <td>
-                            شهر سبتمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.September["week-1"] &&
-                              item.days.September["week-1"].days &&
-                              item.days.September["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.September["week-2"] &&
-                              item.days.September["week-2"].days &&
-                              item.days.September["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.September["week-3"] &&
-                              item.days.September["week-3"].days &&
-                              item.days.September["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.September["week-4"] &&
-                              item.days.September["week-4"].days &&
-                              item.days.September["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.September["week-5"] &&
-                              item.days.September["week-5"].days &&
-                              item.days.September["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.September["week-6"] &&
-                              item.days.September["week-6"].days &&
-                              item.days.September["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.September["week-1"] &&
-                              item.days.September["week-1"].days &&
-                              item.days.September["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.September["week-2"] &&
-                              item.days.September["week-2"].days &&
-                              item.days.September["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.September["week-3"] &&
-                              item.days.September["week-3"].days &&
-                              item.days.September["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.September["week-4"] &&
-                              item.days.September["week-4"].days &&
-                              item.days.September["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.September["week-5"] &&
-                              item.days.September["week-5"].days &&
-                              item.days.September["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.September["week-6"] &&
-                            item.days.September["week-6"].days
-                              ? item.days.September["week-6"].days.map(
-                                  (day) => {
-                                    return (
-                                      <>[{` ${day.numberOfAddHours} سا`}]</>
-                                    );
-                                  }
-                                )
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.September &&
-                              item.days.September.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.October && (
-                        <tr>
-                          <td>
-                            شهر أكتوبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.October["week-1"] &&
-                              item.days.October["week-1"].days &&
-                              item.days.October["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.October["week-2"] &&
-                              item.days.October["week-2"].days &&
-                              item.days.October["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.October["week-3"] &&
-                              item.days.October["week-3"].days &&
-                              item.days.October["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.October["week-4"] &&
-                              item.days.October["week-4"].days &&
-                              item.days.October["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.October["week-5"] &&
-                              item.days.October["week-5"].days &&
-                              item.days.October["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.October["week-6"] &&
-                              item.days.October["week-6"].days &&
-                              item.days.October["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.October["week-1"] &&
-                              item.days.October["week-1"].days &&
-                              item.days.October["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.October["week-2"] &&
-                              item.days.October["week-2"].days &&
-                              item.days.October["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.October["week-3"] &&
-                              item.days.October["week-3"].days &&
-                              item.days.October["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.October["week-4"] &&
-                              item.days.October["week-4"].days &&
-                              item.days.October["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.October["week-5"] &&
-                              item.days.October["week-5"].days &&
-                              item.days.October["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.October["week-6"] &&
-                            item.days.October["week-6"].days
-                              ? item.days.October["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.October &&
-                              item.days.October.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.November && (
-                        <tr>
-                          <td>
-                            شهر نوفمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.November["week-1"] &&
-                              item.days.November["week-1"].days &&
-                              item.days.November["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.November["week-2"] &&
-                              item.days.November["week-2"].days &&
-                              item.days.November["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.November["week-3"] &&
-                              item.days.November["week-3"].days &&
-                              item.days.November["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.November["week-4"] &&
-                              item.days.November["week-4"].days &&
-                              item.days.November["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.November["week-5"] &&
-                              item.days.November["week-5"].days &&
-                              item.days.November["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.November["week-6"] &&
-                            item.days.November["week-6"].days
-                              ? item.days.November["week-6"].days.map((day) => {
-                                  return <>[{day.date.substring(8, 10)}]</>;
-                                })
-                              : "[ ]"}
-                          </td>
-                          <td>
-                            {item.days.November["week-1"] &&
-                              item.days.November["week-1"].days &&
-                              item.days.November["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.November["week-2"] &&
-                              item.days.November["week-2"].days &&
-                              item.days.November["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.November["week-3"] &&
-                              item.days.November["week-3"].days &&
-                              item.days.November["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.November["week-4"] &&
-                              item.days.November["week-4"].days &&
-                              item.days.November["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.November["week-5"] &&
-                              item.days.November["week-5"].days &&
-                              item.days.November["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.November["week-6"] &&
-                            item.days.November["week-6"].days
-                              ? item.days.November["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.November &&
-                              item.days.November.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.December && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.December["week-1"] &&
-                              item.days.December["week-1"].days &&
-                              item.days.December["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.December["week-2"] &&
-                              item.days.December["week-2"].days &&
-                              item.days.December["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.December["week-3"] &&
-                              item.days.December["week-3"].days &&
-                              item.days.December["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.December["week-4"] &&
-                              item.days.December["week-4"].days &&
-                              item.days.December["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.December["week-5"] &&
-                              item.days.December["week-5"].days &&
-                              item.days.December["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.December["week-6"] &&
-                              item.days.December["week-6"].days &&
-                              item.days.December["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.December["week-1"] &&
-                              item.days.December["week-1"].days &&
-                              item.days.December["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.December["week-2"] &&
-                              item.days.December["week-2"].days &&
-                              item.days.December["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.December["week-3"] &&
-                              item.days.December["week-3"].days &&
-                              item.days.December["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.December["week-4"] &&
-                              item.days.December["week-4"].days &&
-                              item.days.December["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.December["week-5"] &&
-                              item.days.December["week-5"].days &&
-                              item.days.December["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.December["week-6"] &&
-                            item.days.December["week-6"].days
-                              ? item.days.December["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}{" "}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.December &&
-                              item.days.December.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.January && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.January["week-1"] &&
-                              item.days.January["week-1"].days &&
-                              item.days.January["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.January["week-2"] &&
-                              item.days.January["week-2"].days &&
-                              item.days.January["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.January["week-3"] &&
-                              item.days.January["week-3"].days &&
-                              item.days.January["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.January["week-4"] &&
-                              item.days.January["week-4"].days &&
-                              item.days.January["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.January["week-5"] &&
-                              item.days.January["week-5"].days &&
-                              item.days.January["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.January["week-6"] &&
-                            item.days.January["week-6"].days
-                              ? item.days.January["week-6"].days.map((day) => {
-                                  return <>[{day.date.substring(8, 10)}]</>;
-                                })
-                              : "[ ]"}{" "}
-                            <br />
-                          </td>
-                          <td>
-                            {item.days.January["week-1"] &&
-                              item.days.January["week-1"].days &&
-                              item.days.January["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.January["week-2"] &&
-                              item.days.January["week-2"].days &&
-                              item.days.January["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.January["week-3"] &&
-                              item.days.January["week-3"].days &&
-                              item.days.January["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.January["week-4"] &&
-                              item.days.January["week-4"].days &&
-                              item.days.January["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.January["week-5"] &&
-                              item.days.January["week-5"].days &&
-                              item.days.January["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.January["week-6"] &&
-                            item.days.January["week-6"].days
-                              ? item.days.January["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.January &&
-                              item.days.January.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.February && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.February["week-1"] &&
-                              item.days.February["week-1"].days &&
-                              item.days.February["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.February["week-2"] &&
-                              item.days.February["week-2"].days &&
-                              item.days.February["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.February["week-3"] &&
-                              item.days.February["week-3"].days &&
-                              item.days.February["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.February["week-4"] &&
-                              item.days.February["week-4"].days &&
-                              item.days.February["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.February["week-5"] &&
-                              item.days.February["week-5"].days &&
-                              item.days.February["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.February["week-6"] &&
-                              item.days.February["week-6"].days &&
-                              item.days.February["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}{" "}
-                            <br />
-                          </td>
-                          <td>
-                            {item.days.February["week-1"] &&
-                              item.days.February["week-1"].days &&
-                              item.days.February["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.February["week-2"] &&
-                              item.days.February["week-2"].days &&
-                              item.days.February["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.February["week-3"] &&
-                              item.days.February["week-3"].days &&
-                              item.days.February["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.February["week-4"] &&
-                              item.days.February["week-4"].days &&
-                              item.days.February["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.February["week-5"] &&
-                              item.days.February["week-5"].days &&
-                              item.days.February["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.February["week-6"] &&
-                            item.days.February["week-6"].days
-                              ? item.days.February["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.February &&
-                              item.days.February.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.March && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.March["week-1"] &&
-                              item.days.March["week-1"].days &&
-                              item.days.March["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.March["week-2"] &&
-                              item.days.March["week-2"].days &&
-                              item.days.March["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.March["week-3"] &&
-                              item.days.March["week-3"].days &&
-                              item.days.March["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.March["week-4"] &&
-                              item.days.March["week-4"].days &&
-                              item.days.March["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.March["week-5"] &&
-                              item.days.March["week-5"].days &&
-                              item.days.March["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.March["week-6"] &&
-                              item.days.March["week-6"].days &&
-                              item.days.March["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.March["week-1"] &&
-                              item.days.March["week-1"].days &&
-                              item.days.March["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.March["week-2"] &&
-                              item.days.March["week-2"].days &&
-                              item.days.March["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.March["week-3"] &&
-                              item.days.March["week-3"].days &&
-                              item.days.March["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.March["week-4"] &&
-                              item.days.March["week-4"].days &&
-                              item.days.March["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.March["week-5"] &&
-                              item.days.March["week-5"].days &&
-                              item.days.March["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.March["week-6"] &&
-                            item.days.March["week-6"].days
-                              ? item.days.March["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.March &&
-                              item.days.March.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.April && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.April["week-1"] &&
-                              item.days.April["week-1"].days &&
-                              item.days.April["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.April["week-2"] &&
-                              item.days.April["week-2"].days &&
-                              item.days.April["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.April["week-3"] &&
-                              item.days.April["week-3"].days &&
-                              item.days.April["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.April["week-4"] &&
-                              item.days.April["week-4"].days &&
-                              item.days.April["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.April["week-5"] &&
-                              item.days.April["week-5"].days &&
-                              item.days.April["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.April["week-6"] &&
-                              item.days.April["week-6"].days &&
-                              item.days.April["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.April["week-1"] &&
-                              item.days.April["week-1"].days &&
-                              item.days.April["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.April["week-2"] &&
-                              item.days.April["week-2"].days &&
-                              item.days.April["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.April["week-3"] &&
-                              item.days.April["week-3"].days &&
-                              item.days.April["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.April["week-4"] &&
-                              item.days.April["week-4"].days &&
-                              item.days.April["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.April["week-5"] &&
-                              item.days.April["week-5"].days &&
-                              item.days.April["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.April["week-6"] &&
-                            item.days.April["week-6"].days
-                              ? item.days.April["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.April &&
-                              item.days.April.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
-                      {item.days.May && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.May["week-1"] &&
-                              item.days.May["week-1"].days &&
-                              item.days.May["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.May["week-2"] &&
-                              item.days.May["week-2"].days &&
-                              item.days.May["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.May["week-3"] &&
-                              item.days.May["week-3"].days &&
-                              item.days.May["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.May["week-4"] &&
-                              item.days.May["week-4"].days &&
-                              item.days.May["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.May["week-5"] &&
-                              item.days.May["week-5"].days &&
-                              item.days.May["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.May["week-6"] &&
-                              item.days.May["week-6"].days &&
-                              item.days.May["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.May["week-1"] &&
-                              item.days.May["week-1"].days &&
-                              item.days.May["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.May["week-2"] &&
-                              item.days.May["week-2"].days &&
-                              item.days.May["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.May["week-3"] &&
-                              item.days.May["week-3"].days &&
-                              item.days.May["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.May["week-4"] &&
-                              item.days.May["week-4"].days &&
-                              item.days.May["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.May["week-5"] &&
-                              item.days.May["week-5"].days &&
-                              item.days.May["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.May["week-6"] &&
-                            item.days.May["week-6"].days
-                              ? item.days.May["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.May && item.days.May.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-                      {item.days.June && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.June["week-1"] &&
-                              item.days.June["week-1"].days &&
-                              item.days.June["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.June["week-2"] &&
-                              item.days.June["week-2"].days &&
-                              item.days.June["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.June["week-3"] &&
-                              item.days.June["week-3"].days &&
-                              item.days.June["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.June["week-4"] &&
-                              item.days.June["week-4"].days &&
-                              item.days.June["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.June["week-5"] &&
-                              item.days.June["week-5"].days &&
-                              item.days.June["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.June["week-6"] &&
-                              item.days.June["week-6"].days &&
-                              item.days.June["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.June["week-1"] &&
-                              item.days.June["week-1"].days &&
-                              item.days.June["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.June["week-2"] &&
-                              item.days.June["week-2"].days &&
-                              item.days.June["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.June["week-3"] &&
-                              item.days.June["week-3"].days &&
-                              item.days.June["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.June["week-4"] &&
-                              item.days.June["week-4"].days &&
-                              item.days.June["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.June["week-5"] &&
-                              item.days.June["week-5"].days &&
-                              item.days.June["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.June["week-6"] &&
-                            item.days.June["week-6"].days
-                              ? item.days.June["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.June &&
-                              item.days.June.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-                      {item.days.July && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.July["week-1"] &&
-                              item.days.July["week-1"].days &&
-                              item.days.July["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.July["week-2"] &&
-                              item.days.July["week-2"].days &&
-                              item.days.July["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.July["week-3"] &&
-                              item.days.July["week-3"].days &&
-                              item.days.July["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.July["week-4"] &&
-                              item.days.July["week-4"].days &&
-                              item.days.July["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.July["week-5"] &&
-                              item.days.July["week-5"].days &&
-                              item.days.July["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.July["week-6"] &&
-                              item.days.July["week-6"].days &&
-                              item.days.July["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                          </td>
-                          <td>
-                            {item.days.July["week-1"] &&
-                              item.days.July["week-1"].days &&
-                              item.days.July["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.July["week-2"] &&
-                              item.days.July["week-2"].days &&
-                              item.days.July["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.July["week-3"] &&
-                              item.days.July["week-3"].days &&
-                              item.days.July["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.July["week-4"] &&
-                              item.days.July["week-4"].days &&
-                              item.days.July["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.July["week-5"] &&
-                              item.days.July["week-5"].days &&
-                              item.days.July["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.July["week-6"] &&
-                            item.days.July["week-6"].days
-                              ? item.days.July["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.July &&
-                              item.days.July.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-                      {item.days.August && (
-                        <tr>
-                          <td>
-                            شهر ديسمبر
-                            <br />
-                            الأسبوع 1:{" "}
-                            {item.days.August["week-1"] &&
-                              item.days.August["week-1"].days &&
-                              item.days.August["week-1"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 2:{" "}
-                            {item.days.August["week-2"] &&
-                              item.days.August["week-2"].days &&
-                              item.days.August["week-2"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 3:{" "}
-                            {item.days.August["week-3"] &&
-                              item.days.August["week-3"].days &&
-                              item.days.August["week-3"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 4:{" "}
-                            {item.days.August["week-4"] &&
-                              item.days.August["week-4"].days &&
-                              item.days.August["week-4"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 5:{" "}
-                            {item.days.August["week-5"] &&
-                              item.days.August["week-5"].days &&
-                              item.days.August["week-5"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}
-                            <br />
-                            الأسبوع 6:{" "}
-                            {item.days.August["week-6"] &&
-                              item.days.August["week-6"].days &&
-                              item.days.August["week-6"].days.map((day) => {
-                                return <>[{day.date.substring(8, 10)}]</>;
-                              })}{" "}
-                            <br />
-                          </td>
-                          <td>
-                            {item.days.August["week-1"] &&
-                              item.days.August["week-1"].days &&
-                              item.days.August["week-1"].days.map((day) => {
-                                return <>[{`${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.August["week-2"] &&
-                              item.days.August["week-2"].days &&
-                              item.days.August["week-2"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.August["week-3"] &&
-                              item.days.August["week-3"].days &&
-                              item.days.August["week-3"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.August["week-4"] &&
-                              item.days.August["week-4"].days &&
-                              item.days.August["week-4"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.August["week-5"] &&
-                              item.days.August["week-5"].days &&
-                              item.days.August["week-5"].days.map((day) => {
-                                return <>[{` ${day.numberOfAddHours} سا `}]</>;
-                              })}
-                            <br />
-                            {item.days.August["week-6"] &&
-                            item.days.August["week-6"].days
-                              ? item.days.August["week-6"].days.map((day) => {
-                                  return <>[{` ${day.numberOfAddHours} سا`}]</>;
-                                })
-                              : "[ ]"}
-                            <br />
-                            المجموع:{" "}
-                            {item.days.August &&
-                              item.days.August.totalHoursForMonth}
-                          </td>
-                        </tr>
-                      )}
-
+                    <tbody>{renderAllMonths(item)}</tbody>
+                    <tfoot>
                       <tr>
-                        <td>المجموع الكلي :</td>
-                        <td>{` ${item.days.totalHoursForAllMonths} ساعة`}</td>
+                        <td
+                          colSpan="2"
+                          style={{ fontSize: "16px", textAlign: "center" }}
+                        >
+                          المجموع الكلي :
+                        </td>
+                        <td style={{ fontSize: "16px", textAlign: "center" }}>
+                          {item.workedResult.total}
+                        </td>
                       </tr>
-                    </tbody>
+                    </tfoot>
                   </table>
                 </div>
               );
             })}
         </div>
-
+        <div style={{ fontSize: "16px", textAlign: "center", marginTop: 16 }}>
+          المجموع النهائي :{" "}
+          {dataToPrint.dataToPrint.result.totalHoursForAllMonths}{" "}
+        </div>
         <div className="cnt-tab2">
           <table class="tableYY">
             <thead>
