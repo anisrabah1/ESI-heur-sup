@@ -1,8 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleXmark,
-  
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import "./style.css";
 import "./cards.css";
@@ -10,22 +7,18 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiUrl from "../global_Vars/apiConfig";
 
-
-import { Tooltip } from 'antd';
+import { Tooltip } from "antd";
 import { TimePicker } from "antd";
 import { Popconfirm } from "antd";
 import { Spin } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-import {  toaster } from 'evergreen-ui'
+import { toaster } from "evergreen-ui";
 
-import "./PopCalculate.css"
+import "./PopCalculate.css";
 import PopCalculate from "./PopCalculate";
-import CalculeInPeriod from './CalculeInPeriod';
-
- 
-
+import CalculeInPeriod from "./CalculeInPeriod";
 
 // Mapping between French and English names of the days of the week
 const dayMappings = {
@@ -47,15 +40,13 @@ const dayMappings2 = {
 };
 const lesJours = Object.keys(dayMappings);
 
-
-
-
-
-
-
-export default function CreateEmploi({sessionId , sessionDates,teacherInfos,seances}) {
-
-  const [detailsOpened,setDetailsOpened]=useState(false);
+export default function CreateEmploi({
+  sessionId,
+  sessionDates,
+  teacherInfos,
+  seances,
+}) {
+  const [detailsOpened, setDetailsOpened] = useState(false);
 
   dayjs.extend(customParseFormat);
   const onChange = (time, timeString) => {
@@ -68,7 +59,7 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
   const [isSpinning, setIsSpinning] = useState(false);
   const [isFetch, setIsFetch] = useState(false);
 
-  const [ouvertPourPeriod,setOuvertPourPeriod]=useState(false)
+  const [ouvertPourPeriod, setOuvertPourPeriod] = useState(false);
 
   const handleClickOpen = async () => {
     setIsOpen(true);
@@ -79,9 +70,9 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
   };
 
   const [day, setDay] = useState(lesJours[0]);
-  const [hourStart, setHourStart] = useState("08:00");
-  const [hourFin, setHourFin] = useState("10:00");
-  const [module, setModule] = useState("");
+  const [hourStart, setHourStart] = useState(null);
+  const [hourFin, setHourFin] = useState(null);
+  const [module, setModule] = useState(null);
   const [type_s, setType_s] = useState(null);
   const [selectedType, setSelectedType] = useState();
   const [dep, setDep] = useState(null);
@@ -100,60 +91,47 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
 
   const [cards, setCards] = useState(seances);
 
-  const [startFetchingStructure ,setStartFetchingStructure]=useState();
+  const [startFetchingStructure, setStartFetchingStructure] = useState();
 
+  useEffect(() => {
+    const fetchData = async (
+      whereFetch,
+      teacherSessionId,
+      dataToFetch,
+      setObject
+    ) => {
+      // dataToFetch = name data in backend
+      // const[object,setObject]
+      try {
+        console.log("Hello from the use effect");
 
-  // useEffect(() => {
+        const token = Cookies.get("token");
+        const response = await fetch(
+          `http://${apiUrl}:3000/api/v1/${whereFetch}/${teacherSessionId}/${dataToFetch}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
+        const data = await response.json();
+        setObject(data[dataToFetch]);
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        console.log(data[dataToFetch]);
+        if (!response.ok) {
+          console.log("ERROR :", data);
+          throw new Error(data.message || "Server Error");
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-
-  //   const fetchData = async (
-  //     whereFetch,
-  //     teacherSessionId,
-  //     dataToFetch,
-  //     setObject
-  //   ) => {
-  //     // dataToFetch = name data in backend
-  //     // const[object,setObject]
-  //     try {
-  //       console.log("Hello from the use effect");
-
-  //       const token = Cookies.get("token");
-  //       const response = await fetch(
-  //         `http://${apiUrl}:3000/api/v1/${whereFetch}/${teacherSessionId}/${dataToFetch}`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-type": "application/json; charset=UTF-8",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-
-
-  //       const data = await response.json();
-  //       setObject(data[dataToFetch]);  console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
-  //       console.log(data[dataToFetch]);
-  //       if (!response.ok) {
-  //         console.log("ERROR :", data);
-  //         throw new Error(data.message || "Server Error");
-  //       }
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-      
-  //   };
-
-  //   fetchData(
-  //     "teacherSessions",
-  //     sessionId,
-  //     "seances",
-  //     setCards
-  //   );
-
-   
-
-  // }, [isFetch]);
+    fetchData("teacherSessions", sessionId, "seances", setCards);
+  }, [isFetch]);
 
   //fetch________Departement !
 
@@ -433,9 +411,8 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
 
   const [wait, setWait] = useState(false);
 
- 
-//add seance _____________________//
-  const mySubmit = async (e,teacherSessionId) => {
+  //add seance _____________________//
+  const mySubmit = async (e, teacherSessionId) => {
     e.preventDefault();
     console.log("___________in this________________" + selectedSalle);
     const newSeance = {
@@ -447,7 +424,7 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
       semester: selectedSem,
       department: selectedDep,
       seanceType: selectedType, // TD : 662ad5e270358c3d8a41cc59 , TP : 662ad6243b0e958c646c8b67 , cour : 662b548512cc1bd7c62cc1b1
-      
+
       section: selectedSection,
       subject: selectedModule,
       room: selectedSalle,
@@ -459,7 +436,9 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
       const response = await fetch(
         "http://" +
           apiUrl +
-          ":3000/api/v1/teacherSessions/"+teacherSessionId+"/seances",
+          ":3000/api/v1/teacherSessions/" +
+          teacherSessionId +
+          "/seances",
         {
           method: "POST",
           body: JSON.stringify(newSeance),
@@ -476,21 +455,19 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
       console.log(data.data);
       console.log("Creation___ seance__!");
       if (!response.ok) {
-        toaster.danger(data.message );
+        toaster.danger(data.message);
         console.log("ERROR :", data);
         throw new Error(data.message || "Server Error");
       }
       console.log("successfuly");
-      toaster.success('seance successfuly created')
+      toaster.success("seance successfuly created");
       // Update state to trigger re-render
       setIsFetch((prev) => !prev);
     } catch (error) {
       console.log(error.message);
     }
   };
-  
-  
-  
+
   const deleteSeance = async (id) => {
     try {
       const token = Cookies.get("token");
@@ -515,7 +492,7 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
 
       // Deletion was successful
       console.log("Deleting success!");
-      toaster.success('seance successfuly deleted !')
+      toaster.success("seance successfuly deleted !");
       // Update state to trigger re-render
       setIsFetch((prev) => !prev);
 
@@ -528,44 +505,38 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
     }
   };
 
-
-
-
-
-  
-  
   //_______________________________________________
-  const [addingHourSup,setAddingHourSup]=useState(false);
-  const [selectedAddHour,setSelectedAddHour]=useState(0.5);
-  const [dureeH,setDureeH]=useState();
-  const [ coef , setCoef] =useState([]);
-  const handleClickToAddHourSup = (item,Hstart,Hend) => {
+  const [addingHourSup, setAddingHourSup] = useState(false);
+  const [selectedAddHour, setSelectedAddHour] = useState(0.5);
+  const [dureeH, setDureeH] = useState();
+  const [coef, setCoef] = useState([]);
+  const handleClickToAddHourSup = (item, Hstart, Hend) => {
     setAddingHourSup(true);
     setSeanceToPatch(item);
-    const start =  parseInt(Hstart.substring(0,2));
-    const end =  parseInt(Hend.substring(0,2));
-    const minS =  parseInt(Hstart.substring(3,5));
-    const minE =  parseInt(Hend.substring(3,5));
-    let diff = (end - start );
-    if(minE !== minS){diff=diff+0.5}
-    let tab =[];
-    for (let i =0.5 ; i<=diff ;i=i+0.5){
+    const start = parseInt(Hstart.substring(0, 2));
+    const end = parseInt(Hend.substring(0, 2));
+    const minS = parseInt(Hstart.substring(3, 5));
+    const minE = parseInt(Hend.substring(3, 5));
+    let diff = end - start;
+    if (minE !== minS) {
+      diff = diff + 0.5;
+    }
+    let tab = [];
+    for (let i = 0.5; i <= diff; i = i + 0.5) {
       tab.push(i);
     }
     setDureeH(diff);
     setCoef(tab);
-    console.log('Dureé = = ' + diff);
-  }
-  
-  const handleCloseAddingHoureSup =()=>{
+    console.log("Dureé = = " + diff);
+  };
+
+  const handleCloseAddingHoureSup = () => {
     setAddingHourSup(false);
-  }
-  
-  const [seanceToPatch ,setSeanceToPatch]=useState ();
-  
+  };
 
+  const [seanceToPatch, setSeanceToPatch] = useState();
 
-  const deleteAddHour = async ()=>{
+  const deleteAddHour = async () => {
     try {
       setIsLoading(true);
       const token = Cookies.get("token");
@@ -591,14 +562,13 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
         throw new Error(data.message || "Server Error");
       }
       console.log("successfully");
-      toaster.success('successfully removing Additional Hour');
+      toaster.success("successfully removing Additional Hour");
       // Update state to trigger re-render
       setIsFetch((prev) => !prev);
     } catch (error) {
       console.log(error.message);
     }
   };
-  
 
   const [hoveredIcons, setHoveredIcons] = useState({});
 
@@ -614,14 +584,11 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
 
   // console.log('Hovered Icons:', hoveredIcons);
 
-  const myUpdate = async (seanceId,sessionId) => {
-   
-    
+  const myUpdate = async (seanceId, sessionId) => {
     const updatedSeance = {
-      addHour : true, 
-    numberOfAddHours : selectedAddHour, 
+      addHour: true,
+      numberOfAddHours: selectedAddHour,
     };
-
 
     try {
       setIsLoading(true);
@@ -649,7 +616,9 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
         throw new Error(data.message || "Server Error");
       }
       console.log("successfully");
-      toaster.success('Successfully Updated contains :'+selectedAddHour+' Add-hours');
+      toaster.success(
+        "Successfully Updated contains :" + selectedAddHour + " Add-hours"
+      );
       setAddingHourSup(false); // close popup
       // Update state to trigger re-render
       setIsFetch((prev) => !prev);
@@ -658,10 +627,9 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
     }
   };
 
-
-  const[ouvert,setOuvert]=useState(false);
-  const [result,setResult]=useState(null);
-  const[isCalculating,setIsCalculating]=useState(false);
+  const [ouvert, setOuvert] = useState(false);
+  const [result, setResult] = useState(null);
+  const [isCalculating, setIsCalculating] = useState(false);
   const fetchHourlyCharge = async () => {
     try {
       setIsCalculating(true);
@@ -673,7 +641,7 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
           headers: {
             "Content-type": "application/json; charset=UTF-8",
             Authorization: `Bearer ${token}`,
-            'Cache-Control': 'no-cache'
+            "Cache-Control": "no-cache",
           },
         }
       );
@@ -681,39 +649,49 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
       let data = await response.json();
       setResult(data.hourlyCharge);
       console.log(data.hourlyCharge);
-      console.log('________________');
+      console.log("________________");
       if (!response.ok) {
         console.log("ERROR :", data);
         throw new Error(data.message || "Server Error");
-            }
-        } catch (error) {
-        console.log(error.message);
-        }
-    };
-   
-   
-    
-    
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-    // const distinctItems = [...new Set(items)];
+  // const distinctItems = [...new Set(items)];
   return (
-    
     <div className="container-Create-empoi">
-       <CalculeInPeriod  ouvertPourPeriod={ouvertPourPeriod} setOuvertPourPeriod={setOuvertPourPeriod}
-            sessionDates={sessionDates} techerSessionId={sessionId} teacherInfos={teacherInfos}
-            seances={cards}
-            />
-      <PopCalculate ouvert={ouvert} setOuvert={setOuvert} result={result} fetchHourlyCharge ={fetchHourlyCharge}
-        sessionDates={sessionDates} techerSessionId={sessionId} isCalculating={isCalculating}
-        seances={cards} teacherInfos={teacherInfos}
-        />
+      <CalculeInPeriod
+        ouvertPourPeriod={ouvertPourPeriod}
+        setOuvertPourPeriod={setOuvertPourPeriod}
+        sessionDates={sessionDates}
+        techerSessionId={sessionId}
+        teacherInfos={teacherInfos}
+        seances={cards}
+      />
+      <PopCalculate
+        ouvert={ouvert}
+        setOuvert={setOuvert}
+        result={result}
+        fetchHourlyCharge={fetchHourlyCharge}
+        sessionDates={sessionDates}
+        techerSessionId={sessionId}
+        isCalculating={isCalculating}
+        seances={cards}
+        teacherInfos={teacherInfos}
+      />
 
       <div className="container">
-        
-        
-        <div style={{ display: "flex", justifyContent: "space-between" ,padding:'0px 1% 0px 1.5%'}}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0px 1% 0px 1.5%",
+          }}
+        >
           <h3>Seances :</h3>
-            {/* <div className="add-icon" onClick={handleClickOpen}>
+          {/* <div className="add-icon" onClick={handleClickOpen}>
               <lord-icon
                 src="https://cdn.lordicon.com/hqymfzvj.json"
                 trigger="hover"
@@ -721,339 +699,390 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
               ></lord-icon>
             </div>
              */}
-  {!detailsOpened ? 
-                  <div 
-                  className={`more-icon-tk ${detailsOpened ? "more-icon-tk-after" : ""}`} 
-                  onClick={(e)=>{
-                    setDetailsOpened(prev=>!prev)
-                    console.log(detailsOpened+'+++++++++++++++++++');
-                  }} >
-                    <lord-icon
-                              src="https://cdn.lordicon.com/rmkahxvq.json"
-                              trigger="hover"
-                              style={{ width: "30px", height: "30px" }}
-                            ></lord-icon>
-                    </div>
-                    : 
-            
-            <div className="more-icone" style={{display:'flex' , justifyContent:'end' }}
-                    onClick={(e)=>{
-                      setDetailsOpened(prev=>!prev)
-                   
-                    }} >
-                      <lord-icon
-                                src="https://cdn.lordicon.com/rmkahxvq.json"
-                                trigger="hover"
-                                style={{ width: "30px", height: "30px" , transform: 'rotateX(180deg)' }}
-                              ></lord-icon>
-                    </div>
-            }
-          </div>
+          {!detailsOpened ? (
+            <div
+              className={`more-icon-tk ${
+                detailsOpened ? "more-icon-tk-after" : ""
+              }`}
+              onClick={(e) => {
+                setDetailsOpened((prev) => !prev);
+                console.log(detailsOpened + "+++++++++++++++++++");
+              }}
+            >
+              <lord-icon
+                src="https://cdn.lordicon.com/rmkahxvq.json"
+                trigger="hover"
+                style={{ width: "30px", height: "30px" }}
+              ></lord-icon>
+            </div>
+          ) : (
+            <div
+              className="more-icone"
+              style={{ display: "flex", justifyContent: "end" }}
+              onClick={(e) => {
+                setDetailsOpened((prev) => !prev);
+              }}
+            >
+              <lord-icon
+                src="https://cdn.lordicon.com/rmkahxvq.json"
+                trigger="hover"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  transform: "rotateX(180deg)",
+                }}
+              ></lord-icon>
+            </div>
+          )}
+        </div>
         <Spin tip="Loading..." fullscreen="true" spinning={isSpinning}></Spin>
 
-        
-        <div className={`container-Cards-more-icone ${detailsOpened ? "AFTER" : ""}`}>
-                <div className='container-Cards'>
-                        {cards &&
-                          cards.map((item) => {
-                  return (
-                    <div className="card" onClick={(e)=>console.log(item.startHour)}>
-                      <div style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}} > 
-                              <div className="first-Line">
-                    
-                                <h4>{dayMappings2[item.seanceDay]}</h4>
-                                          <div>
-                                            <TimePicker.RangePicker
-                                              format="HH:mm "
-                                              defaultValue={[
-                                                dayjs(item.startHour, "HH:mm"),
-                                                dayjs(item.endHour, "HH:mm"),
-                                              ]}
-                                              className="duree"
-                                              inputReadOnly="true"
-                                              disabled="true"
-                                              style={{ color: "red" }}
-                                            />
-                                          </div>
-                                </div>
-                                <Popconfirm
-                              title="Delete additional Hour?"
-                              description="Are you sure to delete this additional Hour?"
-                              okText="Yes"
-                              cancelText="No"
-                                onConfirm={deleteAddHour}
-                            >
-                               {item.addHour && 
-                               <Tooltip title={`contient ${item.numberOfAddHours} heures Sup`} color='#87d068'>
-                               <div
-                                    className="add-hour-Y"
-                                    onMouseEnter={() => {handleMouseEnter(item._id)
-                                      setSeanceToPatch(item);
-                                    }}
-                                    onMouseLeave={() => handleMouseLeave(item._id)}
-                                    
-                                  >
-                                    {hoveredIcons[item._id] ? (
-                                      <img src={require('./delete_hsupp.png')} alt="Delete Icon"  />
-                                    ) : (
-                                    <img src={require('./hsup_inthis_seance.png')} alt="Hover Icon"  />
-                                    )}
-                                  </div>
-                                </Tooltip>
-                                  }
-                              </Popconfirm>
-                      </div>
-                      <div className="c2-3-4lines-icon">
-                        <div className="c2-3-4lines">
-                          <div className="second-Line">
-                          {item.seanceType.seanceTypeName && <h5>{item.seanceType.seanceTypeName}</h5> }
-                            <p>{item.subject.subjectName} </p>
-                          </div>
-                          <div className="third-Line">
-                            <p>{item.level.levelName}</p>
-                            <p>{item.department.departmentName}</p>
-                            {item.section.sectionName && <p><span>Section</span> {item.section.sectionName}</p>}
-                            <p>{item.group.groupName}</p>
-                          </div>
-                          <div className="foorth-Line">
-                            <p>{item.room.roomName}</p>
-                          </div>
+        <div
+          className={`container-Cards-more-icone ${
+            detailsOpened ? "AFTER" : ""
+          }`}
+        >
+          <div className="container-Cards">
+            {cards &&
+              cards.map((item) => {
+                return (
+                  <div
+                    className="card"
+                    onClick={(e) => console.log(item.startHour)}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div className="first-Line">
+                        <h4>{dayMappings2[item.seanceDay]}</h4>
+                        <div>
+                          <TimePicker.RangePicker
+                            format="HH:mm "
+                            value={[
+                              dayjs(item.startHour, "HH:mm"),
+                              dayjs(item.endHour, "HH:mm"),
+                            ]}
+                            className="duree"
+                            inputReadOnly="true"
+                            disabled="true"
+                            style={{ color: "red" }}
+                          />
                         </div>
-                        <div className="icons-card-seance">
-                          <div title="Add Hour Sup"
-                              className="lord-icon"
-                              
-                              onClick={()=>{handleClickToAddHourSup(item,item.startHour,item.endHour);
-                                
-                              }} //-------------------------------
+                      </div>
+                      <Popconfirm
+                        title="Delete additional Hour?"
+                        description="Are you sure to delete this additional Hour?"
+                        okText="Yes"
+                        cancelText="No"
+                        onConfirm={deleteAddHour}
+                      >
+                        {item.addHour && (
+                          <Tooltip
+                            title={`contient ${item.numberOfAddHours} heures Sup`}
+                            color="#87d068"
+                          >
+                            <div
+                              className="add-hour-Y"
+                              onMouseEnter={() => {
+                                handleMouseEnter(item._id);
+                                setSeanceToPatch(item);
+                              }}
+                              onMouseLeave={() => handleMouseLeave(item._id)}
                             >
-                                <lord-icon //____________________________________Add Hour Supp
-                                    src="https://cdn.lordicon.com/mwikjdwh.json"
-                                    trigger="hover"
-                                    colors="primary:#ffffff"
-                                    style={{
-                                      width: "30px",
-                                      height: "30px",
-                                      margin: "0px 0px 0px 10%",
-                                    }}
-                                    >
-                                </lord-icon>
-                          </div>
-                          <div
-                            className="lord-icon"
-                            style={{ }}
-                            
+                              {hoveredIcons[item._id] ? (
+                                <img
+                                  src={require("./delete_hsupp.png")}
+                                  alt="Delete Icon"
+                                />
+                              ) : (
+                                <img
+                                  src={require("./hsup_inthis_seance.png")}
+                                  alt="Hover Icon"
+                                />
+                              )}
+                            </div>
+                          </Tooltip>
+                        )}
+                      </Popconfirm>
+                    </div>
+                    <div className="c2-3-4lines-icon">
+                      <div className="c2-3-4lines">
+                        <div className="second-Line">
+                          {item.seanceType.seanceTypeName && (
+                            <h5>{item.seanceType.seanceTypeName}</h5>
+                          )}
+                          <p>{item.subject.subjectName} </p>
+                        </div>
+                        <div className="third-Line">
+                          <p>{item.level.levelName}</p>
+                          <p>{item.department.departmentName}</p>
+                          {item.section.sectionName && (
+                            <p>
+                              <span>Section</span> {item.section.sectionName}
+                            </p>
+                          )}
+                          <p>{item.group.groupName}</p>
+                        </div>
+                        <div className="foorth-Line">
+                          <p>{item.room.roomName}</p>
+                        </div>
+                      </div>
+                      <div className="icons-card-seance">
+                        <div
+                          title="Add Hour Sup"
+                          className="lord-icon"
+                          onClick={() => {
+                            handleClickToAddHourSup(
+                              item,
+                              item.startHour,
+                              item.endHour
+                            );
+                          }} //-------------------------------
+                        >
+                          <lord-icon //____________________________________Add Hour Supp
+                            src="https://cdn.lordicon.com/mwikjdwh.json"
+                            trigger="hover"
+                            colors="primary:#ffffff"
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              margin: "0px 0px 0px 10%",
+                            }}
+                          ></lord-icon>
+                        </div>
+                        <div className="lord-icon" style={{}}>
+                          <lord-icon
+                            src="https://cdn.lordicon.com/lyrrgrsl.json"
+                            trigger="hover"
+                            colors="primary:#ffffff"
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              margin: "0px 0px 0px 25%",
+                            }}
+                            techer
+                          ></lord-icon>
+                        </div>
+
+                        <div //____________________________________Supprimer
+                          className="lord-icon"
+                          style={{}}
+                        >
+                          <Popconfirm
+                            title="Delete the seance"
+                            description="Are you sure to delete this seance?"
+                            okText="Yes"
+                            cancelText="No"
+                            onConfirm={() => deleteSeance(item._id)}
                           >
                             <lord-icon
-                              src="https://cdn.lordicon.com/lyrrgrsl.json"
-                              trigger="hover"
+                              src="https://cdn.lordicon.com/wpyrrmcq.json"
+                              trigger="morph"
+                              state="morph-trash-full"
                               colors="primary:#ffffff"
                               style={{
                                 width: "30px",
                                 height: "30px",
                                 margin: "0px 0px 0px 25%",
                               }}
-                              techer
                             ></lord-icon>
-                          </div>
-
-                          <div //____________________________________Supprimer
-                            className="lord-icon"
-                            style={{  }}
-                          >
-                            <Popconfirm
-                              title="Delete the seance"
-                              description="Are you sure to delete this seance?"
-                              okText="Yes"
-                              cancelText="No"
-                              onConfirm={() => deleteSeance(item._id)}
-                            >
-                              <lord-icon
-                                src="https://cdn.lordicon.com/wpyrrmcq.json"
-                                trigger="morph"
-                                state="morph-trash-full"
-                                colors="primary:#ffffff"
-                                style={{
-                                  width: "30px",
-                                  height: "30px",
-                                  margin: "0px 0px 0px 25%",
-                                }}
-                              ></lord-icon>
-                            </Popconfirm>
-                          </div>
+                          </Popconfirm>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
-            
-                 </div> 
+                  </div>
+                );
+              })}
+          </div>
 
-                 <div className="add-icon" onClick={handleClickOpen} style={{display:'flex' , justifyContent:'end' }}>
-              <lord-icon  // tala3 l More
-                src="https://cdn.lordicon.com/hqymfzvj.json"
-                trigger="hover"
-                style={{ width: "30px", height: "30px" ,marginRight:'1%'}}
-              ></lord-icon>
-
-              
-            </div>
-                    <button id='calculate-heure' onClick={(e)=>{
-                      setOuvert(true);
-                      console.log(ouvert);
-                      fetchHourlyCharge();
-                    }}>Calculer </button>
-             <div className="">
-                    <button id="btn-To-Calculate" 
-                     onClick={()=>setOuvertPourPeriod(true)}
-                    >Calculer dans certains periode</button>
-                </div>
+          <div
+            className="add-icon"
+            onClick={handleClickOpen}
+            style={{ display: "flex", justifyContent: "end" }}
+          >
+            <lord-icon // tala3 l More
+              src="https://cdn.lordicon.com/hqymfzvj.json"
+              trigger="hover"
+              style={{ width: "30px", height: "30px", marginRight: "1%" }}
+            ></lord-icon>
+          </div>
+          <button
+            id="calculate-heure"
+            onClick={(e) => {
+              setOuvert(true);
+              console.log(ouvert);
+              fetchHourlyCharge();
+            }}
+          >
+            Calculer{" "}
+          </button>
+          <div className="">
+            <button
+              id="btn-To-Calculate"
+              onClick={() => setOuvertPourPeriod(true)}
+            >
+              Calculer dans certains periode
+            </button>
+          </div>
         </div>
-        
-        
       </div>
 
-  {/* ____________________________Popup Adding Hour Sup______________________________________________________________________  */}
+      {/* ____________________________Popup Adding Hour Sup______________________________________________________________________  */}
 
-          <div className={`popup ${addingHourSup ? "open" : ""}`}>
-            <div className="popup-content-forAddingHSup">
-              <div className="icon" onClick={handleCloseAddingHoureSup}>
-                <FontAwesomeIcon
-                  icon={faCircleXmark}
-                  size="lg"
-                  style={{ color: "#2f4971" }}
-                  className="icon2"
-                />
-              </div>
-              <div style={{display:'flex', justifyContent:'start',flexWrap:'wrap' ,alignItems:'center'}}>
-              <h4>Ajouter Heure Supplémentaire Dans :</h4>
-              <div disabled style={{marginLeft:'10%'}}>
-                          <TimePicker.RangePicker
-                            format="HH:mm "
-                           placeholder={seanceToPatch &&[seanceToPatch.startHour, seanceToPatch.endHour]}
-                            className="houre-Style-Adding"
-                            inputReadOnly="true"
-                            
-                            style={{ color: "red" }}
-                          />
-                        </div>
-
-              </div>
-                    <div className="form-Content">
-                        <form 
-                         onSubmit={(e)=>{ myUpdate(seanceToPatch._id,sessionId);
-                          e.preventDefault();
-                         }}
-                        >
-                            <div className="heure-supp-y">
-
-                          
-                                <div className="input-Box-Adding-HSup">
-                                      <div id='rnk' style={{display:'flex', justifyContent:'start' ,alignItems:'center' }}>
-                                      <span>Nombre Des Heures Supplémentaire:</span>
-                                      <select autoFocus
-                                      onFocus={
-                                        (e) => {
-                                          setSelectedAddHour(e.target.value);
-                                          console.log('Dureé  reelle= ' + dureeH);
-                                        }}
-                                        onChange={
-                                          (e) => {
-                                            setSelectedAddHour(e.target.value);
-                                          }}
-                                      >
-                                    {coef && coef.map((c)=>{
-                                      return(
-                                        <option value={c}>{c}</option>
-                                      )
-                                    })}  
-                                         
-                                      </select>
-                                      </div>
-                                      <div className="co">
-                                      <input
-                                        type="submit"
-                                        value={isLoading ? "En cours..." : "Add"}
-                                        name=""
-                                        className="btn-Create"
-                                      />
-                                    </div>
-                                </div>
-                          </div>
-                        </form>
-                    </div>
-                </div>
+      <div className={`popup ${addingHourSup ? "open" : ""}`}>
+        <div className="popup-content-forAddingHSup">
+          <div className="icon" onClick={handleCloseAddingHoureSup}>
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              size="lg"
+              style={{ color: "#2f4971" }}
+              className="icon2"
+            />
           </div>
-        
-
-      
-        <div className={`popup ${isOpen ? "open" : ""}`}>
-          <div className="popup-content">
-            <div className="icon" onClick={handleClickClose}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                size="lg"
-                style={{ color: "#2f4971" }}
-                className="icon2"
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "start",
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            <h4>Ajouter Heure Supplémentaire Dans :</h4>
+            <div disabled style={{ marginLeft: "10%" }}>
+              <TimePicker.RangePicker
+                format="HH:mm "
+                placeholder={
+                  seanceToPatch && [
+                    seanceToPatch.startHour,
+                    seanceToPatch.endHour,
+                  ]
+                }
+                className="houre-Style-Adding"
+                inputReadOnly="true"
+                style={{ color: "red" }}
               />
             </div>
-            <h4>Formulaire Ajouter séance</h4>
-
-            <div className="form-Content">
-              <form onSubmit={(e)=>mySubmit(e,sessionId)}>
-                <div className="module-type">
-                  <div className="input-Box">
-                    <span>Le jour</span>
+          </div>
+          <div className="form-Content">
+            <form
+              onSubmit={(e) => {
+                myUpdate(seanceToPatch._id, sessionId);
+                e.preventDefault();
+              }}
+            >
+              <div className="heure-supp-y">
+                <div className="input-Box-Adding-HSup">
+                  <div
+                    id="rnk"
+                    style={{
+                      display: "flex",
+                      justifyContent: "start",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span>Nombre Des Heures Supplémentaire:</span>
                     <select
-                      id="myDataList"
-                      name="jour"
-                      required
+                      autoFocus
+                      onFocus={(e) => {
+                        setSelectedAddHour(e.target.value);
+                        console.log("Dureé  reelle= " + dureeH);
+                      }}
                       onChange={(e) => {
-                        const frenchDay = e.target.value; // Get French day
-                        const englishDay = dayMappings[frenchDay]; // Get English day from mapping
-                        setDay(englishDay); // Set English day to state
-
-                        // setDay(e.target.value);
+                        setSelectedAddHour(e.target.value);
                       }}
                     >
-                      {lesJours.map((jour) => (
-                        <option key={jour} value={jour}>
-                          {jour}
-                        </option>
-                      ))}
+                      {coef &&
+                        coef.map((c) => {
+                          return <option value={c}>{c}</option>;
+                        })}
                     </select>
                   </div>
-                  <div className="input-Box">
-                    <span>Heure : </span>
-                    <TimePicker.RangePicker
-                      minuteStep="30"
-                      format="HH:mm"
-                      placeholder={["Début", "Fin"]}
-                      className="houre-Style"
-                      order="true"
-                      onChange={onChange}
+                  <div className="co">
+                    <input
+                      type="submit"
+                      value={isLoading ? "En cours..." : "Add"}
+                      name=""
+                      className="btn-Create"
                     />
                   </div>
-                  <div className="input-Box">
-                    <span>Type</span>
-                    <select
-                      id="myDataList"
-                      name="type-s"
-                      required
-                      onChange={(e) => setSelectedType(e.target.value)}
-                    >
-                      {type_s &&
-                        type_s.map((type) => (
-                          <option key={type._id} value={type._id}>
-                            {type.seanceTypeName}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
                 </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
-                <div className="heure-debut-fin">
-                  {/* <div className='input-Box'>
+      <div className={`popup ${isOpen ? "open" : ""}`}>
+        <div className="popup-content">
+          <div className="icon" onClick={handleClickClose}>
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              size="lg"
+              style={{ color: "#2f4971" }}
+              className="icon2"
+            />
+          </div>
+          <h4>Formulaire Ajouter séance</h4>
+
+          <div className="form-Content">
+            <form onSubmit={(e) => mySubmit(e, sessionId)}>
+              <div className="module-type">
+                <div className="input-Box">
+                  <span>Le jour</span>
+                  <select
+                    id="myDataList"
+                    name="jour"
+                    required
+                    onChange={(e) => {
+                      const frenchDay = e.target.value; // Get French day
+                      const englishDay = dayMappings[frenchDay]; // Get English day from mapping
+                      setDay(englishDay); // Set English day to state
+
+                      // setDay(e.target.value);
+                    }}
+                  >
+                    {lesJours.map((jour) => (
+                      <option key={jour} value={jour}>
+                        {jour}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="input-Box">
+                  <span>Heure : </span>
+                  <TimePicker.RangePicker
+                    minuteStep="30"
+                    format="HH:mm"
+                    placeholder={["Début", "Fin"]}
+                    className="houre-Style"
+                    order="true"
+                    onChange={onChange}
+                  />
+                </div>
+                <div className="input-Box">
+                  <span>Type</span>
+                  <select
+                    id="myDataList"
+                    name="type-s"
+                    required
+                    onChange={(e) => setSelectedType(e.target.value)}
+                  >
+                    {type_s &&
+                      type_s.map((type) => (
+                        <option key={type._id} value={type._id}>
+                          {type.seanceTypeName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="heure-debut-fin">
+                {/* <div className='input-Box'>
                                     <span>Heure début</span>
                                     <input type='time' name='heure_debut' required value={hourStart} 
                                     onChange={(e)=>setHourStart(e.target.value)}/>                  
@@ -1063,240 +1092,239 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos,sean
                                     <input type='time' name='heure_fin' required value={hourFin}
                                     onChange={(e)=>setHourFin(e.target.value)}/>                  
                         </div> */}
+              </div>
+
+              <div className="module-type">
+                <div className="input-Box">
+                  <span>Département</span>
+                  <select
+                    id="DepId"
+                    name="dep"
+                    required
+                    onFocus={ondepFocus}
+                    onChange={ondepChange}
+                    // // setSelectedDep(e.target.value)
+                    // const selectedDepartment = dep.find((department) => department.departmentName === e.target.value);
+                    // getLevel(selectedDepartment._id)
+                  >
+                    {dep &&
+                      dep.map((dep) => {
+                        return (
+                          <option key={dep._id} value={dep._id}>
+                            {dep.departmentName}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </div>
-
-                <div className="module-type">
-                  <div className="input-Box">
-                    <span>Département</span>
-                    <select
-                      id="DepId"
-                      name="dep"
-                      required
-                      onFocus={ondepFocus}
-                      onChange={ondepChange}
-                      // // setSelectedDep(e.target.value)
-                      // const selectedDepartment = dep.find((department) => department.departmentName === e.target.value);
-                      // getLevel(selectedDepartment._id)
-                    >
-                      {dep &&
-                        dep.map((dep) => {
-                          return (
-                            <option key={dep._id} value={dep._id}>
-                              {dep.departmentName}
-                            </option>
-                          );
-                        })}
-                    </select>
-                  </div>
-                  <div className="input-Box">
-                    <span>Niveau</span>
-                    <select
-                      id="nivId"
-                      name="niveau"
-                      required
-                      onFocus={
-                        (e) => {
-                          setSelectedNiveau(e.target.value);
-
-                          // if(selectedNiveau.specialties.length>0){getSpecialties(e.target.value); console.log('ID level:'+selectedNiveau)}
-                          // else{
-                          getSpecialties(e.target.value);
-                          getSemesters("levels", e.target.value);
-                          getSections("levels", e.target.value);
-                        }
-                        // }
-                      }
-                      onChange={(e) => {
+                <div className="input-Box">
+                  <span>Niveau</span>
+                  <select
+                    id="nivId"
+                    name="niveau"
+                    required
+                    onFocus={
+                      (e) => {
                         setSelectedNiveau(e.target.value);
-                        setSpecialite(null);
-                        setSection(null);
-                        setSem(null);
-                        setModule(null);
-                        setGroupe(null);
 
                         // if(selectedNiveau.specialties.length>0){getSpecialties(e.target.value); console.log('ID level:'+selectedNiveau)}
                         // else{
                         getSpecialties(e.target.value);
                         getSemesters("levels", e.target.value);
                         getSections("levels", e.target.value);
+                      }
+                      // }
+                    }
+                    onChange={(e) => {
+                      setSelectedNiveau(e.target.value);
+                      setSpecialite(null);
+                      setSection(null);
+                      setSem(null);
+                      setModule(null);
+                      setGroupe(null);
 
-                        //  }
-                      }}
-                    >
-                      <option value="">---Niveau---</option>
+                      // if(selectedNiveau.specialties.length>0){getSpecialties(e.target.value); console.log('ID level:'+selectedNiveau)}
+                      // else{
+                      getSpecialties(e.target.value);
+                      getSemesters("levels", e.target.value);
+                      getSections("levels", e.target.value);
 
-                      {niveau &&
-                        niveau.map((niv) => {
-                          return (
-                            <option key={niv._id} value={niv._id}>
-                              {niv.levelName}
-                            </option>
-                          );
-                        })}
-                    </select>
-                  </div>
-                  <div className="input-Box">
-                    <span>Spécialité</span>
+                      //  }
+                    }}
+                  >
+                    <option value="">---Niveau---</option>
 
+                    {niveau &&
+                      niveau.map((niv) => {
+                        return (
+                          <option key={niv._id} value={niv._id}>
+                            {niv.levelName}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </div>
+                <div className="input-Box">
+                  <span>Spécialité</span>
+
+                  <select
+                    id="myDataList"
+                    name="specialite"
+                    className={!specialite && "disabled-element"}
+                    onFocus={(e) => {
+                      setSelectedSpec(e.target.value);
+                      //   const selectespecialtie = specialite.find((spec) => spec.specialtyName === e.target.value);
+                      console.log(specialite);
+                      getSemesters("specialties", e.target.value);
+                      getSections("specialties", e.target.value);
+                    }}
+                    onChange={(e) => {
+                      setSelectedSpec(e.target.value);
+                      //    const selectespecialtie = specialite.find((spec) => spec.specialtyName === e.target.value);
+                      setSection(null);
+                      setSem(null);
+                      setModule(null);
+                      setGroupe(null);
+                      getSemesters("specialties", e.target.value);
+                      getSections("specialties", e.target.value);
+                    }}
+                  >
+                    {specialite &&
+                      specialite.map((spc) => (
+                        <option key={spc._id} value={spc._id}>
+                          {spc.specialtyName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+              <div className="module-type">
+                <div className="input-Box">
+                  <span>Semestre</span>
+                  <select
+                    id="myDataList"
+                    name="semester"
+                    required
+                    onFocus={(e) => {
+                      setSelectedSem(e.target.value);
+                      // const selectedSemester = sem.find((sem) => sem.semesterName === e.target.value);
+                      getSubject(e.target.value);
+                    }}
+                    onChange={(e) => {
+                      setSelectedSem(e.target.value);
+                      // const selectedSemester = sem.find((sem) => sem.semesterName === e.target.value);
+                      setModule(null);
+                      setGroupe(null);
+                      getSubject(e.target.value);
+                    }}
+                  >
+                    {sem &&
+                      sem.map((sem) => (
+                        <option key={sem._id} value={sem._id}>
+                          {sem.semesterName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div className="input-Box">
+                  <span>Section</span>
+                  <select
+                    id="myDataList"
+                    name="section"
+                    required
+                    onFocus={(e) => {
+                      setSelectedSection(e.target.value);
+                      // const selectedSection = section.find((sec) => sec.sectionName === e.target.value);
+                      setGroupe(null);
+                      setSelectedGroupe([]);
+                      console.log("_______________" + specialite);
+                      getGroupe(e.target.value);
+                    }}
+                    onChange={(e) => {
+                      setSelectedSection(e.target.value);
+                      // const selectedSection = section.find((sec) => sec.sectionName === e.target.value);
+                      setSelectedGroupe([]);
+                      getGroupe(e.target.value);
+                    }}
+                  >
+                    {section &&
+                      section.map((sec) => (
+                        <option key={sec._id} value={sec._id}>
+                          {sec.sectionName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div className="input-Box">
+                  <span>Groupe</span>
+                  <select
+                    id="myDataList"
+                    name="groupe"
+                    onChange={(e) => {
+                      setSelectedGroupe(e.target.value);
+                      console.log(selectedGroupe);
+                    }}
+                  >
+                    <option value=""></option>
+                    {groupe &&
+                      groupe.map((grp) => (
+                        <option key={grp._id} value={grp._id}>
+                          {grp.groupName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+              <div className="module-type">
+                <div className="input-Sub">
+                  <div className="input-Box" id="last-Div">
+                    <span>module</span>
                     <select
-                      id="myDataList"
-                      name="specialite"
-                      className={!specialite && "disabled-element"}
-                      onFocus={(e) => {
-                        setSelectedSpec(e.target.value);
-                        //   const selectespecialtie = specialite.find((spec) => spec.specialtyName === e.target.value);
-                        console.log(specialite);
-                        getSemesters("specialties", e.target.value);
-                        getSections("specialties", e.target.value);
-                      }}
-                      onChange={(e) => {
-                        setSelectedSpec(e.target.value);
-                        //    const selectespecialtie = specialite.find((spec) => spec.specialtyName === e.target.value);
-                        setSection(null);
-                        setSem(null);
-                        setModule(null);
-                        setGroupe(null);
-                        getSemesters("specialties", e.target.value);
-                        getSections("specialties", e.target.value);
-                      }}
+                      id="modules"
+                      name="module"
+                      value={selectedModule}
+                      onChange={(e) => setSelectedModule(e.target.value)}
                     >
-                      {specialite &&
-                        specialite.map((spc) => (
-                          <option key={spc._id} value={spc._id}>
-                            {spc.specialtyName}
+                      {module &&
+                        module.map((modul) => (
+                          <option key={modul._id} value={modul._id}>
+                            {modul.subjectName}
                           </option>
                         ))}
                     </select>
                   </div>
-                </div>
-                <div className="module-type">
+
                   <div className="input-Box">
-                    <span>Semestre</span>
+                    <span>Salle</span>
                     <select
                       id="myDataList"
-                      name="semester"
+                      name="salle-s"
                       required
-                      onFocus={(e) => {
-                        setSelectedSem(e.target.value);
-                        // const selectedSemester = sem.find((sem) => sem.semesterName === e.target.value);
-                        getSubject(e.target.value);
-                      }}
-                      onChange={(e) => {
-                        setSelectedSem(e.target.value);
-                        // const selectedSemester = sem.find((sem) => sem.semesterName === e.target.value);
-                        setModule(null);
-                        setGroupe(null);
-                        getSubject(e.target.value);
-                      }}
+                      onChange={(e) => setSelectedSalle(e.target.value)}
                     >
-                      {sem &&
-                        sem.map((sem) => (
-                          <option key={sem._id} value={sem._id}>
-                            {sem.semesterName}
+                      {salles &&
+                        salles.map((salle) => (
+                          <option key={salle._id} value={salle._id}>
+                            {salle.roomName}
                           </option>
                         ))}
                     </select>
                   </div>
-                  <div className="input-Box">
-                    <span>Section</span>
-                    <select
-                      id="myDataList"
-                      name="section"
-                      required
-                      onFocus={(e) => {
-                        setSelectedSection(e.target.value);
-                        // const selectedSection = section.find((sec) => sec.sectionName === e.target.value);
-                        setGroupe(null);
-                        setSelectedGroupe([]);
-                        console.log("_______________" + specialite);
-                        getGroupe(e.target.value);
-                      }}
-                      onChange={(e) => {
-                        setSelectedSection(e.target.value);
-                        // const selectedSection = section.find((sec) => sec.sectionName === e.target.value);
-                        setSelectedGroupe([]);
-                        getGroupe(e.target.value);
-                      }}
-                    >
-                      {section &&
-                        section.map((sec) => (
-                          <option key={sec._id} value={sec._id}>
-                            {sec.sectionName}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <div className="input-Box">
-                    <span>Groupe</span>
-                    <select
-                      id="myDataList"
-                      name="groupe"
-                      onChange={(e) => {
-                        setSelectedGroupe(e.target.value);
-                        console.log(selectedGroupe);
-                      }}
-                    >
-                      <option value=""></option>
-                      {groupe &&
-                        groupe.map((grp) => (
-                          <option key={grp._id} value={grp._id}>
-                            {grp.groupName}
-                          </option>
-                        ))}
-                    </select>
+
+                  <div className="container-Btn">
+                    <input
+                      type="submit"
+                      value={isLoading ? "En cours..." : "Submit"}
+                      name=""
+                      className="btn-Create"
+                    />
                   </div>
                 </div>
-                <div className="module-type">
-                  <div className="input-Sub">
-                    <div className="input-Box" id="last-Div">
-                      <span>module</span>
-                      <select
-                        id="modules"
-                        name="module"
-                        value={selectedModule}
-                        onChange={(e) => setSelectedModule(e.target.value)}
-                      >
-                        {module &&
-                          module.map((modul) => (
-                            <option key={modul._id} value={modul._id}>
-                              {modul.subjectName}
-                            </option>
-                          ))}
-                      </select>
-                    </div>
-
-                    <div className="input-Box">
-                      <span>Salle</span>
-                      <select
-                        id="myDataList"
-                        name="salle-s"
-                        required
-                        onChange={(e) => setSelectedSalle(e.target.value)}
-                      >
-                        {salles &&
-                          salles.map((salle) => (
-                            <option key={salle._id} value={salle._id}>
-                              {salle.roomName}
-                            </option>
-                          ))}
-                      </select>
-                    </div>
-
-                    <div className="container-Btn">
-                      <input
-                        type="submit"
-                        value={isLoading ? "En cours..." : "Submit"}
-                        name=""
-                        className="btn-Create"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
-      
+      </div>
     </div>
   );
 }
