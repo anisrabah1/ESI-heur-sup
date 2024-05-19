@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import apiUrl from "../global_Vars/apiConfig";
-import {  useState  } from 'react';
+import {  useEffect, useState  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CalculeInPeriod.css';
 import './PopCalculate.css';
@@ -18,7 +18,7 @@ import {  toaster } from 'evergreen-ui'
 
 
 
-export default function CalculeInPeriod ({ouvertPourPeriod,setOuvertPourPeriod,sessionDates,techerSessionId}){
+export default function CalculeInPeriod ({ouvertPourPeriod,setOuvertPourPeriod,sessionDates,techerSessionId,teacherInfos,seances}){
 
 const navigate=useNavigate();
 
@@ -30,6 +30,40 @@ const [calculateFrom ,setCalculateFrom]=useState(sessionDates[0].substring(0,10)
 const [calculateTo ,setCalculateTo]=useState(sessionDates[1].substring(0,10));
 
 const[errorDate,setErrorDate]=useState(false);
+
+const distinctSeance=()=>{
+  let s =[];
+  seances.map((item,ind)=>{
+    s.push(item.seanceType.seanceTypeName)
+  })
+  return [...new Set(s)];
+}
+
+const distinctModule=()=>{
+  let m =[];
+  seances.map((item,ind)=>{
+    m.push(item.subject.subjectName)
+  })
+  return [...new Set(m)];
+}
+
+const handleNavigate = () => {
+      navigate('/to-printDetailView', {
+        state: { 
+        
+          result: result, 
+          teacherInfos : teacherInfos,
+          seances:distinctSeance(),
+          modules:distinctModule(),
+        }
+      });
+    };
+
+    
+      
+      
+    
+
 
 const fetchAddHourInPeriod = async () => {
     setFetchHoursInPeriode(true);
@@ -67,6 +101,8 @@ const fetchAddHourInPeriod = async () => {
         toaster.warning(error.message);
         }
     };
+
+    
 
 return(
     <div className={`popUp-Calculate ${ouvertPourPeriod ? 'open' : ''}`}>
@@ -164,9 +200,9 @@ return(
                                     <div className="" style={{marginTop:'8%' }}>
                                         <button id="btn-To-Calculate" 
                                          onClick={() => {setAfficheCalcule(false)
-                                            navigate("/to-printView");
+                                            handleNavigate();
                                          } }
-                                        >Imprimer</button>
+                                        >Afficher on détaills</button>
                                     </div> 
                                     
                                 

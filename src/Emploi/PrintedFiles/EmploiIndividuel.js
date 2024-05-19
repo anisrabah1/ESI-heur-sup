@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import "./EmploiIndividuel.css";
-
+import '../PopCalculate.css'
 
 
 export default function EmploiIndividuel({dataToPrint}){
@@ -13,18 +13,24 @@ export default function EmploiIndividuel({dataToPrint}){
         <div className="container-Feuille">
          
         <header>
-            <div class="header-left">
-                <p onClick={()=>console.log(teacheInfos)} >République Algérienne Démocratique et Populaire</p>
-                <p>Ministère de l'Enseignement Supérieur et de la Recherche Scientifique</p>
-                <p>ÉCOLE SUPÉRIEURE EN INFORMATIQUE</p>
-                <p >8 Mai 1945 - Sidi-Bel-Abbès</p>
+            <div className="header-left">
+                <p onClick={()=>console.log(teacheInfos)} className="L1">République Algérienne Démocratique et Populaire</p>
+                <p className="L2">Ministère de l'Enseignement Supérieur et de la Recherche Scientifique</p>
+                <p className="L3">ÉCOLE SUPÉRIEURE EN INFORMATIQUE</p>
+                <p className="L4">8 Mai 1945 - Sidi-Bel-Abbès</p>
             </div>
-            <div class="header-right">
-                <img src="logo.png" alt="ESI Logo" />
+            <div className="header-center">
+            <img src={require("./ESI_logo.png")  }/>   
+            </div>
+            <div className="header-right">
+            <p onClick={()=>console.log(teacheInfos)} className="L1">الجـمـهـوريــة الـجزائـريـــــة الديمقراطيــــة الشعبيـــــة</p>
+                <p className="L2">وزارة الــتــعــلــيـــــــم الـــعـــالــــــــي والـبـحــــــث العـلـمـــــي</p>
+                <p className="L3">الــمــدرســـــــة الـعــــلـــيــــــا لاعـــــــلام الالــــــــي</p>
+                <p className="L4">8 ماي 1945 ســيــدي بــلــعــبــاس</p>
             </div>
         </header>
-        <main>
-            <h1>Emploi du temps individuel</h1>
+        <main className="mainY-emploi-ind">
+            <h2>Emploi du temps individuel</h2>
             <p>Année universitaire : 2023-2024</p>
             <p>Fonction : Enseignant-Chercheur</p>
             <p>Nom : {teacheInfos.firstName}</p>
@@ -57,7 +63,7 @@ export default function EmploiIndividuel({dataToPrint}){
             </table>
             {coursTdTp.seances && coursTdTp.seances.map((item,index)=> {
                 return(
-                        <div className="lineY" key={index}>
+                        <div className="lineY-individuel" key={index}>
                             <p className="keyY">{item.seanceTypeName && item.seanceTypeName}</p> 
                             <p className="valueY">{item.hoursNumber && item.hoursNumber}</p> 
                             <p className="unitéY">Heures</p>
@@ -69,11 +75,11 @@ export default function EmploiIndividuel({dataToPrint}){
         <footer className="fouterY">
             <div class="signature">
                 <p>Enseignant(e)</p>
-                <p class="signature-line">_________________________</p>
+                {/* <p class="signature-line">...</p> */}
             </div>
             <div class="department">
                 <p>Le chef de département</p>
-                <p class="stamp">_________________________</p>
+                {/* <p class="stamp">...</p> */}
             </div>
         </footer>
 

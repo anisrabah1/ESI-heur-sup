@@ -22,8 +22,9 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate,teac
             },
           });
           const data = await response.json();
-          toaster.notify('session data' ,data.message); 
-          console.log('sessins data',data.teacherSessions)
+          
+          console.log('cccccccccccccccccccc')
+          console.log(data.teacherSessions)
           
           set_session(data.teacherSessions)
           
@@ -45,7 +46,7 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate,teac
                  startDate {m.startDate}<br></br>
                  startDate {m.endDate}
                  {/* here is the emploi */}
-                 <CreateEmploi sessionId={m._id}  sessionDates={[m.startDate,m.endDate]}  teacherInfos={teacherInfos}/>
+                 <CreateEmploi sessionId={m._id}  sessionDates={[m.startDate,m.endDate]}  teacherInfos={teacherInfos} seances={session.seances}/>
                  <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id} />
               </div>
               

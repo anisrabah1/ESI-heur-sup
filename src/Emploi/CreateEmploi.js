@@ -53,7 +53,7 @@ const lesJours = Object.keys(dayMappings);
 
 
 
-export default function CreateEmploi({sessionId , sessionDates,teacherInfos}) {
+export default function CreateEmploi({sessionId , sessionDates,teacherInfos,seances}) {
 
   const [detailsOpened,setDetailsOpened]=useState(false);
 
@@ -98,54 +98,62 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos}) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [cards, setCards] = useState(null);
+  const [cards, setCards] = useState(seances);
 
   const [startFetchingStructure ,setStartFetchingStructure]=useState();
 
 
-  useEffect(() => {
-    const fetchData = async (
-      whereFetch,
-      teacherSessionId,
-      dataToFetch,
-      setObject
-    ) => {
-      // dataToFetch = name data in backend
-      // const[object,setObject]
-      try {
-        console.log("Hello from the use effect");
+  // useEffect(() => {
 
-        const token = Cookies.get("token");
-        const response = await fetch(
-          `http://${apiUrl}:3000/api/v1/${whereFetch}/${teacherSessionId}/${dataToFetch}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
 
-        const data = await response.json();
-        setObject(data[dataToFetch]);
-        console.log(data);
-        if (!response.ok) {
-          console.log("ERROR :", data);
-          throw new Error(data.message || "Server Error");
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
 
-    fetchData(
-      "teacherSessions",
-      sessionId,
-      "seances",
-      setCards
-    );
-  }, [isFetch]);
+  //   const fetchData = async (
+  //     whereFetch,
+  //     teacherSessionId,
+  //     dataToFetch,
+  //     setObject
+  //   ) => {
+  //     // dataToFetch = name data in backend
+  //     // const[object,setObject]
+  //     try {
+  //       console.log("Hello from the use effect");
+
+  //       const token = Cookies.get("token");
+  //       const response = await fetch(
+  //         `http://${apiUrl}:3000/api/v1/${whereFetch}/${teacherSessionId}/${dataToFetch}`,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-type": "application/json; charset=UTF-8",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+
+
+  //       const data = await response.json();
+  //       setObject(data[dataToFetch]);  console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+  //       console.log(data[dataToFetch]);
+  //       if (!response.ok) {
+  //         console.log("ERROR :", data);
+  //         throw new Error(data.message || "Server Error");
+  //       }
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+      
+  //   };
+
+  //   fetchData(
+  //     "teacherSessions",
+  //     sessionId,
+  //     "seances",
+  //     setCards
+  //   );
+
+   
+
+  // }, [isFetch]);
 
   //fetch________Departement !
 
@@ -682,12 +690,18 @@ export default function CreateEmploi({sessionId , sessionDates,teacherInfos}) {
         console.log(error.message);
         }
     };
+   
+   
+    
+    
+
+    // const distinctItems = [...new Set(items)];
   return (
     
     <div className="container-Create-empoi">
        <CalculeInPeriod  ouvertPourPeriod={ouvertPourPeriod} setOuvertPourPeriod={setOuvertPourPeriod}
-            sessionDates={sessionDates} techerSessionId={sessionId}
-
+            sessionDates={sessionDates} techerSessionId={sessionId} teacherInfos={teacherInfos}
+            seances={cards}
             />
       <PopCalculate ouvert={ouvert} setOuvert={setOuvert} result={result} fetchHourlyCharge ={fetchHourlyCharge}
         sessionDates={sessionDates} techerSessionId={sessionId} isCalculating={isCalculating}

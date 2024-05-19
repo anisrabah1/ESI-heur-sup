@@ -1,0 +1,125 @@
+.container-Feuille2 *{
+    margin: 0;
+    padding: 0;
+}
+
+.container-Feuille2{
+    height: 27.9cm;
+    width: 21cm;
+    display: flex;
+    flex-direction: column; 
+    padding: 16px;
+    border: 1px solid black;
+    margin: 0px auto;
+
+}
+
+.container-Feuille2 .mainY{
+    direction: rtl; /* Right to Left */
+    unicode-bidi: isolate;
+    display: flex;
+    flex-direction: column; 
+   
+    flex-grow:1 ;
+}
+
+.container-Feuille2 .mainY h3{
+    text-align: center;
+    margin:40px 0px 10px 0px;
+    
+
+}
+
+.mainY .arabic-infos{
+    width: 100%;
+    display: flex;
+}
+
+.mainY .arabic-infos .coloneY{
+width: 50%;
+}
+
+.mainY .arabic-infos .coloneY .nomY{
+    display: flex;
+    align-items: center;
+    justify-content:right ;
+    font-size: 15px;
+}
+.mainY .arabic-infos .coloneY .nomY .titY{
+    font-weight: 850;
+}
+
+.mainY .arabic-infos .coloneY .nomY .infoY{
+    width: max-content;
+    
+    margin: 0px auto;
+}
+
+.cnt-tables-data{
+    display: flex;
+    justify-content: space-around;
+}
+.cnt-tab1{
+    flex-grow:1 ;
+    margin:0px 20px;
+}
+
+.tableYY { 
+    margin-top: 3px;
+    width: 100%; 
+    border-collapse: collapse; 
+    
+  } 
+  .tableYY, 
+  .tableYY th, 
+  .tableYY td { 
+    border: 1px solid black; 
+    direction: rtl; /* Right to Left */
+    unicode-bidi: isolate; 
+  } 
+  .tableYY th, 
+  .tableYY td { 
+    padding: 8px; 
+    font-size: 13px;
+    font-weight: 800;
+  } 
+
+  .tableYY .signature{
+    height: 80px;
+  }
+
+  .cnt-tab2{
+    height: max-content;
+    flex-grow:1 ;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+
+
+
+
+
+@media print {
+    .container-Feuille2 {
+      width: 21cm;
+      height:29.7cm ;
+      margin: 0;
+      box-sizing: border-box;
+        border: none;
+    }
+  
+    .printable-page h1 {
+      font-size: 24pt;
+    }
+  
+    .printable-page p {
+      font-size: 12pt;
+    }
+  
+    .no-print {
+      display: none;
+    }
+  }

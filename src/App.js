@@ -18,7 +18,8 @@ import Loading from './loading';
   import Log_in from './loginPage/Log-in'
 import Teacher_info from './Teacher/teacher_page/Teacher_info';
 import EmploiIndividuel from './Emploi/PrintedFiles/EmploiIndividuel';
-import PrintPreview from './Emploi/PrintedFiles/PrintView';
+import PrintView2 from './Emploi/PrintedFiles2/PrintView2';
+
 
 function App() {
   const [search,setSearch]=useState([])
@@ -40,6 +41,9 @@ function App() {
         <Route path='/systemParam' element={<SystemeParam/>}></Route>
         <Route path='/to-printed' element={<EmploiIndividuel/>}></Route>
         <Route path='/to-printView' element={<PrintView/>}></Route>
+        <Route path='/to-printDetailView' element={<PrintView2/>}></Route>
+
+        
         </Routes>
       
       

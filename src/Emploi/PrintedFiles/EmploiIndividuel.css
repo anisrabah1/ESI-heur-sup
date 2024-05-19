@@ -1,27 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+
 .container-Feuille *{
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 .container-Feuille {
-    width: 80%;
+    width: 27.9cm;
     margin: 0 auto;
     border: 1px solid #000;
     padding: 20px;
+    height: 21cm;
 }
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    
+    
 }
+.header-left ,.header-right{
+    width: 35%;
+    border-bottom: 2px solid black;
+}
+
 .header-left p {
     margin: 0;
     line-height: 1.4;
+    font-family: "Merriweather", serif;
+    margin-bottom: 2px;
 }
+
+.header-left .L1 {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.header-left .L2 {
+    font-size: 11.6px;
+    font-weight: 800;
+    letter-spacing: -0.9px;
+}
+
+.header-left .L3 {
+    font-size: 16px;
+    font-weight: 1000;
+}
+.header-left .L4 {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.header-right p {
+    margin: 0;
+    line-height: 1.4;
+    font-family: "Amiri", serif;
+    margin-bottom: 0.5px;
+    direction: rtl; /* Right to Left */
+    unicode-bidi: isolate;
+}
+
+.header-right .L1 {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.header-right .L2 {
+    font-size: 15.6px;
+    font-weight: 800;
+    letter-spacing: -0.9px;
+}
+
+.header-right .L3 {
+    font-size: 16px;
+    font-weight: 1000;
+}
+.header-right .L4 {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+
+
+
+
 .header-right img {
+    margin: 0;
+    line-height: 1.4;
+    
+}
+.header-center{
     max-height: 100px;
 }
+
 main h1 {
     text-align: center;
     margin-bottom: 20px;
@@ -39,18 +113,49 @@ main h1 {
 .tableY .thY {
     background-color: #f2f2f2;
 }
-.footerY {
+.fouterY {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 25px;
+    font-weight: 700;
 }
 .signature, .department {
     text-align: center;
+    text-decoration: underline solid black;
 }
 .signature-line, .stamp {
     margin-top: 40px;
 }
+
+
+
+
+
+.lineY-individuel{
+display: flex;
+}
+.lineY-individuel .keyY ,.lineY-individuel .valueY  {
+
+margin: 2px 6px;
+font-weight: 700;
+
+}
+
+.lineY-individuel .unitéY{
+    margin-top: 2px;
+    color: gray;
+}
+
+.mainY-emploi-ind{
+    margin-top: 70px;
+}
+
+.mainY-emploi-ind h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 
 
 
