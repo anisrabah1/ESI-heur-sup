@@ -11,12 +11,14 @@ import { BrowserRouter, Route, Switch, Routes } from "react-router-dom";
 import CreateEmploi from "./Emploi/CreateEmploi";
 import SystemeParam from "./Sys_param/SystemParam";
 
-import Loading from "./loading";
-import Log_in from "./loginPage/Log-in";
-import Teacher_info from "./Teacher/teacher_page/Teacher_info";
-import EmploiIndividuel from "./Emploi/PrintedFiles/EmploiIndividuel";
-import PrintView2 from "./Emploi/PrintedFiles2/PrintView2";
+import Loading from './loading';
+import Log_in from './loginPage/Log-in'
+import Teacher_info from './Teacher/teacher_page/Teacher_info';
+import EmploiIndividuel from './Emploi/PrintedFiles/EmploiIndividuel';
+import PrintView2 from './Emploi/PrintedFiles2/PrintView2';
 import Structure from "./structure/structure";
+import GroupPlanning from "./GroupPlanning/groupPlanning";
+import RoomPlanning from "./roomPlanning/roomPlanning";
 
 function App() {
   const [search, setSearch] = useState([]);
@@ -27,23 +29,20 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/test" element={<Loading />} />
-          <Route path="/structure" element={<Structure />} />
-          <Route path="/home" element={<Home />} />
-          <Route index element={<Log_in />} />
-          <Route
-            path="teachers"
-            element={<Teachers search={search} setSearch={setSearch} />}
-          />
-          <Route
-            path="/teacher/:id"
-            element={<Teacher_info search={search} setSearch={setSearch} />}
-          />
-          <Route path="creatEmploi" element={<CreateEmploi />}></Route>
-          <Route path="/systemParam" element={<SystemeParam />}></Route>
-          <Route path="/to-printed" element={<EmploiIndividuel />}></Route>
-          <Route path="/to-printView" element={<PrintView />}></Route>
-          <Route path="/to-printDetailView" element={<PrintView2 />}></Route>
+        <Route path='/test' element={<Loading/>}/>
+        <Route path='/home' element={<Home/>}/>
+        <Route index element={<Log_in/>}/>
+        <Route path="/structure" element={<Structure />} />
+      <Route path='teachers' element={<Teachers search={search} setSearch={setSearch}/>}/>
+      <Route path='/teacher/:id' element={<Teacher_info search={search} setSearch={setSearch}/>}/>
+        <Route path='creatEmploi' element={<CreateEmploi/>}></Route>
+        <Route path='/systemParam' element={<SystemeParam/>}></Route>
+        <Route path='/to-printed' element={<EmploiIndividuel/>}></Route>
+        <Route path='/to-printView' element={<PrintView/>}></Route>
+        <Route path='/to-printDetailView' element={<PrintView2/>}></Route>
+         <Route path="/groupPlanning" element={<GroupPlanning />}></Route>
+          <Route path="/roomPlanning" element={<RoomPlanning />}></Route>
+        
         </Routes>
       </BrowserRouter>
     </div>

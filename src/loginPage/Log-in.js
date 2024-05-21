@@ -19,10 +19,10 @@ export default function Log_in() {
   const navigate = useNavigate();
 
   const toCreateEmploi = () => {
-    navigate("creatEmploi");
+    navigate("groupPlanning");
   };
   const tosystemParam = () => {
-    navigate("systemParam");
+    navigate("roomPlanning");
   };
 
   const offLigne = () => {
