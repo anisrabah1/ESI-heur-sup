@@ -1,0 +1,59 @@
+/* GroupPlanning.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.planning-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.planning-section {
+  margin-bottom: 2em;
+}
+
+.planning-section h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+  background-color: #e0fbe2;
+  padding: 10px;
+  border-left: 5px solid #b0ebb4;
+  display: inline-block;
+}
+
+.planning-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.planning-table th,
+.planning-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.planning-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.planning-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.planning-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.planning-table td {
+  font-size: 0.9em;
+  color: #555;
+}

@@ -457,7 +457,7 @@ export default function CreateEmploi({
       if (!response.ok) {
         toaster.danger(data.message);
         console.log("ERROR :", data);
-        throw new Error(data.message || "Server Error");
+        // throw new Error(data.message || "Server Error");
       }
       console.log("successfuly");
       toaster.success("seance successfuly created");
