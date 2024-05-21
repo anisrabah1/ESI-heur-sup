@@ -820,12 +820,14 @@ export default function CreateEmploi({
                         <div className="third-Line">
                           <p>{item.level.levelName}</p>
                           <p>{item.department.departmentName}</p>
+                        </div>
+                        <div className="foorth-Line">
                           {item.section.sectionName && (
                             <p>
                               <span>Section</span> {item.section.sectionName}
                             </p>
                           )}
-                          <p>{item.group.groupName}</p>
+                          {item.group && <p>{item.group.groupName}</p>}
                         </div>
                         <div className="foorth-Line">
                           <p>{item.room.roomName}</p>
