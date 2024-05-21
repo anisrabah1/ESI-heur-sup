@@ -1,5 +1,5 @@
 // apiConfig.js
 
-const apiUrl = "172.20.10.3";
+const apiUrl = "localhost:3001";
 
 export default apiUrl;

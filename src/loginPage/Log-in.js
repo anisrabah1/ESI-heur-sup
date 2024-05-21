@@ -63,7 +63,7 @@ const navigate=useNavigate();
         {isOffline && (  toaster.warning('Please check your internet connection !'))}
         try {
             setIsSpinning(true);
-            const response = await fetch('http://'+apiUrl+':3000/api/v1/admin/login', {
+            const response = await fetch('http://'+apiUrl+'/api/v1/admin/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

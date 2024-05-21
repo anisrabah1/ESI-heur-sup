@@ -6,6 +6,12 @@ import { toaster } from 'evergreen-ui';
 import Cookies from "js-cookie";
 const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) => {
     const [session,set_session] = useState([]);
+    const [currentSessionStart,set_currentSessionStart] = useState();
+    const [currentSessionEnd,set_currentSessionEnd] = useState();
+    window.currentSessionStart = currentSessionStart;
+    window.set_currentSessionStart = set_currentSessionStart;
+    window.currentSessionEnd = currentSessionEnd;
+    window.set_currentSessionEnd = set_currentSessionEnd;
     const apiUrls = new ApiUrls();
     const fetchData = async () => {
       const token = Cookies.get("token");
@@ -34,15 +40,17 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) =>
     },[])
     return ( 
         <div>
-{session && session.map((m)=>(
+{session && session.map((m,i)=>(
               
               <div className="session">
-                 Session {m._id}<br></br>
-                 startDate {m.startDate}<br></br>
-                 startDate {m.endDate}
+                <div className="seesionHeader">
+                  <div>Session   {i+1}</div>
+                  <div>start    {m.startDate.substring(0, 10)}</div>
+                  <div>end    {m.endDate.substring(0, 10)}</div>
+                 </div>
                  {/* here is the emploi */}
                  
-                 <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id}/>
+                 <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id} seesionStart={m.startDate.substring(0, 10)} sessionEnd={m.endDate.substring(0, 10)}/>
               </div>
               
           )) }

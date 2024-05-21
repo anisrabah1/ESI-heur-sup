@@ -29,3 +29,10 @@
     width: 2.5vw;
     transition: all 0.2s ease;
 }
+
+.seesionHeader{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

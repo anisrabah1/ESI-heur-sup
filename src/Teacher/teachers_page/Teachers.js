@@ -11,10 +11,12 @@ import CheckIcon from '@mui/icons-material/Check';
 import ApiUrls from '../../APIs';
 import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
+import Teacher_details from '../teacher_page/teacher_details';
 
 
     
 const Teachers = ({search,setSearch}) => {
+    
     const [create, set_create] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [submit, setsubmit] = useState(false);
@@ -51,7 +53,7 @@ const Teachers = ({search,setSearch}) => {
         const token = Cookies.get("token");
         setIsLoading(true)
         try {
-            console.log('this is me',apiUrls.getUrl('getTeachers'))
+            // console.log('this is me',apiUrls.getUrl('getTeachers'))
             const response = await fetch(apiUrls.getUrl('getTeachers'),{
                 
                 headers: {
@@ -59,15 +61,15 @@ const Teachers = ({search,setSearch}) => {
                     Authorization: `Bearer ${token}`,
                   },
             });
-            console.log('-----------------------------------------');
-            console.log('response');
-            console.log(response.message);
+            // console.log('-----------------------------------------');
+            // console.log('response');
+            // console.log(response.message);
             const data = await response.json();
-            console.log('data', data)
+            // console.log('data', data)
 
         set_t(data.teachers)
            setIsLoading(false)
-            console.log('succsee!');
+            // console.log('succsee!');
             
           } catch (error) {
              console.log(error)
@@ -75,7 +77,7 @@ const Teachers = ({search,setSearch}) => {
           }
     };
 
-
+    window.fetchTeachers = fetchData ;
     function addObjectIfStringContained() {
         // Iterate over the array
         const buf =[];
@@ -134,9 +136,13 @@ const apiUrls = new ApiUrls();
         <div className="teachers">
             
             { ts && !create && !isLoading && ts.map((m)=>(
-              
-                <Teacher_card teacher={m} submit={isLoading}/>
                 
+                
+                
+                <Teacher_card teacher={m}  submit={isLoading} />
+             
+                
+              
             )) }
             {create && !isLoading &&
 <Form submit={setsubmit} create={set_create}/>

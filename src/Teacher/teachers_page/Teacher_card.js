@@ -5,8 +5,10 @@ import { useState ,useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import ApiUrls from '../../APIs';
+import Teacher_details from '../teacher_page/teacher_details';
 const Teacher_card
  = ({teacher,submit}) => {
+    const [showMore, set_showMore] = useState(false);
     const navigate = useNavigate();
 
     const [screenSize, setScreenSize] = useState({
@@ -52,42 +54,49 @@ const Teacher_card
     };
 
     return ( 
-    
-    <div className="teacher"  onClick={()=>{
+        <div>
+    {showMore &&
+        <Teacher_details data={teacher} showMore={showMore} set_showMore={set_showMore} />
+    }
+    { !showMore &&
+        <div className="teacher"  onClick={()=>{
+        set_showMore(!showMore)
+            // navigate(`/teacher/${teacher._id}`);
+            }} >
         
-        navigate(`/teacher/${teacher._id}`);
-        }} >
-    
-    <Avatar alt={teacher.firstName} src="/assets/n.png"  sx={{ width: window.innerWidth*0.1,
-        height: window.innerWidth*0.1 ,bgcolor: blue[700]}} className='photo_container'/>
-    
-    
-    <div className="info">
-        <div className="name">{teacher.firstName.toUpperCase()} {teacher.lastName.toUpperCase()}</div>
-        <div className="sub_info ">
-            <div className="sub_info1 ">
-            <div className="email"><div className="Tlabel">Email :</div> {teacher.email}</div>
-            
-            <div className="number sub_info2"><div className="Tlabel">Phone :</div>  {teacher.phoneNumber}</div>
-            </div>
-            <div className="sub_info1 " >
-            <div className="degree"><div className="Tlabel">Degree :</div>  {teacher.degree}</div>
-            <div className="major sub_info2"><div className="Tlabel">Major :</div> {teacher.major}</div>
-            </div>
-            <div className="sub_info1"><div className="Tlabel">Home institution :</div>  {teacher.homeInstitution}</div>
+        <Avatar  src="/assets/n.png"  sx={{ width: window.innerWidth*0.08,
+            height: window.innerWidth*0.08 ,bgcolor: blue[700]}} className='photo_container'/>
         
-        </div>
         
-    </div>
-    
-               
-                <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();DeletData()}}>
-                    
-                </button>
-               
+        <div className="info">
+            <div className="name">{teacher.firstName.toUpperCase()} {teacher.lastName.toUpperCase()}</div>
+            <div className="sub_info ">
+                <div className="sub_info1 ">
+                <div className="email"><div className="Tlabel">Email :</div> {teacher.email}</div>
                 
-           
-</div> );
+                <div className="number sub_info2"><div className="Tlabel">Phone :</div>  {teacher.phoneNumber}</div>
+                </div>
+                <div className="sub_info1 " >
+                <div className="degree"><div className="Tlabel">Degree :</div>  {teacher.degree}</div>
+                <div className="major sub_info2"><div className="Tlabel">Major :</div> {teacher.major}</div>
+                </div>
+                
+            
+            </div>
+            
+        </div>
+        <button className="icon-button button2" onClick={(e)=>{e.stopPropagation();DeletData()}}></button>
+                   <button className="icon-button button3" onClick={(e)=>{e.stopPropagation();navigate(`/teacher/${teacher._id}`);}}></button>
+                    <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();DeletData()}}></button>
+                    
+                    
+                   
+                    
+               
+    </div>
+    }
+    </div>
+     );
 }
  
 export default Teacher_card

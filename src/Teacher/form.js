@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import FormControl from '@mui/material/FormControl';
 import ApiUrls from '../APIs';
 import './form.css';
+import Cookies from "js-cookie";
 const Form = ({submit,create}) => {
     
     
@@ -29,7 +30,7 @@ const Form = ({submit,create}) => {
             phoneNumber:'',
             major:'',
             employmentStatus:'',
-            position:'',
+            positions:[],
             dateOfBirth:'',
             homeInstitution:'',
             cardType:'CCP',
@@ -58,10 +59,12 @@ const Form = ({submit,create}) => {
     };
     const apiUrls = new ApiUrls();
     function sub (){
+        const token = Cookies.get("token");
         fetch(apiUrls.getUrl('getTeachers'), {
             method: 'POST', // Specify the HTTP method as POST
             headers: {
-                'Content-Type': 'application/json' // Specify the content type as JSON
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Specify the content type as JSON
             },
             body: JSON.stringify(Data) // Convert the data object to a JSON string
         })
@@ -79,7 +82,13 @@ const Form = ({submit,create}) => {
         getpositions();
     },[])
     function getpositions (){
-        fetch(apiUrls.getUrl('getPositions'))
+        const token = Cookies.get("token");
+        fetch(apiUrls.getUrl('getPositions'),{
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+              },
+        })
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
             
@@ -145,14 +154,19 @@ const Form = ({submit,create}) => {
                 fullWidth
           labelId="degree"
           id="demo-simple-select"
-          value={Data.position}
+          value={Data.positions}
           label="position"
           name='position'
           onChange={handleChange}
           
         >
             {positions && positions.map((e)=>(
-                <MenuItem value={e._id}>{e.positionName}</MenuItem>
+                <MenuItem value={[ 
+                    { 
+                      "position":  e._id, // Example ObjectId of a Position 
+                      "startDate": "2024-05-14" 
+                    } 
+                    ]}>{e.positionName}</MenuItem>
             ))}
             
           
@@ -221,8 +235,10 @@ const Form = ({submit,create}) => {
             <IconButton aria-label="submit" fullWidth color="success" onClick={()=>{
                 submit(true);
                 sub();
+                
                 // console.log(Data);
                 create(false);
+                window.fetchTeachers();
             }}>
         <DeleteIcon />
       </IconButton>

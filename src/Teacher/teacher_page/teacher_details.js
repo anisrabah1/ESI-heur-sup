@@ -1,14 +1,21 @@
 import './teacher_details.css'
 import Avatar from '@mui/material/Avatar';
 import {useState ,useEffect} from 'react';
-const Teacher_details = ({data}) => {
-console.log(data);
+import { deepOrange,green,blue,grey } from '@mui/material/colors';
+import { useNavigate } from 'react-router-dom';
 
+
+const Teacher_details = ({data,set_showMore,showMore}) => {
+console.log(data);
+const navigate = useNavigate();
 console.log('-------------------------------------------------------------------');
     return ( 
-        <div className="details_card">
+        <div className="details_card"  onClick={()=>{
+            set_showMore(!showMore)
+                // navigate(`/teacher/${teacher._id}`);
+                }}>
             <div className="photo">
-            <Avatar alt={'anis'} src=""  sx={{ width: 150, height: 150 }} className='photo_container'/>
+            <Avatar alt={'anis'} src=""  sx={{ width: 150, height: 150 ,bgcolor: blue[700]}} className='photo_container'/>
             </div>
             <div className="details">
                 <div className="formC">
@@ -21,19 +28,29 @@ console.log('-------------------------------------------------------------------
                 </div>
                 <div className="formC">
                 <div className="details-degree form1"><div className="details_label">Degree :  </div>{data.degree}</div>
-                <div className="details-position form1"><div className="details_label">position : </div>Searcher</div>
+                <div className="details-position form1"><div className="details_label">position : </div>{data && data.positions   && data.positions[data.positions.length-1].position}</div>
                 </div>
                 <div className="formC">
                 <div className="details-major form1"><div className="details_label">Major : </div>{data.major}</div>
                 <div className="details-home form1"><div className="details_label">Home institution : </div>{data.homeInstitution}</div>
                 </div>
                 <div className="formC">
-                <div className="details-status form1"><div className="details_label">Status : </div>full time</div>
-                <div className="details-day form1"><div className="details_label">birth day : </div>{data.dateOfBirth}</div>
+                <div className="details-status form1"><div className="details_label">Status : </div>{data.employmentStatus}</div>
+                <div className="details-day form1"><div className="details_label">birth day : </div>{data.dateOfBirth.substring(0, 10)}</div>
+                </div>
+                <div className="formC">
+                <div className="details-status form1"><div className="details_label">Card Type : </div>{data.cardType}</div>
+                <div className="details-day form1"><div className="details_label">Card Number : </div>{data.cardNumber}</div>
                 </div>
                 
 
             </div>
+            
+            <button className="icon-button button2" onClick={(e)=>{e.stopPropagation();}}></button>
+                   <button className="icon-button button3" onClick={(e)=>{e.stopPropagation();navigate(`/teacher/${data._id}`);}}></button>
+                   <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();}}></button>
+                    <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();}}></button>
+
         </div>
      );
 }

@@ -11,8 +11,8 @@ body{
 
 .content{
   position: fixed;
-  
-  overflow-x: hidden;
+  overflow: hidden;
+ 
   
   background-color: #ffc80000;
   margin-left: 13vw;

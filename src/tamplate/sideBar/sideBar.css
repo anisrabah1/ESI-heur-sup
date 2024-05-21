@@ -161,8 +161,9 @@
    }
 
    .bttx{
+    
     display: flex;
     position: relative;
     font-weight: bold;
-    font-size: 120%;
+    font-size: 1.2vw;
   }
