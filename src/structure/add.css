@@ -1,0 +1,33 @@
+/* add.css */
+
+.add-container {
+  position: relative;
+  width: 23vw;
+  height: 10vw;
+  margin-top: 4vw;
+  margin-left: 5vw;
+  border-radius: 0.5rem;
+  background: linear-gradient(270deg, rgb(240, 240, 240) 0%, rgba(0, 0, 0, 0.14) 92.9%);
+
+}
+
+.add-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.add-icon {
+  width: 70%;
+  height: auto;
+}
+
+.add-button:focus {
+  outline: none;
+}

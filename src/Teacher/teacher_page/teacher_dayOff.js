@@ -8,24 +8,30 @@ import Paper from '@mui/material/Paper';
 import './Teacher_dayOff.css'
 import { useState ,useEffect } from 'react';
 import ApiUrls from '../../APIs';
-const Teacher_dayOff = ({popup,sessionID,create}) => {
+import Cookies from "js-cookie";
+import { toaster } from 'evergreen-ui';
+
+const Teacher_dayOff = ({popup,sessionID,create ,sessionStart , sessionEnd}) => {
 
   const apiUrls = new ApiUrls();
   const fetchData = async () => {
+
+    const token = Cookies.get("token");
         
     try {
-        console.log()
+        
         const response = await fetch(`${apiUrls.getUrl('getAllSessions')}/${sessionID}/personalOffDays`, {
             method: 'GET', // Specify the HTTP method as POST
             headers: {
-                'Content-Type': 'application/json' // Specify the content type as JSON
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Specify the content type as JSON
             },
            
         });
         // console.log(response)
         const data = await response.json();
         
-        console.log(data);
+       
 
         setRows(data.offDays);
         
@@ -34,35 +40,66 @@ const Teacher_dayOff = ({popup,sessionID,create}) => {
         
       }
 };
+window.fetchDayOffs = fetchData;
     
       const [rows , setRows] = useState(
         [
-          { dayStart:'12 | 07 | 2024', dayEnd:'12 | 07 | 2024',hourStart:'8am',hourEnd:'9am',motive:'sick'},
-          { dayStart:'12 | 07 | 2024', dayEnd:'12 | 07 | 2024',hourStart:'8am',hourEnd:'9am',motive:'sick'},
-          { dayStart:'12 | 07 | 2024', dayEnd:'12 | 07 | 2024',hourStart:'8am',hourEnd:'9am',motive:'sick'},
-          { dayStart:'12 | 07 | 2024', dayEnd:'12 | 07 | 2024',hourStart:'8am',hourEnd:'9am',motive:'sick'},
+          { dayStart:'', dayEnd:'',hourStart:'',hourEnd:'',motive:''},
         ]
       );
 useEffect(()=>{
   fetchData()
   console.log(rows)
   
-},[])
+},[]);
+
+const deleteDayOff = async (day_id) => {
+  const token = Cookies.get("token");
+
+  try {
+     
+      const response = await fetch(`${apiUrls.getUrl('getAllSessions')}/${sessionID}/OffDays/${day_id}`,
+    {
+        method: 'DELETE', // Specify the HTTP method as POST
+        headers: {
+            'Content-Type': 'application/json' ,
+            Authorization: `Bearer ${token}`,// Specify the content type as JSON
+        },
+        
+    }
+    );
+      // console.log(response)
+      
+      const data = await response.json();
+      toaster.notify(data.message);
+  
+      
+      
+    } catch (error) {
+      toaster.notify(error.message);
+       console.log(error.message)
+      
+    }
+    
+};
+
+
     return ( 
         <div className='dayOff'>
 <div className="cardLabel">
     <div>Days off</div>
-    <div className="addDay" onClick={()=>{popup(true);create(sessionID)}} />
+    <div className="addDay" onClick={()=>{window.set_currentSessionStart(sessionStart);window.set_currentSessionEnd(sessionEnd);popup(true);create(sessionID)}} />
 </div>
 <TableContainer component={Paper} >
       <Table sx={{ minWidth: 650, classes:['table'],size:'lg'}} aria-label="simple table" >
         <TableHead>
           <TableRow>
-            <TableCell><div className="tableText"> date start</div></TableCell>
-            <TableCell> <div className="tableText">date end</div> </TableCell>
-            <TableCell align=""> <div className="tableText">houre start</div> </TableCell>
-            <TableCell align=""> <div className="tableText">houre end</div> </TableCell>
+            <TableCell><div className="tableText">start</div></TableCell>
+            <TableCell> <div className="tableText">end</div> </TableCell>
+            <TableCell align=""> <div className="tableText">start hour </div> </TableCell>
+            <TableCell align=""> <div className="tableText">end hour</div> </TableCell>
             <TableCell align=""> <div className="tableText">motive</div> </TableCell>
+            <TableCell align=""> <div className="tableText"></div> </TableCell>
             
           </TableRow>
         </TableHead>
@@ -73,12 +110,13 @@ useEffect(()=>{
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-              <div className="tableText">{row.startDate}</div>
+              <div className="tableText">{row.startDate? row.startDate.substring(0, 10):'--------------'}</div>
               </TableCell>
-              <TableCell align=""> <div className="tableText">{row.endDAte}</div></TableCell>
-              <TableCell align=""><div className="tableText">{row.startHour}</div></TableCell>
-              <TableCell align=""><div className="tableText">{row.endHour}</div></TableCell>
+              <TableCell align=""> <div className="tableText">{row.endDate ? row.endDate.substring(0, 10):'--------------'}</div></TableCell>
+              <TableCell align=""><div className="tableText">{row.startHour ? row.startHour:'--------------'}</div></TableCell>
+              <TableCell align=""><div className="tableText">{row.endHour? row.endHour:'--------------'}</div></TableCell>
               <TableCell align=""><div className="tableText">sick</div></TableCell>
+              <TableCell align=""><div className="tableText"><button className="icon-button button1"   onClick={()=>{deleteDayOff(row._id);window.fetchDayOffs();}}></button></div></TableCell>
               
             </TableRow>
           ))}

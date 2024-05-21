@@ -1,0 +1,21 @@
+.structure_set{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 95%;
+    
+overflow-x: hidden;
+overflow-y: scroll;
+}
+.structure{
+    display: flex;
+    
+    position: relative;
+    flex-wrap: wrap;
+}
+.structure-label{
+    font-size:200%;
+    font-weight: bold;
+    margin-left: 6%;
+    margin-top: 4%;
+}

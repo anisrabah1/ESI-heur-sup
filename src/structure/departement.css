@@ -1,0 +1,91 @@
+.custom-container {
+  border-radius: 0.5rem;
+  background-color: #2C4770;
+  width: 20vw;
+  height: 6vw;
+  padding-left: 3vw;
+  padding-right: 0vw;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  justify-content: center;
+  margin-top: 4vw;
+  margin-left: 5vw;
+
+}
+
+.custom-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: -1.5vw; 
+  margin-top: -0.5vw;
+}
+
+.custom-title {
+  font-size: 1.87rem;
+  color: #f8fafc;
+  font-family:'avant-garde', sans-serif;
+}
+
+.custom-subtitle {
+  font-size: 1.03rem;
+  color: #f8fafcd8;
+  font-family: 'avant-garde', sans-serif;
+  margin-top: 0.25vw;
+}
+
+.custom-button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-left: 3vw;
+  margin: 5%;
+  margin-top: 0.2vw;
+  cursor: pointer;
+}
+
+.custom-img {
+  width: 4vw; 
+  
+  height: auto; 
+}
+
+.custom-button:focus {
+  outline: none;
+}
+
+.custom-info {
+  display: flex;
+  flex-direction: row;
+  gap: 0.625rem;
+  margin-top: 0.5vw;
+  margin-left: -1.5vw;
+}
+
+.custom-number {
+  color: #e31616d4;
+  font-family: Arial, serif;
+  font-size: 0.75vw;
+}
+
+.custom-level {
+  color: rgba(255, 255, 255, 0.539);
+  font-family: Arial, serif;
+  font-size: 0.75vw;
+}
+.departement-wrapper {
+  width: 33.33%; 
+  box-sizing: border-box; 
+  padding: 2vw;
+  margin-left: -5vw;
+  margin-right: 5vw;
+  padding: 2vw; 
+  margin-bottom :-4vw ;
+ 
+}
+
+
+  
+
+

@@ -1,54 +1,42 @@
 /* Import the Google Font */
-@import url('https://fonts.googleapis.com/css2?family=FontName:weight,style&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=FontName:weight,style&display=swap");
 
-body{
+body {
   background-color: rgb(245, 245, 245);
   overflow-x: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-
-
-.content{
+.content {
   position: fixed;
-  
-  overflow-x: hidden;
-  
+  overflow: hidden;
+  overflow: auto;
+
   background-color: #2f49712d;
   margin-left: 12vw;
-  top: 11.17vh;
-  height: 90%;
+  top: 09vh;
+  height: 95%;
   width: 87.5vw;
-  
-
+  z-index: -2;
 }
 
-
-
-
-
-
-.navbt:hover{
-  margin-right:15px ;
+.navbt:hover {
+  margin-right: 15px;
 }
 
-
-
-.link{
+.link {
   text-decoration: none;
 }
-.teacher{
+.teacher {
   position: relative;
   display: flex;
   padding: 40px;
   margin: 1vw auto;
   height: 100pc;
   width: 80vw;
-  
+
   background-color: #dedede;
 }
-
-
 
 .floating-button {
   position: fixed; /* Fixed positioning */
@@ -73,5 +61,3 @@ body{
 .floating-button:hover {
   background-color: #0056b3; /* Darker shade of blue */
 }
-
-

@@ -27,10 +27,12 @@ function Sidebar  () {
                 <div className="bttx">Schedules</div>
             </button>
             <br />
+            <Link to={'/structure'}  className='link'>
             <button className="sideb">
                  <div className="btic4"/>
                 <div className="bttx">Structure</div>
             </button>
+            </Link>
             <br />
             <button className="sideb">
                  <div className="btic5"/>
