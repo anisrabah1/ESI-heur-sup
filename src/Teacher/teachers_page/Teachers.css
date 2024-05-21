@@ -1,118 +1,109 @@
-.teacher{
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    flex-direction: row;
-    width: 90%;
-    height: 48%;
-    box-shadow: 0px 0px 5px 0px rgba(202, 202, 202, 0.767);
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    margin-bottom: -2%;
-    transition: all 0s ease-in-out  ;
+.teacher {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  flex-direction: row;
+  width: 90%;
+  height: 48%;
+  box-shadow: 0px 0px 5px 0px rgba(202, 202, 202, 0.767);
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  margin-bottom: -2%;
+  transition: all 0s ease-in-out;
 }
 
-.teacher:hover{
-    
-
-    box-shadow: 0px 0px 4px 2px rgba(0, 238, 255, 0.767);
+.teacher:hover {
+  box-shadow: 0px 0px 4px 2px rgba(0, 238, 255, 0.767);
 }
-.photo_container{
-    margin-top:-2%;
-    margin-left: 3% ;
+.photo_container {
+  margin-top: -2%;
+  margin-left: 3%;
 }
 
-.info{
-    display: flex;
-    position: relative;
-    width: 80%;
-    flex-direction: column;
-    justify-self:start ;
-    margin-left: 7%;
+.info {
+  display: flex;
+  position: relative;
+  width: 80%;
+  flex-direction: column;
+  justify-self: start;
+  margin-left: 7%;
 }
-.link{
-    text-decoration: none;
-  }
-.name{
-    position: relative;
-    font-size: 1.6vw;
-    font-weight: bold;
-    color: #0080ff;
-    
+.link {
+  text-decoration: none;
 }
-
-.icon-button{
-    position: relative;
-    border-radius: 100%;
-    background-color: #ff000000;
-    bottom:-80%;
-    right: -3.5%;
-    width: 2.5vw;
-    height: 2.5vw;
-    margin-right: 10px;
-    border: none;
-    cursor: pointer;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    top: 80%;
-    transition: top 0.2s ease-in  ;
-}
-.icon-button:hover{
-    top: 75%;
-}
-.button1{
-    background-image: url('../assets/Delete 2 (2).png');
-}
-.button2{
-    background-image: url('../assets/Edit.png');
-}
-.button3{
-    background-image: url('../assets/Clipboard.png');
+.name {
+  position: relative;
+  font-size: 1.6vw;
+  font-weight: bold;
+  color: #0080ff;
 }
 
-.loading{
-    position: relative;
-    
-    top: 50%;
-    left: 50%;
+.icon-button {
+  position: relative;
+  border-radius: 100%;
+  background-color: #ff000000;
+  bottom: -80%;
+  right: -3.5%;
+  width: 2.5vw;
+  height: 2.5vw;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 80%;
+  transition: top 0.2s ease-in;
 }
-.teachers{
-    position: relative;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    
-    justify-content:space-evenly;
-    overflow-y:scroll;
-    
-  }
+.icon-button:hover {
+  top: 75%;
+}
+.button1 {
+  background-image: url("../assets/Delete.png");
+}
+.button2 {
+  background-image: url("../assets/Edit.png");
+}
+.button3 {
+  background-image: url("../assets/Clipboard.png");
+}
 
-  
-.sub_info{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 4%;
+.loading {
+  position: relative;
+
+  top: 50%;
+  left: 50%;
 }
-.data{
-    position: relative;
-    font-size: 1.2vw;
-    
+.teachers {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-evenly;
+  overflow-y: scroll;
 }
-.sub_info1{
-    position: relative;
-    width: 100%;
-    
+
+.sub_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4%;
 }
-.sub_info2{
-    margin-top: 5%;
-   
-    
+.data {
+  position: relative;
+  font-size: 1.2vw;
 }
-.Tlabel{
-    display: inline-block;
-    font-weight: bold;
-    color: #0080ff;
+.sub_info1 {
+  position: relative;
+  width: 100%;
+}
+.sub_info2 {
+  margin-top: 5%;
+}
+.Tlabel {
+  display: inline-block;
+  font-weight: bold;
+  color: #0080ff;
 }
