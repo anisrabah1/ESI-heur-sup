@@ -412,9 +412,12 @@ export default function CreateEmploi({
   const [wait, setWait] = useState(false);
 
   //add seance _____________________//
+
   const mySubmit = async (e, teacherSessionId) => {
     e.preventDefault();
+
     console.log("___________in this________________" + selectedSalle);
+
     const newSeance = {
       seanceDay: day,
       startHour: hourStart,
@@ -423,8 +426,7 @@ export default function CreateEmploi({
       level: selectedNiveau,
       semester: selectedSem,
       department: selectedDep,
-      seanceType: selectedType, // TD : 662ad5e270358c3d8a41cc59 , TP : 662ad6243b0e958c646c8b67 , cour : 662b548512cc1bd7c62cc1b1
-
+      seanceType: selectedType,
       section: selectedSection,
       subject: selectedModule,
       room: selectedSalle,
@@ -433,38 +435,37 @@ export default function CreateEmploi({
     try {
       setIsLoading(true);
       const token = Cookies.get("token");
+
       const response = await fetch(
-        "http://" +
-          apiUrl +
-          ":3000/api/v1/teacherSessions/" +
-          teacherSessionId +
-          "/seances",
+        `http://${apiUrl}:3000/api/v1/teacherSessions/${teacherSessionId}/seances`,
         {
           method: "POST",
           body: JSON.stringify(newSeance),
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
+            "Content-Type": "application/json; charset=UTF-8",
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      console.log(response);
-      setIsLoading(false);
       const data = await response.json();
-      console.log(data.data);
-      console.log("Creation___ seance__!");
+
       if (!response.ok) {
-        toaster.danger(data.message);
-        console.log("ERROR :", data);
-        // throw new Error(data.message || "Server Error");
+        console.error("ERROR :", data);
+        toaster.danger(data.message || "Server Error");
+        return; // Exit the function if there is an error
       }
-      console.log("successfuly");
-      toaster.success("seance successfuly created");
+
+      console.log("Creation___ seance__!", data.data);
+      toaster.success("Seance successfully created");
+
       // Update state to trigger re-render
       setIsFetch((prev) => !prev);
     } catch (error) {
-      console.log(error.message);
+      console.error("Request failed:", error.message);
+      toaster.danger("An error occurred while creating the seance");
+    } finally {
+      setIsLoading(false);
     }
   };
 
