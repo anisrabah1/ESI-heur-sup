@@ -3,10 +3,12 @@ import Avatar from '@mui/material/Avatar';
 import {useState ,useEffect} from 'react';
 import { deepOrange,green,blue,grey } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
+import AddPosition from './addPosition'
 
 
 const Teacher_details = ({data,set_showMore,showMore}) => {
 console.log(data);
+const [close,set_close] = useState(false);
 const navigate = useNavigate();
 console.log('-------------------------------------------------------------------');
     return ( 
@@ -28,7 +30,7 @@ console.log('-------------------------------------------------------------------
                 </div>
                 <div className="formC">
                 <div className="details-degree form1"><div className="details_label">Degree :  </div>{data.degree}</div>
-                <div className="details-position form1"><div className="details_label">position : </div>{data && data.positions   && data.positions[data.positions.length-1].position}</div>
+                <div className="details-position form1"><div className="details_label">position : </div>{data.positions.length>0    && data.positions[data.positions.length-1].position.positionName} <div className='more' onClick={(e)=>{e.stopPropagation(); set_close(true);}  }>...</div> </div>
                 </div>
                 <div className="formC">
                 <div className="details-major form1"><div className="details_label">Major : </div>{data.major}</div>
@@ -50,7 +52,7 @@ console.log('-------------------------------------------------------------------
                    <button className="icon-button button3" onClick={(e)=>{e.stopPropagation();navigate(`/teacher/${data._id}`);}}></button>
                    <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();}}></button>
                     <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();}}></button>
-
+{close && <AddPosition set_close={set_close}/>}
         </div>
      );
 }

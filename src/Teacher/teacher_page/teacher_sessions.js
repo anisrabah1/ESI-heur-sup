@@ -4,8 +4,8 @@ import Teacher_dayOff from "./teacher_dayOff";
 import ApiUrls from '../../APIs';
 import { toaster } from 'evergreen-ui';
 import Cookies from "js-cookie";
-const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) => {
-    const [session,set_session] = useState([]);
+const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate,setOffRange,session,set_session}) => {
+    
     const [currentSessionStart,set_currentSessionStart] = useState();
     const [currentSessionEnd,set_currentSessionEnd] = useState();
     window.currentSessionStart = currentSessionStart;
@@ -37,6 +37,7 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) =>
 
     useEffect(()=>{
       fetchData();
+      
     },[])
     return ( 
         <div>
@@ -50,7 +51,7 @@ const Teacher_sessions = ({sessionPopup,dayOffPopup,teacherID,sessionCreate}) =>
                  </div>
                  {/* here is the emploi */}
                  
-                 <Teacher_dayOff popup={dayOffPopup} create={sessionCreate} sessionID={m._id} seesionStart={m.startDate.substring(0, 10)} sessionEnd={m.endDate.substring(0, 10)}/>
+                 <Teacher_dayOff setOffRange={setOffRange} range={[m.startDate.substring(0, 10),m.endDate.substring(0, 10)]} popup={dayOffPopup} create={sessionCreate} sessionID={m._id} seesionStart={m.startDate.substring(0, 10)} sessionEnd={m.endDate.substring(0, 10)}/>
               </div>
               
           )) }

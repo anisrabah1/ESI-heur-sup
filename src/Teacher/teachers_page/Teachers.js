@@ -145,7 +145,7 @@ const apiUrls = new ApiUrls();
               
             )) }
             {create && !isLoading &&
-<Form submit={setsubmit} create={set_create}/>
+<Form ts={ts} set_ts={set_ts} submit={setsubmit} create={set_create}/>
             }
  {!create && isLoading &&  <div className="loading"><CircularProgress /></div> }
 

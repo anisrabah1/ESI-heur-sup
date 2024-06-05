@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import ApiUrls from '../../APIs';
 import Teacher_details from '../teacher_page/teacher_details';
+import Cookies from "js-cookie"
 const Teacher_card
  = ({teacher,submit}) => {
     const [showMore, set_showMore] = useState(false);
@@ -34,22 +35,28 @@ const Teacher_card
     }, []);
     const apiUrls = new ApiUrls();
     const DeletData = async () => {
-        
+        const token = Cookies.get("token");
         try {
-            submit(true);
+             
             console.log('this is me',`${apiUrls.getUrl('getTeachers')}/${teacher._id}`)
-            const response = await fetch(`${apiUrls.getUrl('getTeachers')}/${teacher._id}`,{method:'DELETE'});
+            const response = await fetch(`${apiUrls.getUrl('getTeachers')}/${teacher._id}`,
+            {
+                method:'DELETE',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Specify the content type as JSON
+            },
+        });
             // console.log(response)
             const data = await response.json();
-            console.log(data)
+            console.log(data.message)
+            window.location.reload(false);
 
-        
-           
             console.log('Delete succsee!');
-            submit(false);
-          } catch (error) {
-             console.log(error)
             
+          } catch (error) {
+             console.log(error);
+             window.location.reload(false);
           }
     };
 
@@ -85,7 +92,7 @@ const Teacher_card
             </div>
             
         </div>
-        <button className="icon-button button2" onClick={(e)=>{e.stopPropagation();DeletData()}}></button>
+        <button className="icon-button button2" onClick={(e)=>{e.stopPropagation();}}></button>
                    <button className="icon-button button3" onClick={(e)=>{e.stopPropagation();navigate(`/teacher/${teacher._id}`);}}></button>
                     <button className="icon-button button1" onClick={(e)=>{e.stopPropagation();DeletData()}}></button>
                     

@@ -13,6 +13,8 @@ import Session_popup from "./session_popup";
 const Teacher_info = ({search,setSearch}) => {
     const {id}=useParams();
     const [createSessionID,setCreateSessionID]=useState();
+    const [offRange,setOffRange]=useState(['','']);
+    const [sessionSet,setSessionSet]=useState();
     const [DataT,set_DataT]=
     useState({
         
@@ -63,17 +65,17 @@ phoneNumber: "",
          <div className="teacher-info">
          {/* <Teacher_details data={DataT}/> */}
          
-           <Teacher_sessions sessionPopup={set_sessionClose} dayOffPopup={set_dayOffClose} teacherID={id} sessionCreate={setCreateSessionID}/>
+           <Teacher_sessions set_session={setSessionSet} session={sessionSet} setOffRange={setOffRange} sessionPopup={set_sessionClose} dayOffPopup={set_dayOffClose} teacherID={id} sessionCreate={setCreateSessionID}/>
            
          </div>
            
         </div>
         { dayOffClose &&
-        <DayOff_popup set_close={set_dayOffClose} id={createSessionID} />
+        <DayOff_popup set_close={set_dayOffClose} id={createSessionID} offRange={offRange} />
        }
        {
         sessionClose && 
-        <Session_popup set_close={set_sessionClose} teacherID={id} />
+        <Session_popup sessionSet={sessionSet} setSessionSet={setSessionSet} set_close={set_sessionClose} teacherID={id}  />
        }
         </div>
      );
