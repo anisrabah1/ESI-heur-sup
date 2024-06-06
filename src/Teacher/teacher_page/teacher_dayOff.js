@@ -11,7 +11,7 @@ import ApiUrls from '../../APIs';
 import Cookies from "js-cookie";
 import { toaster } from 'evergreen-ui';
 
-const Teacher_dayOff = ({popup,sessionID,create ,sessionStart , sessionEnd}) => {
+const Teacher_dayOff = ({popup,sessionID,create ,sessionStart , sessionEnd,setOffRange,range}) => {
 
   const apiUrls = new ApiUrls();
   const fetchData = async () => {
@@ -88,7 +88,7 @@ const deleteDayOff = async (day_id) => {
         <div className='dayOff'>
 <div className="cardLabel">
     <div>Days off</div>
-    <div className="addDay" onClick={()=>{window.set_currentSessionStart(sessionStart);window.set_currentSessionEnd(sessionEnd);popup(true);create(sessionID)}} />
+    <div className="addDay" onClick={()=>{window.set_currentSessionStart(sessionStart);window.set_currentSessionEnd(sessionEnd);popup(true);create(sessionID);setOffRange(range);}} />
 </div>
 <TableContainer component={Paper} >
       <Table sx={{ minWidth: 650, classes:['table'],size:'lg'}} aria-label="simple table" >

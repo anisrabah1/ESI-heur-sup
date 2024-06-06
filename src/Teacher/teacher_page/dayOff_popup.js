@@ -13,10 +13,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Cookies from "js-cookie";
 import { toaster } from 'evergreen-ui';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
 
-
-const DayOff_popup = ({set_close,id}) => {
+const DayOff_popup = ({set_close,id,offRange}) => {
     const today = dayjs();
     const apiUrls = new ApiUrls();
     const createDayOff = async () => {
@@ -38,6 +38,7 @@ const DayOff_popup = ({set_close,id}) => {
             
             const data = await response.json();
             toaster.notify(data.message);
+            window.location.reload(false);
         
             
             
@@ -59,11 +60,49 @@ const [Data,setData] = useState(
         startHour:'',
         endHour:'',
         
-        offDayType:"663d56f3241c0d0a5a146ddd",
+        offDayType:'',
         
     }
 );
-
+const [dayOffType,set_dayOffType]=useState();
+function  getDayOffTypes () {
+    const token = Cookies.get("token");
+    console.log('we will request now')
+    fetch(`${apiUrls.getUrl('getDayTypes')}`,{
+        method:'GET',
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
+          },
+    })
+    .then(response => response.json()) // Parse the JSON response
+    .then(data => {
+        set_dayOffType(data.offDayTypes);
+        
+       
+         // Handle the response data
+    })
+    .catch(error => {
+        toaster.notify(error.message);
+         // Handle errors
+    });
+    
+};
+useEffect(()=>{
+    getDayOffTypes()
+    setData(
+        {
+            startDate : offRange[0],
+            endDate : offRange[1],
+            startHour:'',
+            endHour:'',
+            
+            offDayType:'',
+            
+        }
+    )
+    
+},[])
 const [testing , setTesting] = useState(false);
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -112,6 +151,7 @@ const [testing , setTesting] = useState(false);
             <button className="close-button" onClick={()=>{set_close(false)}}>×</button>
             <div className="formC">
                     <div className="form1"><LocalizationProvider fullWidth dateAdapter={AdapterDayjs}><DatePicker label="Start Day"   value={ Data.startDate ? dayjs(Data.startDate) : null} name='startDate' onChange={handleDate1} /> </LocalizationProvider></div>
+                    
                     <div className="form1"><LocalizationProvider fullWidth dateAdapter={AdapterDayjs}><DatePicker label="End Day"  value={ Data.endDate ? dayjs(Data.endDate) : null} name='endDate' onChange={handleDate2} defaultValue={dayjs('2022-04-17')} /></LocalizationProvider></div>
                 </div>
            
@@ -124,22 +164,22 @@ const [testing , setTesting] = useState(false);
             <div className="formC">
                
             <FormControl fullWidth>
-                <InputLabel id="degree">Degree</InputLabel>
+                <InputLabel id="degree">motive</InputLabel>
                 <Select
                 fullWidth
           labelId="degree"
           id="demo-simple-select"
-          value={Data.degree}
-          label="Degree"
-          name='degree'
+          value={Data.Type}
+          label="motive"
+          name='offDayType'
           onChange={handleChange}
           
         >
-            <MenuItem value={'Master'}>Master</MenuItem>
-          <MenuItem value={'Licence'}>Licence</MenuItem>
-          <MenuItem value={'Doctorat'}>Doctorat</MenuItem>
-          <MenuItem value={'Specialized Diploma'}>Specialized Diploma</MenuItem>
-          <MenuItem value={'Professional Degrees'}>Professional Degrees</MenuItem>
+            { dayOffType && dayOffType.map((e)=>(
+                <MenuItem value={e._id}>{e.offDayTypeName}</MenuItem>
+            )) }
+            
+          
           
         </Select>
         </FormControl>

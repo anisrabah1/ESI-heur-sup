@@ -10,14 +10,12 @@ body {
 .content {
   position: fixed;
   overflow: hidden;
-  overflow: auto;
 
-  background-color: #2f49712d;
-  margin-left: 12vw;
-  top: 09vh;
-  height: 95%;
-  width: 87.5vw;
-  z-index: -2;
+  background-color: #ffc80000;
+  margin-left: 13vw;
+  top: 11.1vh;
+  height: 88%;
+  width: 86vw;
 }
 
 .navbt:hover {

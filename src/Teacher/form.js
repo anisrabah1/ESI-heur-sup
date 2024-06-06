@@ -16,7 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import ApiUrls from '../APIs';
 import './form.css';
 import Cookies from "js-cookie";
-const Form = ({submit,create}) => {
+const Form = ({submit,create,ts,set_ts}) => {
     
     
     
@@ -30,7 +30,7 @@ const Form = ({submit,create}) => {
             phoneNumber:'',
             major:'',
             employmentStatus:'',
-            positions:[],
+            positions:'',
             dateOfBirth:'',
             homeInstitution:'',
             cardType:'CCP',
@@ -39,7 +39,7 @@ const Form = ({submit,create}) => {
         }
     );
     const [positions , setPositions]= useState();
-
+    const [posit , setPosit]= useState();
     const handleChange = (event) => {
         const { name, value } = event.target;
         
@@ -47,9 +47,22 @@ const Form = ({submit,create}) => {
             ...Data,
             [name]: value
         });
+        console.log(Data);
     };
-    const handleChangeT = (event) => {
-        console.log(event)
+    const handleChangeP = (event) => {
+        const { name, value } = event.target;
+        
+        setData({
+            ...Data,
+            [name]: [ 
+                { 
+                  "position":  value._id, // Example ObjectId of a Position 
+                  "startDate": new Date(Date.now()) ,
+                } 
+                ]
+        });
+        setPosit(value.positionName)
+        console.log(Data);
     };
     const handleDateChange = (date) => {
         setData({
@@ -70,7 +83,9 @@ const Form = ({submit,create}) => {
         })
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
-            
+            if(!(data.message)){
+                set_ts([data.data.data,...ts])
+            }
             toaster.notify(data.message); // Handle the response data
         })
         .catch(error => {
@@ -152,21 +167,16 @@ const Form = ({submit,create}) => {
                 <InputLabel id="">Position</InputLabel>
                 <Select
                 fullWidth
-          labelId="degree"
+          labelId="positions"
           id="demo-simple-select"
-          value={Data.positions}
-          label="position"
-          name='position'
-          onChange={handleChange}
+          value={posit}
+          label="positions"
+          name='positions'
+          onChange={handleChangeP}
           
         >
             {positions && positions.map((e)=>(
-                <MenuItem value={[ 
-                    { 
-                      "position":  e._id, // Example ObjectId of a Position 
-                      "startDate": "2024-05-14" 
-                    } 
-                    ]}>{e.positionName}</MenuItem>
+                <MenuItem value={e}>{e.positionName}</MenuItem>
             ))}
             
           

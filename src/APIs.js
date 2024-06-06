@@ -4,14 +4,16 @@ import { Public } from "@mui/icons-material";
 class ApiUrls {
   constructor() {
     this.baseUrl = "http://localhost:3000/api/v1";
+    // this.baseUrl = "http://localhost:3001/api/v1";
     this.endpoints = {
-      rooms: `${this.baseUrl}/rooms`,
+      login: `${this.baseUrl}/rooms`,
       login: `${this.baseUrl}/admin/login`,
       getTeachers: `${this.baseUrl}/teachers`,
       getCreate: `${this.baseUrl}/`,
       getAllSessions: `${this.baseUrl}/teacherSessions`,
       getGlobSessions: `${this.baseUrl}/sessions`,
       getPositions: `${this.baseUrl}/positions`,
+      getDepartments: `${this.baseUrl}/departments/`,
 
       // Add more endpoints as needed
     };

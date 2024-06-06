@@ -4,7 +4,9 @@ const Loading = () => {
     return ( 
         
 <div className="content">
-<CircularProgress size='xl'/>
+    <center><CircularProgress size='xl'/></center>
+
+
 </div>)
         
 }

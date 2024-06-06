@@ -44,9 +44,15 @@
   margin-top: 0.2vw;
   cursor: pointer;
 }
-
+.delete{
+  color: #e3d216d4;
+  cursor: pointer;
+  font-family: Arial, serif;
+  font-size: 1vw;
+ 
+}
 .custom-img {
-  width: 4vw; 
+  width: 4.2vw; 
   
   height: auto; 
 }
@@ -64,15 +70,15 @@
 }
 
 .custom-number {
-  color: #e31616d4;
+  color: #16e398d4;
   font-family: Arial, serif;
-  font-size: 0.75vw;
+  font-size: 1vw;
 }
 
 .custom-level {
   color: rgba(255, 255, 255, 0.539);
   font-family: Arial, serif;
-  font-size: 0.75vw;
+  font-size: 1vw;
 }
 .departement-wrapper {
   width: 33.33%; 

@@ -10,8 +10,9 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import ApiUrls from "../../APIs";
 import Cookies from "js-cookie";
 import { toaster } from "evergreen-ui";
+import SessionCreateDate from "./sessionCreateDate";
 
-const Session_popup = ({ set_close, teacherID }) => {
+const Session_popup = ({ set_close, teacherID, sessionSet, setSessionSet }) => {
   const [GlobSessions, setGlobSessions] = useState([
     { name: "globale seesion 1" },
     { name: "globale seesion 2" },
@@ -19,6 +20,7 @@ const Session_popup = ({ set_close, teacherID }) => {
   ]);
   const apiUrls = new ApiUrls();
   const [selected, setSelected] = useState();
+  const [datePop, setDatePop] = useState(false);
 
   const fetchSessions = async () => {
     const token = Cookies.get("token");
@@ -40,11 +42,11 @@ const Session_popup = ({ set_close, teacherID }) => {
     }
   };
 
-  const createSession = async (id) => {
+  const createSession = async () => {
     const token = Cookies.get("token");
     try {
       const response = await fetch(
-        `${apiUrls.getUrl("getTeachers")}/${id}/teacherSessions`,
+        `${apiUrls.getUrl("getTeachers")}/${teacherID}/teacherSessions`,
         {
           method: "POST", // Specify the HTTP method as POST
           headers: {
@@ -56,6 +58,12 @@ const Session_popup = ({ set_close, teacherID }) => {
       );
       const data = await response.json();
       toaster.notify(data.message);
+      console.log("haaaada gowa msg :", data.message);
+      if (!data.message) {
+        setSessionSet([...sessionSet, data.data.data.session]);
+      }
+
+      set_close(false);
     } catch (error) {
       toaster.notify(error);
     }
@@ -80,14 +88,26 @@ const Session_popup = ({ set_close, teacherID }) => {
                 setSelected({
                   session: `${m._id}`,
                   semester: "662d2b33e01ed9954a5feca4",
+                  startDate: `${m.startDate}`,
+                  endDate: `${m.endDate}`,
                 });
                 console.log(selected);
-                createSession(teacherID);
+                setDatePop(true);
               }}
             >
               {m.sessionName}
             </div>
           ))}
+
+        {datePop && (
+          <SessionCreateDate
+            fetch={createSession}
+            done={set_close}
+            set_close={setDatePop}
+            Data={selected}
+            setData={setSelected}
+          />
+        )}
       </div>
     </div>
   );
