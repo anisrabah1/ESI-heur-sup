@@ -1,128 +1,78 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Schedule.css"; // Ensure this CSS file is in the same directory
 
 import { useReactToPrint } from "react-to-print";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
+import apiUrl from "../global_Vars/apiConfig";
 
 import { useLocation } from "react-router-dom";
+
 // Helper function to map day names to grid column numbers
 const daysOfWeek = [
+  "Sunday",
   "Monday",
   "Tuesday",
   "Wednesday",
   "Thursday",
   "Friday",
   "Saturday",
-  "Sunday",
 ];
 
 // List of colors to alternate between
 const colors = ["#E0FBE2", "#BFF6C3", "#B0EBB4", "#ACE1AF"];
 
-export default function RoomPlanning({ data }) {
+export default function RoomPlanning({ departmentId, roomId }) {
   const location = useLocation();
   const { seances, result, teacherInfos } = location.state || {};
-
+  const [planningData, setPlanningData] = useState(null);
   const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
-  // Example usage
-  const planningData = {
-    status: "success",
-    result: 2,
-    roomPlanning: [
-      {
-        roomPlanning: [
-          {
-            seanceDay: "Wednesday",
-            startHour: "08:00",
-            endHour: "10:00",
-            seanceType: "Tp",
-            subject: "BDD",
-            group: "gr3",
-          },
-          {
-            seanceDay: "Wednesday",
-            startHour: "10:00",
-            endHour: "12:00",
-            seanceType: "Tp",
-            subject: "IGL",
-            group: "gr3",
-          },
-          {
-            seanceDay: "Sunday",
-            startHour: "13:00",
-            endHour: "13:30",
-            seanceType: "Tp",
-            subject: "BDD",
-          },
-          {
-            seanceDay: "Tuesday",
-            startHour: "09:00",
-            endHour: "10:00",
-            seanceType: "Cours",
-            subject: "BDD",
-          },
-        ],
-        from: "2023-09-01T00:00:00.000Z",
-        to: "2024-12-31T00:00:00.000Z",
-      },
-      {
-        roomPlanning: [
-          {
-            seanceDay: "Sunday",
-            startHour: "08:00",
-            endHour: "10:00",
-            seanceType: "Cours",
-            subject: "BDD",
-          },
-          {
-            seanceDay: "Sunday",
-            startHour: "10:00",
-            endHour: "12:00",
-            seanceType: "Cours",
-            subject: "BDD",
-          },
-          {
-            seanceDay: "Sunday",
-            startHour: "14:00",
-            endHour: "16:00",
-            seanceType: "Tp",
-            subject: "BDD",
-          },
-          {
-            seanceDay: "Monday",
-            startHour: "14:00",
-            endHour: "16:00",
-            seanceType: "Tp",
-            subject: "BDD",
-          },
-          {
-            seanceDay: "Monday",
-            startHour: "10:00",
-            endHour: "12:00",
-            seanceType: "Tp",
-            subject: "BDD",
-          },
-        ],
-        from: "2025-01-10T00:00:00.000Z",
-        to: "2025-04-10T00:00:00.000Z",
-      },
-    ],
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Hello from the useEffect");
 
-  const currentDate = new Date();
+        const token = Cookies.get("token");
+        const response = await fetch(
+          `http://${apiUrl}:3000/api/v1/departments/${departmentId}/rooms/${roomId}/planning`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-  // Filter the planning data to include only the current planning
-  const currentPlanning = planningData.roomPlanning.filter((planning) => {
-    const fromDate = new Date(planning.from);
-    const toDate = new Date(planning.to);
-    return currentDate >= fromDate && currentDate <= toDate;
-  });
+        const data = await response.json();
+        if (!response.ok || !data) {
+          throw new Error(data.message || "Server Error");
+        }
+
+        setPlanningData(data);
+        console.log("Data fetched successfully:", data.roomPlanning);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const currentDate = new Date("2024-12-01");
+
+  const currentPlanning =
+    planningData?.roomPlanning.filter((planning) => {
+      const fromDate = new Date(planning.from);
+      const toDate = new Date(planning.to);
+      return currentDate >= fromDate && currentDate <= toDate;
+    }) || [];
 
   if (currentPlanning.length === 0) {
     return <div>No current planning available</div>;
@@ -159,13 +109,12 @@ export default function RoomPlanning({ data }) {
         }}
       >
         <h2>Aperçu Planning des classes</h2>
-
         <div
           onClick={handlePrint}
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "Center",
+            justifyContent: "center",
             alignItems: "center",
           }}
           className="icon-print"
@@ -203,13 +152,11 @@ export default function RoomPlanning({ data }) {
                 <tr key={time}>
                   <td>{time}</td>
                   {daysOfWeek.map((day) => {
-                    // Check if the current cell is already occupied
                     const occupiedKey = `${day}-${rowIndex}`;
                     if (occupiedCells[occupiedKey]) {
-                      return null; // Skip this cell
+                      return null;
                     }
 
-                    // Find the session that should be placed at the current time and day
                     const session = currentPlanning[0].roomPlanning.find(
                       (session) => {
                         const startIndex = findTimeIndex(session.startHour);
@@ -225,12 +172,10 @@ export default function RoomPlanning({ data }) {
                         session.endHour
                       );
 
-                      // Mark cells as occupied
                       for (let i = 0; i < rowSpan; i++) {
                         occupiedCells[`${day}-${rowIndex + i}`] = true;
                       }
 
-                      // Use alternating colors
                       const sessionColor = colors[colorIndex];
                       colorIndex = (colorIndex + 1) % colors.length;
 
@@ -240,7 +185,6 @@ export default function RoomPlanning({ data }) {
                           rowSpan={rowSpan}
                           style={{
                             backgroundColor: sessionColor,
-                            // border: "1px solid #000",
                             textAlign: "center",
                           }}
                         >
@@ -256,7 +200,6 @@ export default function RoomPlanning({ data }) {
               ))}
             </tbody>
           </table>
-          {/* <div className="notes-section">Notes:</div> */}
         </div>
       </div>
     </div>
