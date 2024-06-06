@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiUrl from "../global_Vars/apiConfig";
 import  "../Emploi/style.css";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { toaster } from "evergreen-ui";
 
 import { Popconfirm } from "antd";
 
@@ -125,6 +125,7 @@ export default function SystemeParam() {
 
   const [seanceTypeName, setSeanceTypeName] = useState("Encadrement");
   const [coefficient, setCoefficient] = useState(1.5);
+  const [priority, setPriority] = useState(1);
 
   const [offDayTypeName, setOffDayTypeName] = useState("malade");
   const [personal, setPersonal] = useState(false);
@@ -187,6 +188,8 @@ export default function SystemeParam() {
       if (!response.ok) {
         const data = await response.json();
         console.log("ERROR:", data);
+        toaster.danger(data.message || "Server Error");
+
         throw new Error(data.message || "Server Error");
       }
 
@@ -269,7 +272,7 @@ export default function SystemeParam() {
                   </div>
                 </div>
               )}
-              {addingGrade && (
+             
                 <div className={`popup ${addingGrade ? "open" : ""}`}>
                   <div className="popup-content">
                     <div className="icon" onClick={handleClickClose}>
@@ -315,9 +318,9 @@ export default function SystemeParam() {
                     </div>
                   </div>
                 </div>
-              )}
+             
 
-              {addingSeanceType && (
+           
                 <div className={`popup ${addingSeanceType ? "open" : ""}`}>
                   <div className="popup-content">
                     <div className="icon" onClick={handleClickClose}>
@@ -332,7 +335,7 @@ export default function SystemeParam() {
                     <div className="form-Content">
                       <form
                         onSubmit={(e) => {
-                          mySubmit(e, "seanceTypes", { seanceTypeName, coefficient });
+                          mySubmit(e, "seanceTypes", { seanceTypeName, coefficient, priority });
                         }}
                       >
                         <div className="form-group">
@@ -350,6 +353,14 @@ export default function SystemeParam() {
                               onChange={(e) => setCoefficient(e.target.value)}
                             />
                           </div>
+                          <div className="input-param">
+                            <span>Priorité </span>
+                            <input
+                              type="number"
+                              onChange={(e) => setPriority(e.target.value)}
+                              defaultValue={0}
+                            />
+                          </div>
                         </div>
                         <div className="container-Btn-Add">
                           <input
@@ -363,7 +374,7 @@ export default function SystemeParam() {
                     </div>
                   </div>
                 </div>
-              )}
+             
 
               {addingOffDay && (
                 <div className={`popup ${addingOffDay ? "open" : ""}`}>
@@ -413,7 +424,7 @@ export default function SystemeParam() {
                 </div>
               )}
 
-              <div className="sessionY">
+              {/* <div className="sessionY">
                     <div
                       className="line"
                       onClick={() => {
@@ -507,7 +518,7 @@ export default function SystemeParam() {
                 
 
                   <div style={{ display: "flex", justifyContent: "end"  ,width:'100%'}}>
-                    <div className="add-icon" onClick={handleClickOpen}>
+                    <div className="add-icon" onClick={handleClickOpen} style={{width:'fit-content' ,margin:'6px 2px'}}>
                       <lord-icon
                         src="https://cdn.lordicon.com/hqymfzvj.json"
                         trigger="hover"
@@ -517,7 +528,7 @@ export default function SystemeParam() {
                   </div>
 
                 </div>
-              </div>
+              </div> */}
 
               <div className="sessionY">
                 <div className="line"
@@ -607,7 +618,7 @@ export default function SystemeParam() {
               
 
                   <div style={{display: "flex", justifyContent: "end"  ,width:'100%'}}>
-                    <div className="add-icon" onClick={handleClickAddingGrade}>
+                    <div className="add-icon" onClick={handleClickAddingGrade} style={{width:'fit-content',margin:'6px 2px'}}>
                       <lord-icon
                         src="https://cdn.lordicon.com/hqymfzvj.json"
                         trigger="hover"
@@ -651,12 +662,16 @@ export default function SystemeParam() {
                       return (
                         <div className="session-card">
                           <div className="name">
-                            <span>Name </span>
+                            <span onClick={(e)=>console.log(item)}>Name </span>
                             <input type="text" value={item.seanceTypeName} />
                           </div>
                           <div className="from">
                             <span>Coefficient</span>
                             <input type="number" value={item.coefficient} />
+                          </div>
+                          <div className="from">
+                            <span>Priorité</span>
+                            <input type="number" value={item.priority} />
                           </div>
                           <div className="edit-and-delete-session-container-horizontal">
                           <div className="edit-icon">
@@ -707,7 +722,7 @@ export default function SystemeParam() {
                 
 
                   <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
-                    <div className="add-icon" onClick={handleClickAddingSeanceType}>
+                    <div className="add-icon" onClick={handleClickAddingSeanceType} style={{width:'fit-content',margin:'6px 2px'}}>
                       <lord-icon
                         src="https://cdn.lordicon.com/hqymfzvj.json"
                         trigger="hover"
@@ -804,7 +819,7 @@ export default function SystemeParam() {
                   {/* --------------------------------------------------------------------------- */}
 
                   <div style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}>
-                    <div className="add-icon" onClick={handleClickAddingOffDay}>
+                    <div className="add-icon" onClick={handleClickAddingOffDay} style={{width:'fit-content',margin:'6px 2px'}}>
                       <lord-icon
                         src="https://cdn.lordicon.com/hqymfzvj.json"
                         trigger="hover"

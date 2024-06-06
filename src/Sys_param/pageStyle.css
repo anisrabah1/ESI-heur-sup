@@ -21,7 +21,7 @@
 
 
 .sessionY {
-    background-color: rgba(130, 107, 107, 0.169);
+    background-color: rgb(255, 255, 255);
     padding: 8px;
     border-radius: 6px;
     width: 100%;
@@ -217,4 +217,13 @@
 .edit-and-delete-session-container-horizontal{
     display: flex;
 
+}
+
+.CalculerStatus{
+    background-image:linear-gradient(255deg, #3274D9,#2F4971);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
 }

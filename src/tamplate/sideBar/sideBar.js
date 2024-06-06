@@ -8,7 +8,7 @@ function Sidebar  () {
             <div className="logo"/>
         </div>
         <div className="buttons-container">
-<Link to={'/home'} className='link'>
+        <Link to={'/home'} className='link'>
         <button className="sideb"  >
                  <div className="btic1"/>
                 <div className="bttx">Home</div>
@@ -22,10 +22,12 @@ function Sidebar  () {
             </button>
             </Link>
             <br />
+            <Link to={'/sessions'} className="link">
             <button className="sideb">
                  <div className="btic3"/>
-                <div className="bttx">Schedules</div>
+                <div className="bttx">Sessions</div>
             </button>
+            </Link>
             <br />
             <Link to={'/structure'}  className='link'>
             <button className="sideb">

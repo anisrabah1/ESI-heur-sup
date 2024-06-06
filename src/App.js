@@ -16,9 +16,11 @@ import Log_in from './loginPage/Log-in'
 import Teacher_info from './Teacher/teacher_page/Teacher_info';
 import EmploiIndividuel from './Emploi/PrintedFiles/EmploiIndividuel';
 import PrintView2 from './Emploi/PrintedFiles2/PrintView2';
+import PrintView3 from './sessions/PrintedFile3/PrintView3'
 import Structure from "./structure/structure";
 import GroupPlanning from "./GroupPlanning/groupPlanning";
 import RoomPlanning from "./roomPlanning/roomPlanning";
+import Sessions from "./sessions/Sessions";
 
 function App() {
   const [search, setSearch] = useState([]);
@@ -42,7 +44,8 @@ function App() {
         <Route path='/to-printDetailView' element={<PrintView2/>}></Route>
          <Route path="/groupPlanning" element={<GroupPlanning />}></Route>
           <Route path="/roomPlanning" element={<RoomPlanning />}></Route>
-        
+          <Route path="/sessions" element={<Sessions/>}></Route>
+          <Route path='/to-printStatusView' element={<PrintView3/>} ></Route>
         </Routes>
       </BrowserRouter>
     </div>
