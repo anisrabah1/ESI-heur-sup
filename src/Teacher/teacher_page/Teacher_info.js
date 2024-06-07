@@ -8,6 +8,8 @@ import TextField from "@mui/material/TextField";
 import Teacher_dayOff from "./teacher_dayOff";
 import ApiUrls from "../../APIs";
 import DayOff_popup from "./dayOff_popup";
+import Cookies from "js-cookie";
+
 import Session_popup from "./session_popup";
 
 const Teacher_info = ({ search, setSearch }) => {
@@ -17,7 +19,6 @@ const Teacher_info = ({ search, setSearch }) => {
   const [sessionSet, setSessionSet] = useState([]);
   const [DataT, set_DataT] = useState({
     dateOfBirth: "",
-
     degree: "",
     email: "",
     employmentStatus: "",
@@ -31,18 +32,21 @@ const Teacher_info = ({ search, setSearch }) => {
   const [dayOffClose, set_dayOffClose] = useState(false);
   const apiUrls = new ApiUrls();
   const fetchData = async () => {
+    const token = Cookies.get("token");
     try {
       console.log();
       const response = await fetch(`${apiUrls.getUrl("getTeachers")}/${id}`, {
         method: "GET", // Specify the HTTP method as POST
         headers: {
           "Content-Type": "application/json", // Specify the content type as JSON
+          Authorization: `Bearer ${token}`,
         },
       });
       // console.log(response)
       const data = await response.json();
-
-      set_DataT(data.data.data);
+      console.log("-----------teacherdata-------");
+      console.log(data);
+      set_DataT(data.data);
     } catch (error) {
       console.log(error);
     }

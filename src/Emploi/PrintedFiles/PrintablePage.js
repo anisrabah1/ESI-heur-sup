@@ -4,7 +4,8 @@ import HSupDetail from "../PrintedFiles2/HSupDetail";
 
 const PrintablePage = React.forwardRef((props, ref) => {
   const dataToPrint = props; // Access seances from props
-
+  console.log("dataToPrint");
+  console.log(dataToPrint);
   return (
     <div ref={ref} className="printable-page">
       <EmploiIndividuel dataToPrint={dataToPrint} />

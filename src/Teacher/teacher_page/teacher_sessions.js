@@ -15,7 +15,8 @@ const Teacher_sessions = ({
   session,
   set_session,
 }) => {
-  // const [session, set_session] = useState([]);
+  console.log("-------------------teacherInfos-------------------");
+  console.log(teacherInfos);
   const [currentSessionStart, set_currentSessionStart] = useState();
   const [currentSessionEnd, set_currentSessionEnd] = useState();
   window.currentSessionStart = currentSessionStart;
@@ -50,38 +51,28 @@ const Teacher_sessions = ({
     }
   };
 
-
   const deleteSession = async (session_id) => {
     const token = Cookies.get("token");
-  
+
     try {
-       
-        const response = await fetch(`${apiUrls.getUrl('getAllSessions')}/${session_id}`,
-      {
-          method: 'DELETE', // Specify the HTTP method as POST
+      const response = await fetch(
+        `${apiUrls.getUrl("getAllSessions")}/${session_id}`,
+        {
+          method: "DELETE", // Specify the HTTP method as POST
           headers: {
-              'Content-Type': 'application/json' ,
-              Authorization: `Bearer ${token}`,// Specify the content type as JSON
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Specify the content type as JSON
           },
-          
-      }
+        }
       );
-        // console.log(response)
-        
-       
-        
-        window.location.reload(false);  
-    
-        
-        
-      } catch (error) {
-        toaster.notify(error.message);
-         console.log(error.message)
-        
-      }
-      
+      // console.log(response)
+
+      window.location.reload(false);
+    } catch (error) {
+      toaster.notify(error.message);
+      console.log(error.message);
+    }
   };
-  
 
   useEffect(() => {
     fetchData();
@@ -95,7 +86,12 @@ const Teacher_sessions = ({
               <div>Session {i + 1}</div>
               <div>start {m.startDate.substring(0, 10)}</div>
               <div>end {m.endDate.substring(0, 10)}</div>
-              <button className="icon-button button1 sessionDeletButton"   onClick={()=>{deleteSession(m._id)}}></button>
+              <button
+                className="icon-button button1 sessionDeletButton"
+                onClick={() => {
+                  deleteSession(m._id);
+                }}
+              ></button>
             </div>
             {/* here is the emploi */}
             <CreateEmploi
