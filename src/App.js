@@ -19,6 +19,7 @@ import PrintView2 from './Emploi/PrintedFiles2/PrintView2';
 import Structure from "./structure/structure";
 import GroupPlanning from "./GroupPlanning/groupPlanning";
 import RoomPlanning from "./roomPlanning/roomPlanning";
+import Archive  from "./archive/archive";
 
 function App() {
   const [search, setSearch] = useState([]);
@@ -42,6 +43,7 @@ function App() {
         <Route path='/to-printDetailView' element={<PrintView2/>}></Route>
          <Route path="/groupPlanning" element={<GroupPlanning />}></Route>
           <Route path="/roomPlanning" element={<RoomPlanning />}></Route>
+          <Route path="/archive" element={<Archive/>}></Route>
         
         </Routes>
       </BrowserRouter>

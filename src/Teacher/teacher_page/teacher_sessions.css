@@ -40,3 +40,9 @@
 .sessionDeletButton{
   margin-right: 5%;
 }
+.sessionArchiveButton{
+  margin-right: 5%;
+  background-image: url("../assets/Box.png");
+  
+}
+
