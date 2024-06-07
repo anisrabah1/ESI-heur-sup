@@ -905,7 +905,7 @@ export default function CreateEmploi({
           <div
             className="add-icon"
             onClick={handleClickOpen}
-            style={{ display: "flex", justifyContent: "end" }}
+            style={{ display: "flex", justifyContent: "end"  ,width:'100%' }}
           >
             <lord-icon // tala3 l More
               src="https://cdn.lordicon.com/hqymfzvj.json"
@@ -913,24 +913,52 @@ export default function CreateEmploi({
               style={{ width: "30px", height: "30px", marginRight: "1%" }}
             ></lord-icon>
           </div>
-          <button
-            id="calculate-heure"
-            onClick={(e) => {
-              setOuvert(true);
-              console.log(ouvert);
-              fetchHourlyCharge();
-            }}
-          >
-            Calculer{" "}
-          </button>
-          <div className="">
-            <button
-              id="btn-To-Calculate"
-              onClick={() => setOuvertPourPeriod(true)}
-            >
-              Calculer dans certains periode
-            </button>
-          </div>
+         
+              <div style={{display:'flex' ,flexWrap:'wrap' ,alignItems:'center' ,
+               justifyContent:'start' ,padding:'6px 3px 6px 30px',
+               
+              }}>
+                
+                <span style={{fontSize:'14px' ,letterSpacing:'1px' ,marginRight:'15px',fontWeight:'500'}}
+                >Calculer et Imprimer La charge Horaire </span>
+                        <button
+                     id="btn-To-Calculate"
+                      onClick={(e) => {
+                        setOuvert(true);
+                        console.log(ouvert);
+                        fetchHourlyCharge();
+                      }}
+                    >
+                     
+                      Calculer
+                      <img style={{width:'20px',height:'20px' , 
+                          filter: 'invert(1) sepia(1) saturate(5) hue-rotate(180deg)',
+                        position:'absolute',right:'0',marginRight:'6px'}}
+                         src={require("./clock.png")}></img>
+                    </button>
+                    
+                  </div> 
+                  <div style={{display:'flex' ,flexWrap:'wrap' ,alignItems:'center' , justifyContent:'start' ,padding:'6px 3px 6px 30px',
+               
+              }}>
+                <span style={{fontSize:'14px' ,letterSpacing:'1px' ,marginRight:'15px' ,fontWeight:'500'}}
+                >Calculer dans certains periode</span>
+                    <div className="">
+                      <button
+                        id="btn-To-Calculate"
+                        onClick={() => setOuvertPourPeriod(true)}
+                      >
+                        Calculer
+                        <img style={{width:'20px',height:'20px' , 
+                          filter: 'invert(1) sepia(1) saturate(5) hue-rotate(180deg)',
+                        position:'absolute',right:'0',marginRight:'6px'}}
+                         src={require("./noun-money.png")}></img>
+                      </button>
+                    </div>
+              </div>
+
+
+
         </div>
       </div>
 

@@ -30,7 +30,7 @@ export default function HSupDetail(dataToPrint) {
         <div className="header-center">
           <img src={require("./ESI_logo.png")} />
         </div>
-        <div className="header-right">
+        <div className="header-right2">
           <p onClick={() => console.log("teacheInfos")} className="L1">
             الجـمـهـوريــة الـجزائـريـــــة الديمقراطيــــة الشعبيـــــة
           </p>

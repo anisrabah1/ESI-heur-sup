@@ -71,10 +71,13 @@ const Teacher_info = ({ search, setSearch }) => {
         </div>
       </div>
       {dayOffClose && (
+        // eslint-disable-next-line react/jsx-pascal-case
         <DayOff_popup
           set_close={set_dayOffClose}
           id={createSessionID}
-          offRange={offRange}
+          personal={true}
+          url="getAllSessions"
+          offdays="personalOffDays"
         />
       )}
       {sessionClose && (

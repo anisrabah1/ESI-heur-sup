@@ -1,0 +1,60 @@
+.lastPopup{
+    
+    background-color: hsla(0, 0%, 0%, 0.507);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+   
+
+    opacity: 0; /* Initially hidden */
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;  /* Less common approach */
+    
+   
+}
+
+.lastPopup.openLastPopup { /* Styles for when the popup is open */
+    opacity: 1;
+    visibility: visible;
+    transition:  0.2s ease-in-out; 
+    z-index: 2;
+  }
+.last-popup-content{
+    max-height: 90%;
+    height: fit-content;
+    width: 70%;
+    background: #fff;
+    
+    border-radius: 8px;
+    position: relative;
+    overflow-y:auto ;
+    padding: 18px;
+}
+
+
+
+.last-popup-content .form-Content{
+    width: 100%;
+    height: max-content;
+    height: fit-content;
+    border-radius: 8px;
+    color:black;
+    outline: none;
+}
+
+
+.last-popup-content .form-Content  .input-Box{
+    width: 100%;
+    height: fit-content;
+    margin: 2px 0px;
+    padding: 4px 6px 8px 6px;
+    display: flex;
+   flex-direction: column;
+
+}

@@ -1,0 +1,197 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.name-seuil {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 10px 0px;
+    width: 100%;
+    position: sticky;
+}
+.name-seuil .nameYY{
+   margin-right: 20px;
+
+}
+.name-seuil .nameYY span{
+    margin-right: 6px;
+ 
+ }
+.name-seuil .seuilYY span{
+margin-right: 14px;
+}
+.from-to{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 10px 0px;
+    width: 100%;
+    position: sticky;
+}
+
+.from-to .fromYY{
+    margin-right: 40px;
+}
+
+.from-to .fromYY span{
+    margin-right: 28px;
+}
+.from-to .toYY span{
+    margin-right: 18px;
+}
+
+
+.from-to input ,.name-seuil input{
+    padding: 2px 9px;
+    border: 1px solid rgba(63, 27, 147, 0.486);
+    border-radius: 16px;
+    width: 200px;
+    font-weight: 450;
+    color: black;
+}
+
+.from-to span ,.name-seuil span{
+    font-size: 15px;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    
+    letter-spacing: 1px;
+}
+
+
+
+
+
+
+
+
+.indicationYY {
+    font-size: 13px;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    color: rgb(255, 0, 0);
+    text-transform: capitalize;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+.session-cardYY {
+    display: flex;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(83, 83, 83, 0.411);
+    margin-bottom: 20px;
+    flex-direction: column;
+    border: 1px solid blue;
+    border-radius: 20px;
+    background-color: white;
+
+}
+
+#sessYY {
+    font-size: 20px;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    margin-right: 20px;
+    letter-spacing: 1px;
+}
+
+
+#jour-fr-title{
+margin: 20px 0px;
+font-size: 20px;
+font-family: "Inter", sans-serif;
+font-weight: 700;
+letter-spacing: 1px;
+}
+
+
+
+#CalculeStatus{
+    background-image:linear-gradient(255deg, #3274D9,#2F4971);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 3.5px 10px;
+    border-radius: 19px;
+}
+
+#CalculeStatus:hover{
+    background-image:linear-gradient(255deg, #3275d9eb,#2f4971e6);
+    box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.265);
+    
+}
+
+.cont-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+}
+
+
+
+/*_________________________________________________________________________________________*/
+
+.popupYY{
+    
+    background-color: hsla(0, 0%, 0%, 0.507);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+   z-index: 4;
+
+    opacity: 0; /* Initially hidden */
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;  /* Less common approach */
+    
+   
+}
+
+
+.popupYY.openYY { /* Styles for when the popup is open */
+    opacity: 1;
+    visibility: visible;
+    transition:  0.2s ease-in-out; 
+    z-index: 6;
+  }
+.popup-contentYY{
+    max-height: 90%;
+    height: fit-content;
+    width: fit-content;
+    background: #fff;
+    
+    border-radius: 8px;
+    position: relative;
+    overflow-y:auto ;
+    padding: 18px;
+   
+}
+
+
+
+
+.custom-open-popup-btn {
+    background-color: #6200ea;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    animation: custom-buttonBounce 0.5s ease-in-out;
+    margin-left: 10%;
+  }
+
+
+  .hiden-block{
+    display: none;
+  }
