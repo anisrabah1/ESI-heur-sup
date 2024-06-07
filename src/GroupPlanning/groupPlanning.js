@@ -138,7 +138,7 @@ export default function GroupPlanning({ sectionId, groupId }) {
         }
 
         setPlanningData(data);
-        console.log("Data fetched successfully:", data.roomPlanning);
+        console.log("Data fetched successfully:", data.groupPlanning);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -146,7 +146,7 @@ export default function GroupPlanning({ sectionId, groupId }) {
 
     fetchData();
   }, []);
-  const currentDate = new Date("2024-12-01");
+  const currentDate = new Date();
 
   // Filter the planning data to include only the current planning
   const currentPlanning =

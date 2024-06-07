@@ -65,7 +65,7 @@ export default function RoomPlanning({ departmentId, roomId }) {
     fetchData();
   }, []);
 
-  const currentDate = new Date("2024-12-01");
+  const currentDate = new Date();
 
   const currentPlanning =
     planningData?.roomPlanning.filter((planning) => {
