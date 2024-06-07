@@ -58,10 +58,8 @@ const SessionOffDays = ({ popup, sessionID, create }) => {
       );
 
       const data = await response.json();
-      toaster.notify(data.message);
       fetchData();
     } catch (error) {
-      toaster.notify(error.message);
       console.log(error.message);
     }
   };

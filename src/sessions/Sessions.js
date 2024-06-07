@@ -4,7 +4,7 @@ import apiUrl from "../global_Vars/apiConfig";
 import "../Emploi/style.css";
 import "./sessY.css";
 import { toaster } from "evergreen-ui";
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
@@ -29,46 +29,45 @@ export default function Sessions() {
   const [dayOffClose, set_dayOffClose] = useState(false);
   const [createSessionID, setCreateSessionID] = useState();
 
-    const handleClickOpen = async () => {
-        setIsOpen(true);
-      };
-      const handleClickClose = () => {
-        setIsOpen(false);
-        
-      };
-    useEffect(() => {
-        const fetchData = async (dataToFetch, setObject) => {
-          // dataToFetch = name data in backend
-          // const[object,setObject]
-          try {
-            console.log("Hello from the use effect");
-    
-            const token = Cookies.get("token");
-            const response = await fetch(
-              `http://${apiUrl}:3000/api/v1/${dataToFetch}`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-    
-            const data = await response.json();
-            setObject(data[dataToFetch]);
-    
-            if (!response.ok) {
-              console.log("ERROR :", data);
-              throw new Error(data.message || "Server Error");
-            }
-          } catch (error) {
-            console.log(error.message);
+  const handleClickOpen = async () => {
+    setIsOpen(true);
+  };
+  const handleClickClose = () => {
+    setIsOpen(false);
+  };
+  useEffect(() => {
+    const fetchData = async (dataToFetch, setObject) => {
+      // dataToFetch = name data in backend
+      // const[object,setObject]
+      try {
+        console.log("Hello from the use effect");
+
+        const token = Cookies.get("token");
+        const response = await fetch(
+          `http://${apiUrl}:3000/api/v1/${dataToFetch}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              Authorization: `Bearer ${token}`,
+            },
           }
-        };
-    
-        fetchData("sessions", setSessions);
-      }, [isLoading, isFetch]);
+        );
+
+        const data = await response.json();
+        setObject(data[dataToFetch]);
+
+        if (!response.ok) {
+          console.log("ERROR :", data);
+          throw new Error(data.message || "Server Error");
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchData("sessions", setSessions);
+  }, [isLoading, isFetch]);
 
   const deleting = async (whereDelete, id, setFiltring) => {
     try {
@@ -158,239 +157,271 @@ export default function Sessions() {
 
   const [popupTrigger, setPopupTrigger] = useState(false);
 
-  const [updatingSession ,setUpdatingSession]=useState(false);
-  const [updatedSession ,setUpdatedSession]=useState(null);
+  const [updatingSession, setUpdatingSession] = useState(false);
+  const [updatedSession, setUpdatedSession] = useState(null);
   const handleToUpdateSession = (item) => {
     console.log("Updating session item:", item);
-      setUpdatingSession(true);
-      setUpdatedSession(item);
-      setSessionName(item.sessionName);
-      setStartDate(item.startDate);
-      setEndDate(item.endDate);
-      setThreshold(item.threshold);
-      setIsOpen(true);
-    
+    setUpdatingSession(true);
+    setUpdatedSession(item);
+    setSessionName(item.sessionName);
+    setStartDate(item.startDate);
+    setEndDate(item.endDate);
+    setThreshold(item.threshold);
+    setIsOpen(true);
   };
-  // const handleToUpdateOffDay =(item)=>{
-  //   setUpdatingOffDay(true);
-  //   setUpdatedOffDay(item);
-  //   setAddingOffDay(true);
-  //   setOffDayTypeName(item.offDayTypeName);
-  // }
 
-  
+  const myUpdate = async (wherePatching, objectId, newObject) => {
+    try {
+      setIsLoading(true);
+      const token = Cookies.get("token");
+      const response = await fetch(
+        `http://${apiUrl}:3000/api/v1/${wherePatching}/${objectId}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(newObject),
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-const myUpdate = async (wherePatching, objectId, newObject) => {
-  try {
-    setIsLoading(true);
-    const token = Cookies.get("token");
-    const response = await fetch(
-      `http://${apiUrl}:3000/api/v1/${wherePatching}/${objectId}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify(newObject),
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-          Authorization: `Bearer ${token}`,
-        },
+      const data = await response.json();
+      setIsLoading(false);
+
+      if (!response.ok) {
+        toaster.danger(data.message || "Server Error");
+        throw new Error(data.message || "Server Error");
       }
-    );
 
-    const data = await response.json();
-    setIsLoading(false);
-
-    if (!response.ok) {
-      toaster.danger(data.message || "Server Error");
-      throw new Error(data.message || "Server Error");
+      console.log("Successfully Updated:", data.data);
+      toaster.success("Successfully Updated");
+      handleClickClose();
+    } catch (error) {
+      setIsLoading(false);
+      console.log("Update Error:", error.message);
+      toaster.danger(error.message || "Update Failed");
     }
+  };
 
-    console.log("Successfully Updated:", data.data);
-    toaster.success("Successfully Updated");
-    handleClickClose();
-  } catch (error) {
-    setIsLoading(false);
-    console.log("Update Error:", error.message);
-    toaster.danger(error.message || "Update Failed");
-  }
-};
-  
-
-    return(
-        <div>
-            <Tamplate/>
-            <CustomPopup trigger={popupTrigger} setTrigger={setPopupTrigger} session={selectedSessions} />
-            <div className="content">
-            <div className='container-System-param'>
-            <div className="cnt" >
-
-            
-                <div className={`popupYY ${isOpen ? "openYY" : ""}`}>
-                  <div className="popup-contentYY">
-                    <div className="icon" onClick={handleClickClose}>
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        size="lg"
-                        style={{ color: "#2f4971" }}
-                        className="icon2"
+  return (
+    <div>
+      <Tamplate />
+      <CustomPopup
+        trigger={popupTrigger}
+        setTrigger={setPopupTrigger}
+        session={selectedSessions}
+      />
+      <div className="content">
+        <div className="container-System-param">
+          <div className="cnt">
+            <div className={`popupYY ${isOpen ? "openYY" : ""}`}>
+              <div className="popup-contentYY">
+                <div className="icon" onClick={handleClickClose}>
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    size="lg"
+                    style={{ color: "#2f4971" }}
+                    className="icon2"
+                  />
+                </div>
+                <h4>
+                  {updatingSession ? "Mettre à jour" : "Ajouter"} Session{" "}
+                </h4>
+                <div className="form-Content">
+                  <form
+                    onSubmit={(e) => {
+                      if (!updatingSession) {
+                        mySubmit(e, "sessions", {
+                          sessionName,
+                          startDate,
+                          endDate,
+                          threshold,
+                        });
+                      } else {
+                        myUpdate("session", updatedSession._id, {
+                          sessionName,
+                          startDate,
+                          endDate,
+                          threshold,
+                        });
+                      }
+                    }}
+                  >
+                    <div className="form-group">
+                      <div className="input-param">
+                        <span>Nom</span>
+                        <input
+                          type="text"
+                          onChange={(e) => setSessionName(e.target.value)}
+                          defaultValue={
+                            updatingSession
+                              ? updatedSession.sessionName
+                              : "Semester"
+                          }
+                        />
+                      </div>
+                      <div className="input-param">
+                        <span onClick={() => console.log(updatingSession)}>
+                          Début{" "}
+                        </span>
+                        <input
+                          type="date"
+                          onChange={(e) => setStartDate(e.target.value)}
+                          defaultValue={
+                            updatingSession ? updatedSession.startDate : 0
+                          }
+                        />
+                      </div>
+                      <div className="input-param">
+                        <span>Fin</span>
+                        <input
+                          type="date"
+                          onChange={(e) => setEndDate(e.target.value)}
+                          defaultValue={
+                            updatingSession ? updatedSession.endDate : 0
+                          }
+                        />
+                      </div>
+                      <div className="input-param">
+                        <span>Seuil</span>
+                        <input
+                          type="number"
+                          onChange={(e) => setThreshold(e.target.value)}
+                          defaultValue={
+                            updatingSession ? updatedSession.threshold : 0
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="container-Btn-Add"
+                      style={{ marginTop: "20px" }}
+                    >
+                      <input
+                        type="submit"
+                        value={
+                          isLoading
+                            ? "En cours..."
+                            : updatingSession
+                            ? "Mettre à jour"
+                            : "Ajouter"
+                        }
+                        name=""
+                        className="btn-Add"
                       />
                     </div>
-                    <h4>{updatingSession? "Mettre à jour":'Ajouter'} Session </h4>
-                    <div className="form-Content">
-                      <form
-                        onSubmit={(e) => {
-                          if(!updatingSession){
-                          mySubmit(e, "sessions", { sessionName, startDate, endDate ,threshold});}
-                          else{
-                            myUpdate('session',updatedSession._id,{ sessionName,startDate,endDate,threshold })
-                          }
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {!sessions ? (
+              <div className="indicationYY"> no sessions !</div>
+            ) : (
+              sessions.map((item, index) => {
+                return (
+                  <div className="session-cardYY">
+                    <div className="cont-title">
+                      <h3 id="jour-fr-title">{`Session ${index + 1}`} </h3>
+                      <div
+                        className="delete-icon"
+                        onClick={(e) => {
+                          setIsShown(true);
+                          e.preventDefault();
                         }}
                       >
-                        <div className="form-group">
-                          <div className="input-param">
-                            <span>Nom</span>
-                            <input
-                              type="text"
-                              onChange={(e) => setSessionName(e.target.value)}
-                              defaultValue={updatingSession ? updatedSession.sessionName : 'S6'}
-                            />
+                        <Popconfirm
+                          title="Delete the session"
+                          description="Are you sure to delete this task?"
+                          onConfirm={() =>
+                            deleting("sessions", item._id, setSessions)
+                          }
+                          onCancel={cancel}
+                          okText="Yes"
+                          cancelText="No"
+                        >
+                          <div
+                            style={{
+                              position: "absolute",
+                              right: "4px",
+                              top: "13px",
+                            }}
+                          >
+                            {" "}
+                            <lord-icon
+                              src="https://cdn.lordicon.com/wpyrrmcq.json"
+                              trigger="hover"
+                              colors="primary:#2c4770"
+                              style={{
+                                width: "28px",
+                                height: "28x",
+                                marginLeft: "8px",
+                              }}
+                            ></lord-icon>
                           </div>
-                          <div className="input-param">
-                            <span onClick={()=>console.log(updatingSession)}>Début </span>
-                            <input
-                              type="date"
-                              onChange={(e) => setStartDate(e.target.value)}
-                              defaultValue={updatingSession ?  updatedSession.startDate :startDate}
-                            />
-                          </div>
-                          <div className="input-param">
-                            <span>Fin</span>
-                            <input
-                              type="date"
-                              onChange={(e) => setEndDate(e.target.value)}
-                              defaultValue={updatingSession ?  updatedSession.endDate :endDate}
-                            />
-                          </div>
-                          <div className="input-param">
-                            <span>Seuil</span>
-                            <input
-                              type="number"
-                              onChange={(e) => setThreshold(e.target.value)}
-                              defaultValue={updatingSession ?  updatedSession.threshold :threshold}
-                            />
-                          </div>
+                        </Popconfirm>
+
+                        <div
+                          className="edit-icon"
+                          onClick={(e) => handleToUpdateSession(item)}
+                          style={{
+                            position: "absolute",
+                            right: "2px",
+                            top: "48px",
+                          }}
+                        >
+                          <lord-icon
+                            src="https://cdn.lordicon.com/lecprnjb.json"
+                            trigger="hover"
+                            colors="primary:#2c4770"
+                            style={{ width: "28px", height: "28px" }}
+                          ></lord-icon>
                         </div>
-                        <div className="container-Btn-Add" style={{marginTop:'20px'}}>
-                          <input
-                            type="submit"
-                            value={isLoading ? "En cours..." :updatingSession ? "Mettre à jour":'Ajouter'}
-                            name=""
-                            className="btn-Add"
-                          />
-                        </div>
-                      </form>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              
+                    <div className="name-seuil">
+                      <div className="nameYY">
+                        <span onClick={(e) => console.log(item)}>Nom </span>
+                        <input type="text" value={item.sessionName} />
+                      </div>
+                      <div className="seuilYY">
+                        <span>Seuil </span>
+                        <input type="text" value={item.threshold} />
+                      </div>
+                    </div>
+                    <div className="from-to">
+                      <div className="fromYY">
+                        <span>Du</span>
+                        <input
+                          type="date"
+                          value={item.startDate.substring(0, 10)}
+                        />
+                      </div>
+                      <div className="toYY">
+                        <span>A </span>
+                        <input
+                          type="date"
+                          value={item.endDate.substring(0, 10)}
+                        />
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          setSelectedSession(item);
+                          setPopupTrigger(true);
+                        }}
+                        className="custom-open-popup-btn"
+                        id="CalculeStatus"
+                      >
+                        Calculer Etat de paiement
+                      </button>
+                    </div>
 
+                    {/* __________________________________________OFF Days_____________________ */}
+                    <div className="off-Days-Global">
+                      <h3 id="jour-fr-title">Les jours fériés </h3>
 
-
-
-              
-               
-               
-                  {!sessions ? (
-                      
-                        <div className="indicationYY"> no sessions !</div>
-                    
-                  ) : (
-                    sessions.map((item,index) => {
-                      return (
-                        <div className="session-cardYY">
-                                    <div className="cont-title">
-                                    <h3 id="jour-fr-title">{`Session ${index+1}`} </h3>
-                                    <div
-                                                className="delete-icon"
-                                                onClick={(e) => {
-                                                setIsShown(true);
-                                                e.preventDefault();
-                                                }}
-                                            >
-                                                <Popconfirm
-                                                title="Delete the session"
-                                                description="Are you sure to delete this task?"
-                                                onConfirm={() =>
-                                                    deleting("sessions", item._id, setSessions)
-                                                }
-                                                onCancel={cancel}
-                                                okText="Yes"
-                                                cancelText="No"
-                                                >
-                                                <div style={{ position: 'absolute',right:'4px',top: '13px',}}
->                                                    <lord-icon
-                                                    src="https://cdn.lordicon.com/wpyrrmcq.json"
-                                                    trigger="hover"
-                                                    colors="primary:#2c4770"
-                                                    style={{
-                                                        width: "28px",
-                                                        height: "28x",
-                                                        marginLeft: "8px",
-                                                    }}
-                                        ></lord-icon>
-                                    </div>
-                                    </Popconfirm>
-
-                                    <div className="edit-icon" 
-                                    onClick={(e)=>handleToUpdateSession(item)}
-
-                                    style={{position:'absolute' , right:'2px' , top:'48px'}}>                                
-                                      <lord-icon
-                                        src="https://cdn.lordicon.com/lecprnjb.json"
-                                        trigger="hover"
-                                        colors="primary:#2c4770"
-                                        style={{ width: "28px", height: "28px" }}
-                                      ></lord-icon>
-                                    </div>
-                                </div>
-                          </div>
-                            <div className="name-seuil">
-                                    <div className="nameYY">
-                                        <span onClick={(e)=>console.log(item)}>Nom </span>
-                                        <input type="text" value={item.sessionName} />
-                                    </div>
-                                    <div className="seuilYY">
-                                        <span>Seuil </span>
-                                        <input type="text" value={item.threshold} />
-                                    </div>
-                                    
-                                    
-                          </div>
-                          <div className="from-to"> 
-                                    <div className="fromYY">
-                                        <span>Du</span>
-                                        <input
-                                        type="date"
-                                        value={item.startDate.substring(0, 10)}
-                                        />
-                                    </div>
-                                    <div className="toYY">
-                                        <span>A </span>
-                                        <input type="date" value={item.endDate.substring(0, 10)} />
-                                    </div>
-                                    <button 
-                                    onClick={(e)=>{
-                                      setSelectedSession(item);
-                                      setPopupTrigger(true);
-                                    }}
-                                    className="custom-open-popup-btn"
-                                    id="CalculeStatus">Calculer Etat de paiement</button>
-                        </div>
-                        
-{/* __________________________________________OFF Days_____________________ */}
-                        <div className="off-Days-Global">
-                            <h3 id="jour-fr-title">Les jours fériés </h3>
-                            
-                            {/* <Teacher_dayOff
+                      {/* <Teacher_dayOff
                             popup={dayOffPopup}
                             create={sessionCreate}
                             sessionID={item._id}
@@ -408,6 +439,8 @@ const myUpdate = async (wherePatching, objectId, newObject) => {
                           set_close={set_dayOffClose}
                           id={createSessionID}
                           personal={false}
+                          url="getGlobSessions"
+                          offdays="offDays"
                         />
                       )}
                     </div>

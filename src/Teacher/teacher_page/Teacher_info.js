@@ -66,9 +66,17 @@ const Teacher_info = ({ search, setSearch }) => {
         />
       </div>
       {dayOffClose && (
-        <DayOff_popup set_close={set_dayOffClose} id={createSessionID} />
+        // eslint-disable-next-line react/jsx-pascal-case
+        <DayOff_popup
+          set_close={set_dayOffClose}
+          id={createSessionID}
+          personal={true}
+          url="getAllSessions"
+          offdays="personalOffDays"
+        />
       )}
       {sessionClose && (
+        // eslint-disable-next-line react/jsx-pascal-case
         <Session_popup set_close={set_sessionClose} teacherID={id} />
       )}
     </div>

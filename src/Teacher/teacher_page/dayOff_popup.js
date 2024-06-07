@@ -14,7 +14,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Cookies from "js-cookie";
 import { toaster } from "evergreen-ui";
 
-const DayOff_popup = ({ set_close, id, offRange, personal }) => {
+const DayOff_popup = ({ set_close, id, offRange, personal, url, offdays }) => {
   const today = dayjs();
   const apiUrls = new ApiUrls();
 
@@ -22,17 +22,14 @@ const DayOff_popup = ({ set_close, id, offRange, personal }) => {
     const token = Cookies.get("token");
 
     try {
-      const response = await fetch(
-        `${apiUrls.getUrl("getGlobSessions")}/${id}/offDays`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(Data),
-        }
-      );
+      const response = await fetch(`${apiUrls.getUrl(url)}/${id}/${offdays}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(Data),
+      });
       const data = await response.json();
       toaster.notify(data.message);
       window.location.reload(false);
@@ -67,6 +64,8 @@ const DayOff_popup = ({ set_close, id, offRange, personal }) => {
         const filteredDayOffTypes = data.offDayTypes.filter(
           (type) => type.personal === personal
         );
+        console.log(filteredDayOffTypes);
+        console.log(personal);
         set_dayOffType(filteredDayOffTypes);
       })
       .catch((error) => {
