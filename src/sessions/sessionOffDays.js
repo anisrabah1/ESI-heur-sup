@@ -13,34 +13,36 @@ import { toaster } from "evergreen-ui";
 
 const SessionOffDays = ({ popup, sessionID, create }) => {
   const [rows, setRows] = useState([]);
+  const [fetching, setFetching] = useState(false);
 
   const apiUrls = new ApiUrls();
 
-  const fetchData = async () => {
-    const token = Cookies.get("token");
 
-    try {
-      const response = await fetch(
-        `${apiUrls.getUrl("getGlobSessions")}/${sessionID}/offDays`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-      setRows(data.offDays);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      const token = Cookies.get("token");
+  
+      try {
+        const response = await fetch(
+          `${apiUrls.getUrl("getGlobSessions")}/${sessionID}/offDays`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        const data = await response.json();
+        setRows(data.offDays);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchData();
-  }, [sessionID]);
+  }, [fetching]);
 
   const deleteDayOff = async (day_id) => {
     const token = Cookies.get("token");
@@ -59,7 +61,7 @@ const SessionOffDays = ({ popup, sessionID, create }) => {
 
       const data = await response.json();
       toaster.notify(data.message);
-      fetchData();
+      setFetching((prev) => !prev)
     } catch (error) {
       toaster.notify(error.message);
       console.log(error.message);
@@ -72,9 +74,11 @@ const SessionOffDays = ({ popup, sessionID, create }) => {
         <div>Days off</div>
         <div
           className="addDay"
-          onClick={() => {
+          onClick={(e) => {
             popup(true);
             create(sessionID);
+            setFetching((prev) => !prev)
+            e.preventDefault();
           }}
         ></div>
       </div>
@@ -139,10 +143,26 @@ const SessionOffDays = ({ popup, sessionID, create }) => {
                 </TableCell>
                 <TableCell align="">
                   <div className="tableText">
-                    <button
-                      className="icon-button button1"
-                      onClick={() => deleteDayOff(row._id)}
-                    ></button>
+                    
+                      <div style={{}}
+                      
+                       onClick={(e) => {deleteDayOff(row._id)
+                        e.preventDefault();}
+                       }
+                       
+>                                                    <lord-icon
+                                                    src="https://cdn.lordicon.com/wpyrrmcq.json"
+                                                    trigger="hover"
+                                                    colors="primary:#2c4770"
+                                                    style={{
+                                                        width: "28px",
+                                                        height: "28x",
+                                                        marginLeft: "8px",
+                                                    }}
+                                        ></lord-icon>
+                                    </div>
+
+                    
                   </div>
                 </TableCell>
               </TableRow>

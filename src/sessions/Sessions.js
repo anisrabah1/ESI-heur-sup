@@ -34,6 +34,9 @@ export default function Sessions() {
       };
       const handleClickClose = () => {
         setIsOpen(false);
+        setUpdatingSession(false)
+        setThreshold(0);
+
         
       };
     useEffect(() => {
@@ -160,23 +163,27 @@ export default function Sessions() {
 
   const [updatingSession ,setUpdatingSession]=useState(false);
   const [updatedSession ,setUpdatedSession]=useState(null);
+
+const[sessionName_UP , setSessionName_UP]=useState(null);
+const[sessionSeuil_UP , setSessionSeuil_UP]=useState(null);
+
+
   const handleToUpdateSession = (item) => {
     console.log("Updating session item:", item);
+    if(item){
+      setThreshold(item.threshold);
       setUpdatingSession(true);
       setUpdatedSession(item);
       setSessionName(item.sessionName);
+      setSessionName_UP(item.sessionName);
+      setSessionSeuil_UP(item.threshold);
       setStartDate(item.startDate);
       setEndDate(item.endDate);
-      setThreshold(item.threshold);
       setIsOpen(true);
+    }
     
   };
-  // const handleToUpdateOffDay =(item)=>{
-  //   setUpdatingOffDay(true);
-  //   setUpdatedOffDay(item);
-  //   setAddingOffDay(true);
-  //   setOffDayTypeName(item.offDayTypeName);
-  // }
+
 
   
 
@@ -241,20 +248,32 @@ const myUpdate = async (wherePatching, objectId, newObject) => {
                           if(!updatingSession){
                           mySubmit(e, "sessions", { sessionName, startDate, endDate ,threshold});}
                           else{
-                            myUpdate('session',updatedSession._id,{ sessionName,startDate,endDate,threshold })
+                            e.preventDefault();
+                            console.log(threshold)
+                            myUpdate('sessions',updatedSession._id,{ sessionName,startDate,endDate,threshold })
                           }
                         }}
                       >
-                        <div className="form-group">
+                    <div className="form-group">
                           <div className="input-param">
                             <span>Nom</span>
                             <input
                               type="text"
                               onChange={(e) => setSessionName(e.target.value)}
-                              defaultValue={updatingSession ? updatedSession.sessionName : 'S6'}
+                              defaultValue={updatingSession ? sessionName_UP :''}
                             />
                           </div>
+                        
                           <div className="input-param">
+                            <span>Seuil</span>
+                            <input
+                              type="number"
+                              onChange={(e) => setThreshold(e.target.value)}
+                           defaultValue={updatingSession ? sessionSeuil_UP:''}
+                            />
+                            
+                      
+                            <div className={updatingSession ?"hiden-block" :"input-param" } >
                             <span onClick={()=>console.log(updatingSession)}>Début </span>
                             <input
                               type="date"
@@ -262,22 +281,15 @@ const myUpdate = async (wherePatching, objectId, newObject) => {
                               defaultValue={updatingSession ?  updatedSession.startDate :startDate}
                             />
                           </div>
-                          <div className="input-param">
+                          <div className={updatingSession ?"hiden-block" :"input-param" } >
                             <span>Fin</span>
-                            <input
+                            <input 
                               type="date"
                               onChange={(e) => setEndDate(e.target.value)}
                               defaultValue={updatingSession ?  updatedSession.endDate :endDate}
                             />
                           </div>
-                          <div className="input-param">
-                            <span>Seuil</span>
-                            <input
-                              type="number"
-                              onChange={(e) => setThreshold(e.target.value)}
-                              defaultValue={updatingSession ?  updatedSession.threshold :threshold}
-                            />
-                          </div>
+                      </div>
                         </div>
                         <div className="container-Btn-Add" style={{marginTop:'20px'}}>
                           <input
