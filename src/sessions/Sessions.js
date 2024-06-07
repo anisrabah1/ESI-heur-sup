@@ -158,16 +158,19 @@ export default function Sessions(){
 
   const [updatingSession ,setUpdatingSession]=useState(false);
   const [updatedSession ,setUpdatedSession]=useState(null);
-  const handleToUpdateSession =(item)=>{
-    setUpdatingSession(true);
-    setUpdatedSession(item);
-    setSessionName(item.sessionName);
-    setStartDate(item.startDate);
-    setEndDate(item.endDate);
-    setThreshold(item.threshold);
-
-    setIsOpen(true);
-  }
+  const handleToUpdateSession = (item) => {
+    console.log("Updating session item:", item);
+    if (item) {
+      setUpdatingSession(true);
+      setUpdatedSession(item);
+      setSessionName(item.sessionName);
+      setStartDate(item.startDate);
+      setEndDate(item.endDate);
+      setThreshold(item.threshold);
+      setIsOpen(true);
+    }
+  };
+  
 
     return(
         <div>
@@ -213,7 +216,7 @@ export default function Sessions(){
                             <input
                               type="date"
                               onChange={(e) => setStartDate(e.target.value)}
-                              defaultValue={!updatingSession?  updatedSession.startDate :''}
+                              defaultValue={updatingSession?  updatedSession.startDate :startDate}
                             />
                           </div>
                           <div className="input-param">
