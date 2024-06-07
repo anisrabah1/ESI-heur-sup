@@ -15,6 +15,8 @@ import Semestre from "./cards/semestre";
 import Speciality from "./cards/speciality";
 import Groupe from "./cards/groupe";
 import Subject from "./cards/subject";
+import GroupPlanning from "../GroupPlanning/groupPlanning";
+import RoomPlanning from "../roomPlanning/roomPlanning";
 import AddPopup from "./addPopup";
 
 const Structure = () => {
@@ -25,6 +27,10 @@ const Structure = () => {
   const [dataFifo, set_dataFifo] = useState([]);
   const [dataFifoItem, set_dataFifoItem] = useState();
   const [isAdding, set_isAdding] = useState(false);
+  const [groupId, setGroupId] = useState(false);
+  const [sectionId, setSectionId] = useState(false);
+  const [roomId, setRoomId] = useState(false);
+  const [departmentId, setDepartmentId] = useState(false);
   const [AddURL, set_AddURL] = useState();
   const [AddSubURL, set_AddSubURL] = useState();
 
@@ -78,10 +84,6 @@ const Structure = () => {
       fetchdepartments();
       set_AddURL(apiUrls.getUrl("getDepartments"));
     }
-
-    console.log(data);
-    console.log(dataPlus);
-    console.log(dataPlus2);
   }, [showContent]);
 
   return (
@@ -122,7 +124,15 @@ const Structure = () => {
               <div className="structure-label">Rooms</div>
               <div className="structure">
                 {data &&
-                  data.map((m) => <Room delURL={AddURL} dataGlobal={m} />)}
+                  data.map((m) => (
+                    <Room
+                      delURL={AddURL}
+                      dataGlobal={m}
+                      setRoomId={setRoomId}
+                      setDepartmentId={setDepartmentId}
+                      setShow={set_showContent}
+                    />
+                  ))}
 
                 <Add
                   AddSubURL={set_AddSubURL}
@@ -250,7 +260,10 @@ const Structure = () => {
                     <Groupe
                       delURL={AddURL}
                       pushdata={pushdata}
+                      setShow={set_showContent}
                       dataGlobal={m}
+                      setGroupId={setGroupId}
+                      setSectionId={setSectionId}
                     />
                   ))}
                 <Add
@@ -345,6 +358,13 @@ const Structure = () => {
                 />
               </div>{" "}
             </div>
+          )}
+          {/* export default function GroupPlanning({ sectionId, groupId }) {      */}
+          {showContent === 100 && (
+            <GroupPlanning sectionId={sectionId} groupId={groupId} />
+          )}
+          {showContent === 101 && (
+            <RoomPlanning roomId={roomId} departmentId={departmentId} />
           )}
         </div>
 

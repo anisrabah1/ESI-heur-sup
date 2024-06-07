@@ -8,49 +8,11 @@ import ApiUrls from "../../APIs";
 export default function Rooms({
   dataGlobal,
   delURL,
-  setdata,
-  set_dataPlus,
+  setRoomId,
   setShow,
+  setDepartmentId,
 }) {
   const data = dataGlobal;
-
-  function capitalizeFirstLetters(inputString) {
-    // Split the input string into words
-    const words = inputString.split(" ");
-
-    // Capitalize the first letter of each word
-    const capitalizedWords = words.map((word) => word.charAt(0).toUpperCase());
-
-    // Join the capitalized letters together
-    const capitalizedString = capitalizedWords.join("");
-
-    return capitalizedString;
-  }
-
-  const fetchlevels = async () => {
-    const apiUrls = new ApiUrls();
-    const token = Cookies.get("token");
-
-    try {
-      console.log(`${apiUrls.getUrl("getDepartments")}${data._id}/levels`);
-      const response = await fetch(
-        `${apiUrls.getUrl("getDepartments")}${data._id}/levels`,
-        {
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const datafetched = await response.json();
-
-      console.log(datafetched);
-      set_dataPlus(datafetched.levels);
-    } catch (error) {
-      toaster.notify(error);
-    }
-  };
 
   const Delete = async () => {
     const apiUrls = new ApiUrls();
@@ -97,7 +59,11 @@ export default function Rooms({
             src={customIconImage}
             alt="Custom Icon"
             className="custom-img"
-            onClick={() => {}}
+            onClick={() => {
+              setRoomId(data._id);
+              setDepartmentId(data.department);
+              setShow(101);
+            }}
           />
         </button>
       </div>

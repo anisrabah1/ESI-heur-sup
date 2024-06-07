@@ -13,7 +13,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Cookies from "js-cookie";
 import { toaster } from "evergreen-ui";
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 
 const DayOff_popup = ({ set_close, id, offRange, personal, url, offdays }) => {
   const today = dayjs();
@@ -33,13 +33,12 @@ const DayOff_popup = ({ set_close, id, offRange, personal, url, offdays }) => {
       });
       const data = await response.json();
       toaster.notify(data.message);
-      window.location.reload(false);
+      // window.location.reload(false);
     } catch (error) {
       toaster.notify(error.message);
       console.log(error.message);
     }
   };
-
 
   const [Data, setData] = useState({
     startDate: today.format("YYYY-MM-DD"),
