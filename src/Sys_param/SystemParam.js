@@ -481,7 +481,7 @@ const myUpdate = async (wherePatching, objectId, newObject) => {
                     <div className="custom-form-content-SP">
                       <form
                         onSubmit={(e) => {
-                          if(updatingOffDay){
+                          if(!updatingOffDay){
                           mySubmit(e, "offDayTypes", { offDayTypeName, personal });}
                           else{
                             e.preventDefault();

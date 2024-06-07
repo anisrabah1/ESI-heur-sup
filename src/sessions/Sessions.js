@@ -1,35 +1,39 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiUrl from "../global_Vars/apiConfig";
-import  "../Emploi/style.css";
+import "../Emploi/style.css";
 import "./sessY.css";
 import { toaster } from "evergreen-ui";
+import { format } from 'date-fns';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { Popconfirm } from "antd";
 import React from "react";
-import Tamplate from '../tamplate/tamplate';
+import Tamplate from "../tamplate/tamplate";
 import CustomPopup from "./CustomPopup";
+import SessionOffDays from "./sessionOffDays";
+import DayOff_popup from "../Teacher/teacher_page/dayOff_popup";
 
-export default function Sessions(){
-    const [sessionName, setSessionName] = useState("Semester");
-    const [startDate, setStartDate] = useState("2025-01-10");
-    const [endDate, setEndDate] = useState("2025-04-10");
-    const [threshold,setThreshold]=useState(9);
-    const [sessions, setSessions] = useState(null);
-    const [isFetch, setIsFetch] = useState(false);
-    const [isShown, setIsShown] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [openSec, setOpenSec] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+export default function Sessions() {
+  const [sessionName, setSessionName] = useState("Semester");
+  const [startDate, setStartDate] = useState("2025-01-10");
+  const [endDate, setEndDate] = useState("2025-04-10");
+  const [threshold, setThreshold] = useState(9);
+  const [sessions, setSessions] = useState(null);
+  const [isFetch, setIsFetch] = useState(false);
+  const [isShown, setIsShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [openSec, setOpenSec] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [dayOffClose, set_dayOffClose] = useState(false);
+  const [createSessionID, setCreateSessionID] = useState();
 
     const handleClickOpen = async () => {
         setIsOpen(true);
       };
       const handleClickClose = () => {
         setIsOpen(false);
-        setUpdatingSession(false)
         
       };
     useEffect(() => {
@@ -66,50 +70,48 @@ export default function Sessions(){
         fetchData("sessions", setSessions);
       }, [isLoading, isFetch]);
 
-
-    const deleting = async (whereDelete, id, setFiltring) => {
-        try {
-          const token = Cookies.get("token");
-          const response = await fetch(
-            `http://${apiUrl}:3000/api/v1/${whereDelete}/${id}`,
-            {
-              method: "DELETE",
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-    
-          console.log(response);
-    
-          if (!response.ok) {
-            const data = await response.json();
-            console.log("ERROR:", data);
-            throw new Error(data.message || "Server Error");
-          }
-    
-          // Deletion was successful
-          console.log("Deleting success!");
-    
-          // Update state to trigger re-render
-          setIsFetch((prev) => !prev);
-    
-          // // Filter out the deleted object
-          // setFiltring(prevObjects => prevObjects.filter(object => object._id !== id));
-    
-          // console.log('Sessions after deletion:', sessions);
-        } catch (error) {
-          console.log("Error during deletion:", error.message);
+  const deleting = async (whereDelete, id, setFiltring) => {
+    try {
+      const token = Cookies.get("token");
+      const response = await fetch(
+        `http://${apiUrl}:3000/api/v1/${whereDelete}/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      };
+      );
 
-      const cancel = (e) => {
-        console.log(e);
-        console.log("Click on No");
-      };
+      console.log(response);
 
-      
+      if (!response.ok) {
+        const data = await response.json();
+        console.log("ERROR:", data);
+        throw new Error(data.message || "Server Error");
+      }
+
+      // Deletion was successful
+      console.log("Deleting success!");
+
+      // Update state to trigger re-render
+      setIsFetch((prev) => !prev);
+
+      // // Filter out the deleted object
+      // setFiltring(prevObjects => prevObjects.filter(object => object._id !== id));
+
+      // console.log('Sessions after deletion:', sessions);
+    } catch (error) {
+      console.log("Error during deletion:", error.message);
+    }
+  };
+
+  const cancel = (e) => {
+    console.log(e);
+    console.log("Click on No");
+  };
+
   const mySubmit = async (e, whereToPost, objectToPost) => {
     e.preventDefault();
 
@@ -137,7 +139,7 @@ export default function Sessions(){
       console.log(data.data);
 
       setIsLoading(false);
-      toaster.success('done successfully');
+      toaster.success("done successfully");
 
       if (!response.ok) {
         console.log("ERROR :", data);
@@ -152,15 +154,14 @@ export default function Sessions(){
     }
   };
 
+  const [selectedSessions, setSelectedSession] = useState(null);
 
-  const [selectedSessions,setSelectedSession]=useState(null);
   const [popupTrigger, setPopupTrigger] = useState(false);
 
   const [updatingSession ,setUpdatingSession]=useState(false);
   const [updatedSession ,setUpdatedSession]=useState(null);
   const handleToUpdateSession = (item) => {
     console.log("Updating session item:", item);
-    if (item) {
       setUpdatingSession(true);
       setUpdatedSession(item);
       setSessionName(item.sessionName);
@@ -168,8 +169,50 @@ export default function Sessions(){
       setEndDate(item.endDate);
       setThreshold(item.threshold);
       setIsOpen(true);
-    }
+    
   };
+  // const handleToUpdateOffDay =(item)=>{
+  //   setUpdatingOffDay(true);
+  //   setUpdatedOffDay(item);
+  //   setAddingOffDay(true);
+  //   setOffDayTypeName(item.offDayTypeName);
+  // }
+
+  
+
+const myUpdate = async (wherePatching, objectId, newObject) => {
+  try {
+    setIsLoading(true);
+    const token = Cookies.get("token");
+    const response = await fetch(
+      `http://${apiUrl}:3000/api/v1/${wherePatching}/${objectId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(newObject),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    setIsLoading(false);
+
+    if (!response.ok) {
+      toaster.danger(data.message || "Server Error");
+      throw new Error(data.message || "Server Error");
+    }
+
+    console.log("Successfully Updated:", data.data);
+    toaster.success("Successfully Updated");
+    handleClickClose();
+  } catch (error) {
+    setIsLoading(false);
+    console.log("Update Error:", error.message);
+    toaster.danger(error.message || "Update Failed");
+  }
+};
   
 
     return(
@@ -198,7 +241,7 @@ export default function Sessions(){
                           if(!updatingSession){
                           mySubmit(e, "sessions", { sessionName, startDate, endDate ,threshold});}
                           else{
-                            //sddsdsd
+                            myUpdate('session',updatedSession._id,{ sessionName,startDate,endDate,threshold })
                           }
                         }}
                       >
@@ -208,7 +251,7 @@ export default function Sessions(){
                             <input
                               type="text"
                               onChange={(e) => setSessionName(e.target.value)}
-                              defaultValue={updatingSession?  updatedSession.sessionName :'S6'}
+                              defaultValue={updatingSession ? updatedSession.sessionName : 'S6'}
                             />
                           </div>
                           <div className="input-param">
@@ -216,7 +259,7 @@ export default function Sessions(){
                             <input
                               type="date"
                               onChange={(e) => setStartDate(e.target.value)}
-                              defaultValue={updatingSession?  updatedSession.startDate :startDate}
+                              defaultValue={updatingSession ?  updatedSession.startDate :startDate}
                             />
                           </div>
                           <div className="input-param">
@@ -224,8 +267,7 @@ export default function Sessions(){
                             <input
                               type="date"
                               onChange={(e) => setEndDate(e.target.value)}
-                              defaultValue={updatingSession?  updatedSession.endDate :endDate}
-
+                              defaultValue={updatingSession ?  updatedSession.endDate :endDate}
                             />
                           </div>
                           <div className="input-param">
@@ -233,14 +275,14 @@ export default function Sessions(){
                             <input
                               type="number"
                               onChange={(e) => setThreshold(e.target.value)}
-                              defaultValue={updatingSession?  updatedSession.threshold :threshold}
+                              defaultValue={updatingSession ?  updatedSession.threshold :threshold}
                             />
                           </div>
                         </div>
                         <div className="container-Btn-Add" style={{marginTop:'20px'}}>
                           <input
                             type="submit"
-                            value={isLoading ? "En cours..." :updatingSession? "Mettre à jour":'Ajouter'}
+                            value={isLoading ? "En cours..." :updatingSession ? "Mettre à jour":'Ajouter'}
                             name=""
                             className="btn-Add"
                           />
@@ -355,27 +397,47 @@ export default function Sessions(){
                             seesionStart={item.startDate.substring(0, 10)}
                             sessionEnd={item.endDate.substring(0, 10)}
                             /> */}
-                        </div>
-
-
-                        </div>
-                      );
-                    })
-                  )}
-                   <div style={{ display: "flex", justifyContent: "end"  ,width:'100%', marginTop:'10px' }}>
-                    <div className="add-icon" onClick={handleClickOpen} style={{width:'fit-content'}}>
-                      <lord-icon
-                        src="https://cdn.lordicon.com/hqymfzvj.json"
-                        trigger="hover"
-                        style={{ width: "30px", height: "30px" }}
-                      ></lord-icon>
+                      <SessionOffDays
+                        popup={set_dayOffClose}
+                        sessionID={item._id}
+                        create={setCreateSessionID}
+                      />
+                      {dayOffClose && (
+                        // eslint-disable-next-line react/jsx-pascal-case
+                        <DayOff_popup
+                          set_close={set_dayOffClose}
+                          id={createSessionID}
+                          personal={false}
+                        />
+                      )}
                     </div>
                   </div>
-            
-        
+                );
+              })
+            )}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                width: "100%",
+                marginTop: "10px",
+              }}
+            >
+              <div
+                className="add-icon"
+                onClick={handleClickOpen}
+                style={{ width: "fit-content" }}
+              >
+                <lord-icon
+                  src="https://cdn.lordicon.com/hqymfzvj.json"
+                  trigger="hover"
+                  style={{ width: "30px", height: "30px" }}
+                ></lord-icon>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        </div>
-    )
+      </div>
+    </div>
+  );
 }

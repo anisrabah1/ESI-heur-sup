@@ -12,7 +12,12 @@ class ApiUrls {
       getAllSessions: `${this.baseUrl}/teacherSessions`,
       getGlobSessions: `${this.baseUrl}/sessions`,
       getPositions: `${this.baseUrl}/positions`,
-
+      getDepartments: `${this.baseUrl}/departments/`,
+      getLevels: `${this.baseUrl}/levels/`,
+      getSpeciality: `${this.baseUrl}/specialties/`,
+      getSemester: `${this.baseUrl}/semesters/`,
+      getSection: `${this.baseUrl}/sections/`,
+      getDayTypes: `${this.baseUrl}/offDayTypes/`,
       // Add more endpoints as needed
     };
   }
