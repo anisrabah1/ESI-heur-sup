@@ -1,141 +1,122 @@
-.card{
-width: 360px;
-max-width: 550px;
-background-image:linear-gradient(255deg ,#14386d, #2966c1    );
-border-radius: 14px;
-padding: 4px;
-height: fit-content;
-margin: 4px 6px;
-color: rgb(201, 207, 235);
-
+.card {
+  width: 360px;
+  max-width: 550px;
+  background-image: linear-gradient(255deg, #14386d, #2966c1);
+  border-radius: 14px;
+  padding: 4px;
+  height: fit-content;
+  margin: 4px 6px;
+  color: rgb(201, 207, 235);
 }
 
-
-.card .first-Line{
-    display:flex;
-    align-items: center;
-    margin: 2px 0px 0px 10px;
-    align-content: center;
+.card .first-Line {
+  display: flex;
+  align-items: center;
+  margin: 2px 0px 0px 10px;
+  align-content: center;
 }
-.card div .first-Line h4{
-    text-transform: capitalize;
-    font-weight: 600;
-    letter-spacing: 0.7px;
-    font-size: 13.5px;
+.card div .first-Line h4 {
+  text-transform: capitalize;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  font-size: 13.5px;
 }
-.card div .add-hour-Y{
-    
-    margin-top: 6px;
-    margin-left: 6px;
+.card div .add-hour-Y {
+  margin-top: 6px;
+  margin-left: 6px;
 }
-.card .add-hour-Y img{
-    
-    width: 26px;
-    height: 26px;
-   /* filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);*/
-    
+.card .add-hour-Y img {
+  width: 26px;
+  height: 26px;
+  /* filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);*/
 }
-.card .add-hour-Y img[alt='Hover Icon']{
-    filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+.card .add-hour-Y img[alt="Hover Icon"] {
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
 }
 
-
-
-.card .duree{
-    border: solid 0.2px #2f4971;
-    border-radius: 12px;
-    margin: 2px 0px;
-    padding: 4px 8px;
-    font-size: 11px;
-    height: 28px;  
-    letter-spacing: 1px;
-    color :#111224;
-    background: rgba(255, 255, 255, 0.842);
-    width:180px;
-    margin-left: 20px;
-    color: black;
-    
-
+.card .duree {
+  border: solid 0.2px #2f4971;
+  border-radius: 12px;
+  margin: 2px 0px;
+  padding: 4px 8px;
+  font-size: 11px;
+  height: 28px;
+  letter-spacing: 1px;
+  color: #111224;
+  background: rgba(255, 255, 255, 0.842);
+  width: 180px;
+  margin-left: 20px;
+  color: black;
 }
-.card .second-Line{
-    display:flex;
-    flex-wrap: wrap;
-    padding :2px 6px;
-    align-items: center;
-    margin: 4px 0px 0px 10px;
+.card .second-Line {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2px 6px;
+  align-items: center;
+  margin: 4px 0px 0px 10px;
 }
-.card .second-Line h5{
-    margin-right: 30px;
-    text-transform:uppercase;
-    font-size: 13px;
+.card .second-Line h5 {
+  margin-right: 30px;
+  text-transform: uppercase;
+  font-size: 13px;
 }
-.card .second-Line p{
-   font-size: 14px;
+.card .second-Line p {
+  font-size: 14px;
 }
-.card .third-Line{
-    display:flex;
-    padding :2px 6px;
-    align-items: center;
-    margin: 0px 0px 0px 10px;
+.card .third-Line {
+  display: flex;
+  padding: 2px 6px;
+  align-items: center;
+  margin: 0px 0px 0px 10px;
 }
-.card .third-Line p{
-    margin-right: 10px;
-    letter-spacing: 0.8px;
-    font-size: 12px;
-     font-weight:500 ;
-     text-transform:capitalize;
-
+.card .third-Line p {
+  margin-right: 10px;
+  letter-spacing: 0.8px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-.card .foorth-Line{
-    display:flex;
-    padding :2px 6px;
-    align-items: center;
-    margin: 2px 0px 0px 10px;
-    
+.card .foorth-Line {
+  display: flex;
+  padding: 2px 6px;
+  align-items: center;
+  margin: 2px 0px 0px 10px;
 }
 
-.card .foorth-Line p{
-    margin-right: 10px;
-    letter-spacing: 0.8px;
-    font-size: 12px;
-     font-weight:500 ;
-     text-transform:capitalize;
-
+.card .foorth-Line p {
+  margin-right: 10px;
+  letter-spacing: 0.8px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-
-.c2-3-4lines-icon{
-display: flex;
-width: 100%;
+.c2-3-4lines-icon {
+  display: flex;
+  width: 100%;
 }
-.c2-3-4lines{
-
-    width: 60%;
+.c2-3-4lines {
+  width: 60%;
 }
-.icons-card-seance{
-    display: flex;
-    align-items: start;
-    flex-wrap: wrap;
-    width: 40%;
-    padding: 0px 0px;
-    margin-left: 4%;
-    padding: 5% 0px;
-    
+.icons-card-seance {
+  display: flex;
+  align-items: start;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 40%;
+  padding: 0px 0px;
+  margin-left: 4%;
+  padding: 5% 0px;
 }
 
-
-
-.lord-icon :hover{
-    box-shadow: 1px 2px 40px 1px  #292c588a;
-    background-color: #1f33514b;
+.lord-icon :hover {
+  box-shadow: 1px 2px 40px 1px #292c588a;
+  background-color: #1f33514b;
 }
 
-
-
-
-@media(max-width:600px){
-    /* .icons-card-seance{
+@media (max-width: 600px) {
+  /* .icons-card-seance{
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -148,7 +129,4 @@ width: 100%;
         margin: 3% 0% 0% 3%;
        
     } */
-
-   
-
 }

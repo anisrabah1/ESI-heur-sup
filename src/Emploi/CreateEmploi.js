@@ -856,7 +856,7 @@ export default function CreateEmploi({
                             }}
                           ></lord-icon>
                         </div>
-                        <div className="lord-icon" style={{}}>
+                        {/* <div className="lord-icon" style={{}}>
                           <lord-icon
                             src="https://cdn.lordicon.com/lyrrgrsl.json"
                             trigger="hover"
@@ -867,8 +867,10 @@ export default function CreateEmploi({
                               margin: "0px 0px 0px 25%",
                             }}
                             techer
-                          ></lord-icon>
-                        </div>
+                          >
+                            qsd
+                          </lord-icon>
+                        </div> */}
 
                         <div //____________________________________Supprimer
                           className="lord-icon"
@@ -1136,6 +1138,9 @@ export default function CreateEmploi({
                     required
                     onChange={(e) => setSelectedType(e.target.value)}
                   >
+                    <option value="" style={{ textAlign: "center" }}>
+                      choose SeanceType
+                    </option>
                     {type_s &&
                       type_s.map((type) => (
                         <option key={type._id} value={type._id}>
@@ -1172,6 +1177,9 @@ export default function CreateEmploi({
                     // const selectedDepartment = dep.find((department) => department.departmentName === e.target.value);
                     // getLevel(selectedDepartment._id)
                   >
+                    <option value="" style={{ textAlign: "center" }}>
+                      choose Department
+                    </option>{" "}
                     {dep &&
                       dep.map((dep) => {
                         return (
@@ -1217,7 +1225,9 @@ export default function CreateEmploi({
                       //  }
                     }}
                   >
-                    <option value="">---Niveau---</option>
+                    <option value="" style={{ textAlign: "center" }}>
+                      choose Level
+                    </option>
 
                     {niveau &&
                       niveau.map((niv) => {
@@ -1254,6 +1264,9 @@ export default function CreateEmploi({
                       getSections("specialties", e.target.value);
                     }}
                   >
+                    <option value="" style={{ textAlign: "center" }}>
+                      choose Speciality
+                    </option>
                     {specialite &&
                       specialite.map((spc) => (
                         <option key={spc._id} value={spc._id}>
@@ -1283,6 +1296,9 @@ export default function CreateEmploi({
                       getSubject(e.target.value);
                     }}
                   >
+                    <option value="" style={{ textAlign: "center" }}>
+                      choose Semester
+                    </option>
                     {sem &&
                       sem.map((sem) => (
                         <option key={sem._id} value={sem._id}>
@@ -1312,6 +1328,9 @@ export default function CreateEmploi({
                       getGroupe(e.target.value);
                     }}
                   >
+                    <option value="" style={{ textAlign: "center" }}>
+                      choose Section
+                    </option>
                     {section &&
                       section.map((sec) => (
                         <option key={sec._id} value={sec._id}>
@@ -1330,7 +1349,9 @@ export default function CreateEmploi({
                       console.log(selectedGroupe);
                     }}
                   >
-                    <option value=""></option>
+                    <option value="" style={{ textAlign: "center" }}>
+                      choose Group
+                    </option>
                     {groupe &&
                       groupe.map((grp) => (
                         <option key={grp._id} value={grp._id}>
@@ -1350,6 +1371,9 @@ export default function CreateEmploi({
                       value={selectedModule}
                       onChange={(e) => setSelectedModule(e.target.value)}
                     >
+                      <option value="" style={{ textAlign: "center" }}>
+                        choose Subject
+                      </option>
                       {module &&
                         module.map((modul) => (
                           <option key={modul._id} value={modul._id}>
@@ -1367,6 +1391,9 @@ export default function CreateEmploi({
                       required
                       onChange={(e) => setSelectedSalle(e.target.value)}
                     >
+                      <option value="" style={{ textAlign: "center" }}>
+                        choose Room
+                      </option>
                       {salles &&
                         salles.map((salle) => (
                           <option key={salle._id} value={salle._id}>
