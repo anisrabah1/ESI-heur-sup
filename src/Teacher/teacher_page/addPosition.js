@@ -109,6 +109,8 @@ const [testing , setTesting] = useState(false);
             if(!(dataFetched.message)){
                 // set_ts([data.data.data,...ts])
                 console.log(dataFetched)
+                window.location.reload(false);
+
             }
             console.log(dataFetched.message)
             toaster.notify(data.message); // Handle the response data
