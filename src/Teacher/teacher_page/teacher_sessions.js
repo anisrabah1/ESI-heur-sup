@@ -68,12 +68,10 @@ const Teacher_sessions = ({
       );
         // console.log(response)
         
-        const data = await response.json();
-        if(!data.message){
-          window.location.reload(false);
-        }
+       
         
-    console.log(data.message);
+        window.location.reload(false);  
+    
         
         
       } catch (error) {

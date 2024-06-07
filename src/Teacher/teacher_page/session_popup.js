@@ -60,10 +60,7 @@ const Session_popup = ({ set_close, teacherID, sessionSet, setSessionSet }) => {
       toaster.notify(data.message);
       console.log("haaaada gowa msg :", data.message);
       if (!data.message) {
-        if(sessionSet.length===0){setSessionSet([data.data.data.session])}else{
-        setSessionSet([...sessionSet, data.data.data.session]);
-        
-      }
+        setSessionSet([...sessionSet, data.data.session]);
       }
 
       set_close(false);
