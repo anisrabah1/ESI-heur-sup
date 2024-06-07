@@ -15,7 +15,7 @@ import { useLocation } from 'react-router-dom';
 const PrintPreview3 = () => {
 
     const location = useLocation();
-    const { dataOfStatus } = location.state || {};
+    const { etatDenseignement, typeCompte, typeEnsg  } = location.state || {};
 
 
   const componentRef = useRef();
@@ -27,7 +27,7 @@ const PrintPreview3 = () => {
   return (
     <div >
         <div style={{display:'flex' , alignItems:'center' ,justifyContent:'space-between' , padding:'4px 22px'}}>
-            <h2 onClick={(e)=>console.log(dataOfStatus)} >Aperçu de la Page à Imprimer</h2>
+            <h2 onClick={(e)=>console.log(etatDenseignement)} >Aperçu de la Page à Imprimer</h2>
             
             <div onClick={handlePrint}  style={{display:'flex', flexDirection:'column', justifyContent:'Center' ,alignItems:'center'}
                 } className='icon-print'
@@ -39,7 +39,7 @@ const PrintPreview3 = () => {
       </div>
       <hr/>
       <div ref={componentRef}>
-        <PrintablePage3 dataOfStatus={dataOfStatus} />
+        <PrintablePage3 tableData={etatDenseignement} typeCompte={typeCompte} typeEnsg={typeEnsg}/>
       </div>
      
     </div>

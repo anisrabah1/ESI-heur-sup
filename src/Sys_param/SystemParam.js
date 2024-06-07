@@ -11,7 +11,7 @@ import { Popconfirm } from "antd";
 import React from "react";
 
 import "./pageStyle.css";
-
+import './SystemPopUp.css'
 
 import Tamplate from '../tamplate/tamplate';
 
@@ -48,6 +48,12 @@ export default function SystemeParam() {
     setAddingGrade(false);
     setAddingSeanceType(false);
     setAddingOffDay(false);
+    setUpdatingGrade(false);
+    setUpdatingSeanceType(false);
+    setUpdatingOffDay(false);
+    setUpdatingOffDay(false);
+
+
   };
   //________________________________________________________
   const [addingGrade, setAddingGrade] = useState(false);
@@ -208,6 +214,77 @@ export default function SystemeParam() {
     }
   };
 
+
+const [updatingGrade,setUpdatingGrade]=useState(false)
+const [updatedgGrade,setUpdatedgGrade]=useState(null)
+const handleToUpdateGrade =(item)=>{
+  setUpdatingGrade(true);
+  setUpdatedgGrade(item);
+  setAddingGrade(true);
+  setPositionName(item.positionName);
+  setAmountPerSeance(item.amountPerSeance);
+}
+
+
+const [updatingSeanceType ,setUpdatingSeanceType]=useState(false);
+const [updatedgSeanceType ,setUpdatedgSeanceType]=useState(null);
+const handleToUpdateSeanceType =(item)=>{
+  setUpdatingSeanceType(true);
+  setUpdatedgSeanceType(item);
+  setAddingSeanceType(true);
+  setSeanceTypeName(item.seanceTypeName);
+  setCoefficient(item.coefficient);
+  setPriority(item.priiority);
+  
+}
+
+const [updatingOffDay ,setUpdatingOffDay]=useState(false);
+const [updatedOffDay ,setUpdatedOffDay]=useState(null);
+const handleToUpdateOffDay =(item)=>{
+  setUpdatingOffDay(true);
+  setUpdatedOffDay(item);
+  setAddingOffDay(true);
+  setOffDayTypeName(item.offDayTypeName);
+}
+
+
+const myUpdate = async (wherePatching, objectId, newObject) => {
+  try {
+    setIsLoading(true);
+    const token = Cookies.get("token");
+    const response = await fetch(
+      `http://${apiUrl}:3000/api/v1/${wherePatching}/${objectId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(newObject),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    setIsLoading(false);
+
+    if (!response.ok) {
+      toaster.danger(data.message || "Server Error");
+      throw new Error(data.message || "Server Error");
+    }
+
+    console.log("Successfully Updated:", data.data);
+    toaster.success("Successfully Updated");
+    handleClickClose();
+  } catch (error) {
+    setIsLoading(false);
+    console.log("Update Error:", error.message);
+    toaster.danger(error.message || "Update Failed");
+  }
+};
+
+
+
+
   return (
    
 <div >
@@ -273,8 +350,8 @@ export default function SystemeParam() {
                 </div>
               )}
              
-                <div className={`popup ${addingGrade ? "open" : ""}`}>
-                  <div className="popup-content">
+  {addingGrade && <div className={addingGrade ? 'custom-popup-container-SP' : ""}>
+                  <div className="custom-popup-content-SP">
                     <div className="icon" onClick={handleClickClose}>
                       <FontAwesomeIcon
                         icon={faCircleXmark}
@@ -284,32 +361,37 @@ export default function SystemeParam() {
                       />
                     </div>
                     <h4>Grade teacher </h4>
-                    <div className="form-Content">
-                      <form
-                        onSubmit={(e) => {
-                          mySubmit(e, "positions", { positionName, amountPerSeance });
-                        }}
-                      >
-                        <div className="form-group">
-                          <div className="input-param">
+                    <div className="custom-form-content-SP">
+                    <form onSubmit={(e) => {
+                            if (!updatingGrade) {
+                                mySubmit(e, "positions", { positionName, amountPerSeance });
+                            } else {e.preventDefault();
+                              myUpdate('positions',updatedgGrade._id,{positionName,amountPerSeance});
+                            }
+                        }}>
+                        <div className="group-in-form-SP">
+                          <div className="box-SP">
                             <span>Grade Name</span>
                             <input
                               type="text"
                               onChange={(e) => setPositionName(e.target.value)}
+                              defaultValue={updatingGrade ? updatedgGrade.positionName: ''}
                             />
                           </div>
-                          <div className="input-param">
+                          <div className="box-SP">
                             <span>Amount </span>
                             <input
                               type="number"
                               onChange={(e) => setAmountPerSeance(e.target.value)}
+                              defaultValue={updatingGrade ? updatedgGrade.amountPerSeance :''}
+
                             />
                           </div>
                         </div>
                         <div className="container-Btn-Add">
                           <input
                             type="submit"
-                            value={isLoading ? "En cours..." : "Add"}
+                            value={isLoading ? "En cours..." :updatingGrade ? "mettre à jour":"ajouter"}
                             name=""
                             className="btn-Add"
                           />
@@ -317,12 +399,12 @@ export default function SystemeParam() {
                       </form>
                     </div>
                   </div>
-                </div>
+                </div>}
              
 
            
-                <div className={`popup ${addingSeanceType ? "open" : ""}`}>
-                  <div className="popup-content">
+  {addingSeanceType && <div className={addingSeanceType ? "custom-popup-container-SP" : ""}>
+                  <div className="custom-popup-content-SP">
                     <div className="icon" onClick={handleClickClose}>
                       <FontAwesomeIcon
                         icon={faCircleXmark}
@@ -332,40 +414,49 @@ export default function SystemeParam() {
                       />
                     </div>
                     <h4>Seance type </h4>
-                    <div className="form-Content">
+                    <div className="custom-form-content-SP">
                       <form
                         onSubmit={(e) => {
-                          mySubmit(e, "seanceTypes", { seanceTypeName, coefficient, priority });
+                          if(!updatingSeanceType){
+                          mySubmit(e, "seanceTypes", { seanceTypeName, coefficient, priority });}
+                          else{
+                            e.preventDefault();
+                           myUpdate('seanceTypes',updatedgSeanceType._id,{ seanceTypeName, coefficient, priority })
+                          }
                         }}
                       >
-                        <div className="form-group">
-                          <div className="input-param">
-                            <span>Seance Name</span>
+                        <div className="group-in-form-SP">
+                          <div className="box-SP">
+                            <span style={{width:'130px'}}>Seance Name</span>
                             <input
                               type="text"
                               onChange={(e) => setSeanceTypeName(e.target.value)}
+                              defaultValue={updatingSeanceType ? updatedgSeanceType.seanceTypeName :''}
                             />
                           </div>
-                          <div className="input-param">
+                          <div className="box-SP">
                             <span>Coefficient </span>
                             <input
                               type="text"
                               onChange={(e) => setCoefficient(e.target.value)}
+                              defaultValue={updatingSeanceType ? updatedgSeanceType.coefficient:''}
+                                style={{width:'50px',  textAlign:'center'}}
                             />
                           </div>
-                          <div className="input-param">
-                            <span>Priorité </span>
+                          <div className="box-SP">
+                            <span onClick={()=>console.log(updatedgSeanceType)}>Priorité </span>
                             <input
+                            style={{width:'50px',  textAlign:'center'}}
                               type="number"
                               onChange={(e) => setPriority(e.target.value)}
-                              defaultValue={0}
+                              defaultValue={updatingSeanceType ? updatedgSeanceType.priority :0}
                             />
                           </div>
                         </div>
                         <div className="container-Btn-Add">
                           <input
                             type="submit"
-                            value={isLoading ? "En cours..." : "Add"}
+                            value={isLoading ? "En cours..." :updatingSeanceType? "Mettre à jour" : "Ajouter"}
                             name=""
                             className="btn-Add"
                           />
@@ -373,12 +464,11 @@ export default function SystemeParam() {
                       </form>
                     </div>
                   </div>
-                </div>
+                </div>}
              
 
-              {addingOffDay && (
-                <div className={`popup ${addingOffDay ? "open" : ""}`}>
-                  <div className="popup-content">
+{addingOffDay && ( <div className={addingOffDay?"custom-popup-container-SP":''}>
+                  <div className="custom-popup-content-SP">
                     <div className="icon" onClick={handleClickClose}>
                       <FontAwesomeIcon
                         icon={faCircleXmark}
@@ -388,32 +478,40 @@ export default function SystemeParam() {
                       />
                     </div>
                     <h4>Off day </h4>
-                    <div className="form-Content">
+                    <div className="custom-form-content-SP">
                       <form
                         onSubmit={(e) => {
-                          mySubmit(e, "offDayTypes", { offDayTypeName, personal });
+                          if(updatingOffDay){
+                          mySubmit(e, "offDayTypes", { offDayTypeName, personal });}
+                          else{
+                            e.preventDefault();
+                           myUpdate('offDayTypes',updatedOffDay._id,{ offDayTypeName,personal })
+                          
+                          }
                         }}
                       >
-                        <div className="form-group">
-                          <div className="input-param">
+                        <div className="group-in-form-SP">
+                          <div className="box-SP">
                             <span>Name</span>
                             <input
                               type="text"
                               onChange={(e) => setOffDayTypeName(e.target.value)}
+                              defaultValue={updatingOffDay &&updatedOffDay.offDayTypeName }
                             />
                           </div>
-                          <div className="input-param">
+                          <div className="box-SP">
                             <span>Personel :</span>
-                            <Checkbox 
+                           
+                           <Checkbox    checked={updatingOffDay && updatedOffDay.personal}
+                                  disabled={updatingOffDay}
                             onChange={onChangeY}>
-
                           </Checkbox>
                           </div>
                         </div>
                         <div className="container-Btn-Add">
                           <input
                             type="submit"
-                            value={isLoading ? "En cours..." : "Add"}
+                            value={isLoading ? "En cours..." :updatingOffDay? "Mettre à jour": "Ajouter"}
                             name=""
                             className="btn-Add"
                           />
@@ -569,7 +667,8 @@ export default function SystemeParam() {
                             <input type="number" value={item.amountPerSeance} />
                           </div>
                           <div className="edit-and-delete-session-container-horizontal">
-                              <div className="edit-icon">
+                              <div className="edit-icon"
+                              onClick={(e)=>handleToUpdateGrade(item)}>
                                 <lord-icon
                                   src="https://cdn.lordicon.com/lecprnjb.json"
                                   trigger="hover"
@@ -674,7 +773,8 @@ export default function SystemeParam() {
                             <input type="number" value={item.priority} />
                           </div>
                           <div className="edit-and-delete-session-container-horizontal">
-                          <div className="edit-icon">
+                          <div className="edit-icon" 
+                          onClick={(e)=>handleToUpdateSeanceType(item)}>
                             <lord-icon
                               src="https://cdn.lordicon.com/lecprnjb.json"
                               trigger="hover"
@@ -773,7 +873,8 @@ export default function SystemeParam() {
                             
                           </div>
                           <div className="edit-and-delete-session-container-horizontal">
-                          <div className="edit-icon">
+                          <div className="edit-icon"
+                          onClick={(e)=>handleToUpdateOffDay(item)}>
                             <lord-icon
                               src="https://cdn.lordicon.com/lecprnjb.json"
                               trigger="hover"

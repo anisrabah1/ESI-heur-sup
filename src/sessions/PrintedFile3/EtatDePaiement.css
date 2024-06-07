@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+.container-page-3 *{
+  margin: 0;
+}
   .container-page-3 {
-    width: 27.9cm;
+    width: 29.7cm;
     height: 21cm;
+    padding: 20px;
     margin: 0 auto;
-    padding: 40px;
     border: 1px solid black;
+    position: sticky;
+    margin-bottom: 100px;
   }
 
   
@@ -16,20 +21,19 @@
 
   .container-page-3 header .center-header-3{
     margin: 0px auto;
-    background-color: aqua;
     line-height: 1;
     text-align: center;
     font-family: "Amiri", serif;
     font-weight: 900;
+    font-size: 17.5px;
 
   }
   .container-page-3 header .center-header-3 p{
-    margin-bottom: -6px;
+    margin-bottom: 0px;
   }
 
   .container-page-3 header .left-header-3{
     margin: 0px auto;
-    line-height: 1;
     text-align: left;
     font-family: "Amiri", serif;
     font-weight: 900;
@@ -55,18 +59,27 @@
 
   .container-page-3 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
     margin-bottom: 20px;
     font-size: 12px;
+    
   }
   
-  table, th, td {
-    border: 1px solid black;
-  }
+ 
   
-  th, td {
+ thead th,tfoot td  {
     padding: 8px;
     text-align: center;
+    border: 1px solid black;
+    padding: 4px 6px;
+    font-size: 10px;
+    font-weight: 900;
+  }
+
+ tbody td {
+    padding:2px 3px;
+    text-align: center;
+    font-size: 10.9px;
   }
   
   tfoot {
@@ -78,6 +91,22 @@
     margin-top: 20px;
   }
   
-  .amount {
+  .footer p b {
     font-weight: bold;
+    text-decoration-line:underline ; 
+  }
+
+  footer .phrase-p{
+    font-size: 10px;
+    font-weight: 800;
+    text-align: left;
+    margin-left: 40px;
+  }
+
+  .footer3{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 50px;
+    
+    width: 100%;
   }

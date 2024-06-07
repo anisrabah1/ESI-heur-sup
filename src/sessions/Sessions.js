@@ -11,6 +11,7 @@ import { Popconfirm } from "antd";
 import React from "react";
 import Tamplate from '../tamplate/tamplate';
 import CustomPopup from "./CustomPopup";
+
 export default function Sessions(){
     const [sessionName, setSessionName] = useState("Semester");
     const [startDate, setStartDate] = useState("2025-01-10");
@@ -28,6 +29,7 @@ export default function Sessions(){
       };
       const handleClickClose = () => {
         setIsOpen(false);
+        setUpdatingSession(false)
         
       };
     useEffect(() => {
@@ -152,11 +154,21 @@ export default function Sessions(){
 
 
   const [selectedSessions,setSelectedSession]=useState(null);
-
-  
-
-    
   const [popupTrigger, setPopupTrigger] = useState(false);
+
+  const [updatingSession ,setUpdatingSession]=useState(false);
+  const [updatedSession ,setUpdatedSession]=useState(null);
+  const handleToUpdateSession =(item)=>{
+    setUpdatingSession(true);
+    setUpdatedSession(item);
+    setSessionName(item.sessionName);
+    setStartDate(item.startDate);
+    setEndDate(item.endDate);
+    setThreshold(item.threshold);
+
+    setIsOpen(true);
+  }
+
     return(
         <div>
             <Tamplate/>
@@ -176,11 +188,15 @@ export default function Sessions(){
                         className="icon2"
                       />
                     </div>
-                    <h4>Ajouter Session </h4>
+                    <h4>{updatingSession? "Mettre à jour":'Ajouter'} Session </h4>
                     <div className="form-Content">
                       <form
                         onSubmit={(e) => {
-                          mySubmit(e, "sessions", { sessionName, startDate, endDate ,threshold});
+                          if(!updatingSession){
+                          mySubmit(e, "sessions", { sessionName, startDate, endDate ,threshold});}
+                          else{
+                            //sddsdsd
+                          }
                         }}
                       >
                         <div className="form-group">
@@ -189,15 +205,15 @@ export default function Sessions(){
                             <input
                               type="text"
                               onChange={(e) => setSessionName(e.target.value)}
-                              defaultValue={sessionName}
+                              defaultValue={updatingSession?  updatedSession.sessionName :'S6'}
                             />
                           </div>
                           <div className="input-param">
-                            <span>Début </span>
+                            <span onClick={()=>console.log(updatingSession)}>Début </span>
                             <input
                               type="date"
                               onChange={(e) => setStartDate(e.target.value)}
-                              defaultValue={startDate}
+                              defaultValue={!updatingSession?  updatedSession.startDate :''}
                             />
                           </div>
                           <div className="input-param">
@@ -205,7 +221,8 @@ export default function Sessions(){
                             <input
                               type="date"
                               onChange={(e) => setEndDate(e.target.value)}
-                              defaultValue={endDate}
+                              defaultValue={updatingSession?  updatedSession.endDate :endDate}
+
                             />
                           </div>
                           <div className="input-param">
@@ -213,14 +230,14 @@ export default function Sessions(){
                             <input
                               type="number"
                               onChange={(e) => setThreshold(e.target.value)}
-                              defaultValue={threshold}
+                              defaultValue={updatingSession?  updatedSession.threshold :threshold}
                             />
                           </div>
                         </div>
                         <div className="container-Btn-Add" style={{marginTop:'20px'}}>
                           <input
                             type="submit"
-                            value={isLoading ? "En cours..." : "Add"}
+                            value={isLoading ? "En cours..." :updatingSession? "Mettre à jour":'Ajouter'}
                             name=""
                             className="btn-Add"
                           />
@@ -264,8 +281,8 @@ export default function Sessions(){
                                                 okText="Yes"
                                                 cancelText="No"
                                                 >
-                                                <div style={{ position: 'absolute',right:'4px',top: '13px',}}>
-                                                    <lord-icon
+                                                <div style={{ position: 'absolute',right:'4px',top: '13px',}}
+>                                                    <lord-icon
                                                     src="https://cdn.lordicon.com/wpyrrmcq.json"
                                                     trigger="hover"
                                                     colors="primary:#2c4770"
@@ -277,6 +294,18 @@ export default function Sessions(){
                                         ></lord-icon>
                                     </div>
                                     </Popconfirm>
+
+                                    <div className="edit-icon" 
+                                    onClick={(e)=>handleToUpdateSession(item)}
+
+                                    style={{position:'absolute' , right:'2px' , top:'48px'}}>                                
+                                      <lord-icon
+                                        src="https://cdn.lordicon.com/lecprnjb.json"
+                                        trigger="hover"
+                                        colors="primary:#2c4770"
+                                        style={{ width: "28px", height: "28px" }}
+                                      ></lord-icon>
+                                    </div>
                                 </div>
                           </div>
                             <div className="name-seuil">

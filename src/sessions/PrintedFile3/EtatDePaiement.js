@@ -1,12 +1,25 @@
+import { useState } from 'react'
 import './EtatDePaiement.css'
 
 export default function EtatDePaiement({dataToPrint}){
+
+    const [tableLines , setTableLines]=useState(dataToPrint.tableData.data);
+
+    const TOTAL_MONTANT = tableLines.reduce((acc, item) => acc + item.totalAmount, 0);
+    const TOTAL_SECURITY = tableLines.reduce((acc, item) => acc + item.socialSecurity, 0);
+    const TOTAL_IRG = tableLines.reduce((acc, item) => acc + item.IRG, 0);
+    const TOTAL_DEBITE = tableLines.reduce((acc, item) => acc + item.debitedAmount, 0);
+    const TOTAL_NET = tableLines.reduce((acc, item) => acc + item.netAmount, 0);
+
+  let check =true ;  
+  if (tableLines.length>17 ){check=false}
+
 
     return(
         <div class="container-page-3">
         <header className="headY">
             <div className='center-header-3'> 
-            <p>الجمهوريــة الجزائريــة الديمقراطيــة الشعبيــة</p>
+            <p onClick={(e)=>console.log(dataToPrint)}>الجمهوريــة الجزائريــة الديمقراطيــة الشعبيــة</p>
             <p>وزارة التعليم العالي والبحث العلمي</p>
             </div>
          
@@ -16,7 +29,7 @@ export default function EtatDePaiement({dataToPrint}){
             <p>Service budget, Comptabilité et financement des activités de recherche</p>
           </div>
 
-          <h4>Etat de paiement des enseignants Vacataire "Compte CCP" 1er Semestre 2022-2023</h4>
+          <h4>Etat de paiement des enseignants {dataToPrint.typeEnsg} "Compte {dataToPrint.typeCompte}" 1er Semestre 2022-2023</h4>
     
         </header>
         <table border='1'>
@@ -37,35 +50,39 @@ export default function EtatDePaiement({dataToPrint}){
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Docteur</td>
-              <td>750</td>
-              <td>144</td>
-              <td>108 000,00</td>
-              <td>9 720,00</td>
-              <td>9 828,00</td>
-              <td>19 548,00</td>
-              <td>88 452,00</td>
-              <td>du 2022-09-25 au 2022-12-22</td>
-            </tr>
-     
+            {tableLines && tableLines.map((line,index)=>{return(
+           <tr>
+           <td>{index + 1}</td>
+           <td>{line.firstName && line.lastName ? `${line.firstName} ${line.lastName}` : ''}</td>
+           <td>{line.cardNumber && line.cardNumber}</td>
+           <td>{line.position && line.position}</td>
+           <td>{line.amountPerSeance && line.amountPerSeance}</td>
+           <td>{line.totalAddHours && line.totalAddHours}</td>
+           <td><b>{line.totalAmount && line.totalAmount}</b></td>
+           <td>{line.socialSecurity && line.socialSecurity}</td>
+           <td>{line.irg && line.irg}</td>
+           <td><b>{line.debitedAmount && line.debitedAmount}</b></td>
+           <td><b>{line.netAmount && line.netAmount}</b></td>
+           <td>{line.startDate && line.endDate ? `du ${line.startDate.substring(0, 10)} au ${line.endDate.substring(0, 10)}` : ''}</td>
+         </tr>
+         
+      )})}
           </tbody>
           <tfoot>
             <tr>
               <td colspan="6">Montant Total</td>
-              <td>367 050,00</td>
-              <td>33 034,50</td>
-              <td>33 401,55</td>
-              <td>66 436,05</td>
-              <td>300 613,95</td>
-              <td></td>
+              <td>{TOTAL_MONTANT && TOTAL_MONTANT}</td>
+              <td>{TOTAL_SECURITY && TOTAL_SECURITY}</td>
+              <td>{TOTAL_IRG && TOTAL_IRG}</td>
+              <td>{TOTAL_DEBITE && TOTAL_DEBITE}</td>
+              <td>{TOTAL_NET &&TOTAL_NET}</td>
+              
             </tr>
           </tfoot>
         </table>
-        <footer>
-          <p>ARRÊTE LE PRÉSENT ÉTAT DE PAIEMENT À LA SOMME DE : <span class="amount"></span></p>
-          <p>Directeur</p>
+        <footer className={check ? 'footer3' : ''}>
+          <p className='phrase-p'>ARRÊTE LE PRÉSENT ÉTAT DE PAIEMENT À LA SOMME DE : </p>
+          <p><b>Directeur</b></p>
         </footer>
       </div>
     )
