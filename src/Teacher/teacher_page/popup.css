@@ -12,3 +12,10 @@
     color:rgb(255, 255, 255);
     background-color: rgb(131, 130, 130);
 }
+.addDayPop{
+    color: rgb(0, 62, 107);
+    font-weight: bold;
+}
+.positionAdding{
+    width:auto;
+}

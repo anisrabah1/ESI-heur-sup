@@ -14,7 +14,7 @@ const Teacher_info = ({ search, setSearch }) => {
   const { id } = useParams();
   const [createSessionID, setCreateSessionID] = useState();
   const [offRange, setOffRange] = useState(["", ""]);
-  const [sessionSet, setSessionSet] = useState();
+  const [sessionSet, setSessionSet] = useState([]);
   const [DataT, set_DataT] = useState({
     dateOfBirth: "",
 

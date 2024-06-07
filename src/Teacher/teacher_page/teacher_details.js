@@ -67,7 +67,7 @@ const Teacher_details = ({ data, set_showMore, showMore }) => {
                 set_close(true);
               }}
             >
-              ...
+              more
             </div>{" "}
           </div>
         </div>
@@ -128,7 +128,7 @@ const Teacher_details = ({ data, set_showMore, showMore }) => {
           e.stopPropagation();
         }}
       ></button>
-      {close && <AddPosition set_close={set_close} />}
+      {close && <AddPosition set_close={set_close} data={data.positions} id={data._id} />}
     </div>
   );
 };

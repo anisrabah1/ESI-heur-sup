@@ -16,14 +16,39 @@ import { toaster } from 'evergreen-ui';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
 
-const DayOff_popup = ({set_close,id,offRange}) => {
+const DayOff_popup = ({set_close,id,data}) => {
     const today = dayjs();
     const apiUrls = new ApiUrls();
     
+    function getpositions (){
+        const token = Cookies.get("token");
+        fetch(apiUrls.getUrl('getPositions'),{
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+              },
+        })
+        .then(response => response.json()) // Parse the JSON response
+        .then(data => {
+            
+            
+            setPositions(data.positions);
+            
+             // Handle the response data
+        })
+        .catch(error => {
+            toaster.notify(error.message);
+             // Handle errors
+        });
+        
+    };
 
+    const [posit , setPosit]= useState({ 
+        "position":  '', // Example ObjectId of a Position 
+        "startDate": new Date(Date.now()) ,
+      } );
 
-   
-
+    const [positions , setPositions]= useState();
 const [Data,setData] = useState(
     {
         startDate : '',
@@ -39,17 +64,59 @@ const [dayOffType,set_dayOffType]=useState();
 
 useEffect(()=>{
    
-    
+    getpositions()   
     
 },[])
 const [testing , setTesting] = useState(false);
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setData({
-            ...Data,
-            [name]: value
-        });
+        setPosit(
+            { 
+                ...posit,
+                "position":  value._id, // Example ObjectId of a Position 
+                
+              } 
+        );
+        
+        console.log(posit)
        
+    };
+    const handleDateChange = (date) => {
+        
+        setPosit(
+            { 
+                ...posit, // Example ObjectId of a Position 
+                startDate: date ? date.format('YYYY-MM-DD') : null ,
+              } 
+        );
+        
+        console.log(posit)
+       
+    };
+
+    function sub (){
+        const token = Cookies.get("token");
+        fetch(`${apiUrls.getUrl('getTeachers')}/${id}/addNewPosition`, {
+            method: 'PATCH', // Specify the HTTP method as POST
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Specify the content type as JSON
+            },
+            body: JSON.stringify(posit) // Convert the data object to a JSON string
+        })
+        .then(response => response.json()) // Parse the JSON response
+        .then(dataFetched => {
+            if(!(dataFetched.message)){
+                // set_ts([data.data.data,...ts])
+                console.log(dataFetched)
+            }
+            console.log(dataFetched.message)
+            toaster.notify(data.message); // Handle the response data
+        })
+        .catch(error => {
+            toaster.notify(error.message); // Handle errors
+        });
+        
     };
     const handleDate1 = (date) => {
         
@@ -89,18 +156,46 @@ const [testing , setTesting] = useState(false);
         <div className="modal-content" onClick={e => e.stopPropagation()}>
             <button className="close-button" onClick={()=>{set_close(false)}}>×</button>
             <div className="formC">
-                    <div className="form1"><LocalizationProvider fullWidth dateAdapter={AdapterDayjs}><DatePicker label="Start Day"   value={ Data.startDate ? dayjs(Data.startDate) : null} name='startDate' onChange={handleDate1} /> </LocalizationProvider></div>
-                    
-                </div>
-           
-           
-            <div className="formC" >
+                <div className="form1 addDayPop">position</div>
+                <div className="form1 addDayPop">amount</div>
+                <div className="form1 addDayPop">sataring from</div>
+            </div>
+            {data &&  data.map((e)=>(
+                <div className="formC">
+                <div className="form1 ">{e.position.positionName}</div>
+                <div className="form1 ">{e.position.amountPerSeance}</div>
+                <div className="form1 ">{e.startDate.substring(0, 10)}</div>
+            </div>
+            )) }
+            <div className="formC positionAdding">
+            <div className="form1 "><FormControl fullWidth>
+                <InputLabel id="">Position</InputLabel>
+                <Select
+                fullWidth
+          labelId="positions"
+          id="demo-simple-select"
+          value={posit.positionName}
+          label="positions"
+          name='positions'
+          onChange={handleChange}
+          
+        >
+            {positions && positions.map((e)=>(
+                <MenuItem value={e}>{e.positionName}</MenuItem>
+            ))}
+            
+          
+          
+        </Select>
+        </FormControl>
+        <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}><DatePicker label="Start Day"   value={ posit.startDate ? dayjs(posit.startDate) : null} name='startDate' onChange={handleDateChange} /> </LocalizationProvider></div>
             <Button  color="success" onClick={()=>{console.log(Data)
                 
-                set_close(false)
+                sub()
             }}>
         ADD
-      </Button></div>
+      </Button>   
+            </div>
             </div>
     </div>
      );

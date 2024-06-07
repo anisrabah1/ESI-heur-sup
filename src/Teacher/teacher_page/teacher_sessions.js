@@ -50,6 +50,41 @@ const Teacher_sessions = ({
     }
   };
 
+
+  const deleteSession = async (session_id) => {
+    const token = Cookies.get("token");
+  
+    try {
+       
+        const response = await fetch(`${apiUrls.getUrl('getAllSessions')}/${session_id}`,
+      {
+          method: 'DELETE', // Specify the HTTP method as POST
+          headers: {
+              'Content-Type': 'application/json' ,
+              Authorization: `Bearer ${token}`,// Specify the content type as JSON
+          },
+          
+      }
+      );
+        // console.log(response)
+        
+        const data = await response.json();
+        if(!data.message){
+          window.location.reload(false);
+        }
+        
+    console.log(data.message);
+        
+        
+      } catch (error) {
+        toaster.notify(error.message);
+         console.log(error.message)
+        
+      }
+      
+  };
+  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -62,6 +97,7 @@ const Teacher_sessions = ({
               <div>Session {i + 1}</div>
               <div>start {m.startDate.substring(0, 10)}</div>
               <div>end {m.endDate.substring(0, 10)}</div>
+              <button className="icon-button button1 sessionDeletButton"   onClick={()=>{deleteSession(m._id)}}></button>
             </div>
             {/* here is the emploi */}
             <CreateEmploi

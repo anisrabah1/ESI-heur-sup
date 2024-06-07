@@ -72,7 +72,7 @@ const deleteDayOff = async (day_id) => {
       
       const data = await response.json();
       toaster.notify(data.message);
-  
+  console.log(data.message);
       
       
     } catch (error) {

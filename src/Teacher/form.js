@@ -33,8 +33,8 @@ const Form = ({submit,create,ts,set_ts}) => {
             positions:'',
             dateOfBirth:'',
             homeInstitution:'',
-            cardType:'CCP',
-            cardNumber:'1357854'
+            cardType:'',
+            cardNumber:''
             
         }
     );
@@ -86,9 +86,11 @@ const Form = ({submit,create,ts,set_ts}) => {
             if(!(data.message)){
                 set_ts([data.data.data,...ts])
             }
+            console.log(data.message);
             toaster.notify(data.message); // Handle the response data
         })
         .catch(error => {
+            console.log(error.message);
             toaster.notify(error.message); // Handle errors
         });
         
@@ -209,6 +211,30 @@ const Form = ({submit,create,ts,set_ts}) => {
                 </div>
             </div>
             <div className="formC">
+                <div className="form1">
+                <FormControl fullWidth>
+                <InputLabel id="">Card Type</InputLabel>
+                <Select
+                fullWidth
+          labelId="degree"
+          id="demo-simple-select"
+          value={Data.cardType}
+          label="card type"
+          name='cardType'
+          onChange={handleChange}
+          
+        >
+            <MenuItem value={'CCP'}>CCP</MenuItem>
+            <MenuItem value={'Bank'}>Bank</MenuItem>
+ 
+        </Select>
+        </FormControl>
+                </div>
+                <div className="form1"><TextField fullWidth id="outlined-basic" label="card number" variant="outlined" value={Data.cardNumber} name='cardNumber' onChange={handleChange} /></div>
+
+            </div>
+
+            <div className="formC">
             <div className="form3">
             <FormControl fullWidth>
                 <InputLabel id="">Status</InputLabel>
@@ -222,11 +248,9 @@ const Form = ({submit,create,ts,set_ts}) => {
           onChange={handleChange}
           
         >
-            <MenuItem value={'Full-time'}>Full time</MenuItem>
-            <MenuItem value={'Part-time'}>Part time</MenuItem>
-            <MenuItem value={'Contract'}>Contract</MenuItem>
-          
-          
+            <MenuItem value={'Permanant'}>Permanant</MenuItem>
+            <MenuItem value={'Vacataire'}>Vacataire</MenuItem>
+ 
         </Select>
         </FormControl>
                 </div>

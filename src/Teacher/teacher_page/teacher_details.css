@@ -52,7 +52,7 @@
 }
 .form1{
     position: relative;
-    width: 45%;
+    width: 49%;
     background-color: rgb(255, 255, 255);
     display: flex;
     align-items: stretch;
@@ -61,5 +61,11 @@
     width: fit-content;
     white-space: nowrap;
     font-weight: bold;
+    color: #0080ff;
+}
+.more{
+    margin-left: 5%;
+    font-size: small;
+    text-align: start;
     color: #0080ff;
 }
