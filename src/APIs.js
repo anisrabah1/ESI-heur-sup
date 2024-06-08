@@ -19,6 +19,7 @@ class ApiUrls {
       getSemester: `${this.baseUrl}/semesters/`,
       getSection: `${this.baseUrl}/sections/`,
       getDayTypes: `${this.baseUrl}/offDayTypes/`,
+      getArchives:`${this.baseUrl}/archives`,
       // Add more endpoints as needed
     };
   }

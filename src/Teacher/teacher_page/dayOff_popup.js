@@ -32,8 +32,7 @@ const DayOff_popup = ({ set_close, id, offRange, personal, url, offdays }) => {
         body: JSON.stringify(Data),
       });
       const data = await response.json();
-      toaster.notify(data.message);
-      // window.location.reload(false);
+      window.location.reload(false);
     } catch (error) {
       toaster.notify(error.message);
       console.log(error.message);

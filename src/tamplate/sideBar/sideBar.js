@@ -36,6 +36,13 @@ function Sidebar  () {
             </button>
             </Link>
             <br />
+            <Link to={'/archive'}  className='link'>
+            <button className="sideb ">
+                 <div className="btic8 box"/>
+                <div className="bttx">Archive</div>
+            </button>
+            </Link>
+            <br />
             <button className="sideb">
                  <div className="btic5"/>
                 <div className="bttx">Profile</div>

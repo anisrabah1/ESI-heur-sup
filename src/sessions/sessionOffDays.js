@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 // import "./Teacher_dayOff.css";
 import ApiUrls from "../APIs";
 import Cookies from "js-cookie";
-import { toaster } from "evergreen-ui";
 
 const SessionOffDays = ({ popup, sessionID, create }) => {
   const [rows, setRows] = useState([]);
@@ -58,7 +57,6 @@ const SessionOffDays = ({ popup, sessionID, create }) => {
       );
 
       const data = await response.json();
-      toaster.notify(data.message);
       setFetching((prev) => !prev);
     } catch (error) {
       console.log(error.message);

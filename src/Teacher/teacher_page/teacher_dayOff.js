@@ -73,7 +73,6 @@ const Teacher_dayOff = ({
       // console.log(response)
 
       const data = await response.json();
-      toaster.notify(data.message);
     } catch (error) {
       console.log(error.message);
     }

@@ -86,8 +86,6 @@ const Form = ({submit,create,ts,set_ts}) => {
             if(!(data.message)){
                 set_ts([data.data.data,...ts])
             }
-            console.log(data.message);
-            toaster.notify(data.message); // Handle the response data
         })
         .catch(error => {
             console.log(error.message);

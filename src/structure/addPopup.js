@@ -39,7 +39,6 @@ const DayOff_popup = ({AddSubURL,addURL,set_close,id,dataIn,set_data,dataPlus,se
             // console.log(response)
             
             const data = await response.json();
-            toaster.notify(data.message);
             
                 if ([1,2,6,7,9,10].includes(AddSubURL)){set_data([...dataIn,data.data.data])} ;
                 if ([3,4,5].includes(AddSubURL)){set_dataPlus([...dataPlus,data.data.data])} ;

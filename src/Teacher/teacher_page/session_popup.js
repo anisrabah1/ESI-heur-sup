@@ -34,8 +34,6 @@ const Session_popup = ({ set_close, teacherID, sessionSet, setSessionSet }) => {
 
       const data = await response.json();
 
-      toaster.notify(data.message);
-
       setGlobSessions(data.sessions);
     } catch (error) {
       toaster.notify(error);
@@ -57,11 +55,13 @@ const Session_popup = ({ set_close, teacherID, sessionSet, setSessionSet }) => {
         }
       );
       const data = await response.json();
-      toaster.notify(data.message);
       console.log("haaaada gowa msg :", data.message);
       if (!data.message) {
-        if (sessionSet){
-        setSessionSet([...sessionSet, data.data.session]);}else{setSessionSet([data.data.session]);}
+        if (sessionSet) {
+          setSessionSet([...sessionSet, data.data.session]);
+        } else {
+          setSessionSet([data.data.session]);
+        }
       }
 
       set_close(false);

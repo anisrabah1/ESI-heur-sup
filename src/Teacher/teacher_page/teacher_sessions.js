@@ -15,8 +15,7 @@ const Teacher_sessions = ({
   session,
   set_session,
 }) => {
-  console.log("-------------------teacherInfos-------------------");
-  console.log(teacherInfos);
+  // const [session, set_session] = useState([]);
   const [currentSessionStart, set_currentSessionStart] = useState();
   const [currentSessionEnd, set_currentSessionEnd] = useState();
   window.currentSessionStart = currentSessionStart;
@@ -42,8 +41,6 @@ const Teacher_sessions = ({
         }
       );
       const data = await response.json();
-      toaster.notify("session data", data.message);
-      console.log("sessins data", data.teacherSessions);
 
       set_session(data.teacherSessions);
     } catch (error) {
@@ -74,6 +71,30 @@ const Teacher_sessions = ({
     }
   };
 
+  const ArchiveSession = async (session_id) => {
+    const token = Cookies.get("token");
+
+    try {
+      const response = await fetch(
+        `${apiUrls.getUrl("getAllSessions")}/${session_id}/archive`,
+        {
+          method: "POST", // Specify the HTTP method as POST
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Specify the content type as JSON
+          },
+        }
+      );
+      // console.log(response)
+
+      const data = await response.json();
+      console.log("archive data", data.message);
+    } catch (error) {
+      toaster.notify(error.message);
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -86,6 +107,13 @@ const Teacher_sessions = ({
               <div>Session {i + 1}</div>
               <div>start {m.startDate.substring(0, 10)}</div>
               <div>end {m.endDate.substring(0, 10)}</div>
+              <button
+                className="icon-button button1 sessionArchiveButton"
+                onClick={() => {
+                  ArchiveSession(m._id);
+                }}
+              ></button>
+
               <button
                 className="icon-button button1 sessionDeletButton"
                 onClick={() => {

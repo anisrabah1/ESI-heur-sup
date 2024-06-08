@@ -159,6 +159,16 @@
     width: 2vw; 
     height: 2vw;
    }
+   .btic8{
+    position: relative;
+   
+    background-image: url('../assets/Box.png');
+    background-size: cover;
+    margin: auto 2% ;
+    width: 2vw; 
+    height: 2vw;
+   }
+   
 
    .bttx{
     

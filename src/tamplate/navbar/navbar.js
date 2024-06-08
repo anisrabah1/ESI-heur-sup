@@ -17,15 +17,27 @@ function Navbar  ({search,setSearch})  {
 
     useEffect(
         ()=>{
-            if (currentPath === '/') {
+            if (currentPath === '/home') {
                 set_text('welcome')
             }else{
                 if (currentPath === '/teachers'){
                 set_text('Teachers')}else{
-                    set_text('Teacher')
+                    if (currentPath === '/structure'){
+                        set_text('Stucture')}else{
+                            if (currentPath === '/archive'){
+                                set_text('Archive')}else{
+                                   
+                                    if (currentPath === '/'){
+                                        set_text('')}else{
+                                            set_text('Teacher')  
+                                        }
+                                }
+                        }
+                }
+
                 }
             }
-        }
+        
     )
     return ( <div className="container2">
         

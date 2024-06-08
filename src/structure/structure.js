@@ -71,8 +71,6 @@ const Structure = () => {
 
       const data = await response.json();
 
-      toaster.notify(data.message);
-
       set_data(data.departments);
     } catch (error) {
       toaster.notify(error);
