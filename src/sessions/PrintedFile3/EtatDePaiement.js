@@ -60,7 +60,7 @@ export default function EtatDePaiement({dataToPrint}){
            <td>{line.totalAddHours && line.totalAddHours}</td>
            <td><b>{line.totalAmount && line.totalAmount}</b></td>
            <td>{line.socialSecurity && line.socialSecurity}</td>
-           <td>{line.irg && line.irg}</td>
+           <td>{line.IRG && line.IRG}</td>
            <td><b>{line.debitedAmount && line.debitedAmount}</b></td>
            <td><b>{line.netAmount && line.netAmount}</b></td>
            <td>{line.startDate && line.endDate ? `du ${line.startDate.substring(0, 10)} au ${line.endDate.substring(0, 10)}` : ''}</td>

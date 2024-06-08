@@ -50,7 +50,7 @@ const CustomPopup = ({ trigger, setTrigger,session }) => {
             `http://${apiUrl}:3000/api/v1/sessions/${session._id}/getTeacherStatus`,
             {
               method: "POST",
-              body: JSON.stringify({ cardType: typeCompte, employmentStatus: "Full-time" }),
+              body: JSON.stringify({ cardType: typeCompte, employmentStatus: typeEnsg }),
               headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 Authorization: `Bearer ${token}`,

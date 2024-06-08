@@ -15,8 +15,9 @@ body {
   background-color: #2f49712d;
   margin-left: 12vw;
   top: 09vh;
+  right: 0;
   height: 95%;
-  width: 87.5vw;
+  width: 88.5vw;
   z-index: -2;
 }
 

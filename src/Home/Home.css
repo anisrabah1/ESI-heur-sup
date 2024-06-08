@@ -1,10 +1,28 @@
+.homeA{
+  position: absolute;
+  right: 0;
+  z-index: 9;
+  width: 100%;
+}
+
 .counters{
     position: relative;
-    margin:10% auto ;
-    justify-content: center;
+    margin:20px auto ;
+    justify-content: left;
     display: flex;
     flex-direction: row;
+    
   }
+
+    .line-counters{
+      display:flex ;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+
   .teacher-count{
     
     display: flex;
@@ -37,8 +55,8 @@
     background-color: #ffffff;
     border-radius: 10%;
     margin-left: 5vw;
-    width: 15vw;
-    height: 15vw;
+    width: 240px;
+    height: 255px;
     font-weight: bold;
     font-size: 100%;
     color:#818181;
